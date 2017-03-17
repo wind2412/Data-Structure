@@ -2,17 +2,17 @@
 #define _DIJKSTRA_H_
 #include "Graph.hpp"
 #include "../4_heap/MinHeap.cpp"
-#include <climits>	//ÕÒ³öint×î´óÖµµÄºê£º #define _I16_MAX 32767 
+#include <climits>	//æ‰¾å‡ºintæœ€å¤§å€¼çš„å®ï¼š #define _I16_MAX 32767 
 #include <functional>
 
 /**
- * DijkstraËã·¨¡£	ÓĞÏò¼ÓÈ¨Í¼£¬±ØĞëÎŞ¸ºÈ¨£¬¿ÉÒÔ³É»·¡£	Çó¹Ì¶¨½áµãvµÄµ½ËùÓĞÆäËûµãµÄ×î¶ÌÂ·¾¶£¨ÒÔÈ¨ÖØÎªÂ·¾¶³¤¶È£©¡£
- * 1.Èë¶ÓÁĞqËùÓĞÆğµã¡£²¢°Ñ¾àÀës = 0¼ÓÈëdistance¡£ 
- * 2.µ¯³öÒ»¸öµãs¡£µ±È»£¬µÚÒ»´ÎÒ»¶¨ÊÇÆğµãs¿©¡£
- * 3.¶ÔÓÚsµÄËùÓĞadjµÄEdge£¬¶ÔEdge.to½øĞĞËÉ³Ú²Ù×÷¡£weight(s->s) + weight(s->to) < weight(s->to) Ôò¸üĞÂdistance[Edge.to].
- * 4.ÖØ¸´3 Ö±µ½q.emptyÎªÖ¹¡£ 
+ * Dijkstraç®—æ³•ã€‚	æœ‰å‘åŠ æƒå›¾ï¼Œå¿…é¡»æ— è´Ÿæƒï¼Œå¯ä»¥æˆç¯ã€‚	æ±‚å›ºå®šç»“ç‚¹vçš„åˆ°æ‰€æœ‰å…¶ä»–ç‚¹çš„æœ€çŸ­è·¯å¾„ï¼ˆä»¥æƒé‡ä¸ºè·¯å¾„é•¿åº¦ï¼‰ã€‚
+ * 1.å…¥é˜Ÿåˆ—qæ‰€æœ‰èµ·ç‚¹ã€‚å¹¶æŠŠè·ç¦»s = 0åŠ å…¥distanceã€‚ 
+ * 2.å¼¹å‡ºä¸€ä¸ªç‚¹sã€‚å½“ç„¶ï¼Œç¬¬ä¸€æ¬¡ä¸€å®šæ˜¯èµ·ç‚¹så’¯ã€‚
+ * 3.å¯¹äºsçš„æ‰€æœ‰adjçš„Edgeï¼Œå¯¹Edge.toè¿›è¡Œæ¾å¼›æ“ä½œã€‚weight(s->s) + weight(s->to) < weight(s->to) åˆ™æ›´æ–°distance[Edge.to].
+ * 4.é‡å¤3 ç›´åˆ°q.emptyä¸ºæ­¢ã€‚ 
  */
-class Dijkstra{	//Ã»Ïëµ½ Ğ´ÍêÕâ¸öDijkstra¡£¡£¡£ÎÒÊÕ»ñ×î´óµÄ¾¹È»ÊÇ²ßÂÔÉè¼ÆÄ£Ê½¡£¡£¡£¡£ÒòÎªÔÚÉè¼Æ±È½ÏÆ÷µÄÊ±ºòÓöµ½ÁË²»ÉÙÂé·³¡£¡£¡£ÓĞÈ¤¡£¡£¡£ 
+class Dijkstra{	//æ²¡æƒ³åˆ° å†™å®Œè¿™ä¸ªDijkstraã€‚ã€‚ã€‚æˆ‘æ”¶è·æœ€å¤§çš„ç«Ÿç„¶æ˜¯ç­–ç•¥è®¾è®¡æ¨¡å¼ã€‚ã€‚ã€‚ã€‚å› ä¸ºåœ¨è®¾è®¡æ¯”è¾ƒå™¨çš„æ—¶å€™é‡åˆ°äº†ä¸å°‘éº»çƒ¦ã€‚ã€‚ã€‚æœ‰è¶£ã€‚ã€‚ã€‚ 
 private:
 	class Less{
 	private:
@@ -25,8 +25,8 @@ private:
 	};
 private:
 	Graph & g;
-	Less l;	//²»ÄÜ°ÑlºÍqÖ±½Ó³õÊ¼»¯£¡ÒòÎªlÒªÓÃ*this£¬Ö»ÓĞ³õÊ¼»¯ÁĞ±íÖ´ĞĞÖ®Ê±²Å»áÓĞthis¶ÔÏóµÄ²úÉú£¡£¡Òò´Ë±ØĞëÒªÓÃ³õÊ¼»¯ÁĞ±í£¡£¡ 
-	MinPQ<int, Less> q;	//µÚ¶ş¸ö²ÎÊıÊÇpriority_queueµ×²ãÊ¹ÓÃÊ²Ã´ÈİÆ÷À´¹¹½¨priority_queue. //°¦¡£²»ÓÃ±È½ÏÆ÷ÁË¡£C++×ÔÊÊÅä<ÖØÔØ¡£´«±È½ÏÆ÷º¯ÊıÊµÔÚ¼èÄÑ°¡¡£ 
+	Less l;	//ä¸èƒ½æŠŠlå’Œqç›´æ¥åˆå§‹åŒ–ï¼å› ä¸ºlè¦ç”¨*thisï¼Œåªæœ‰åˆå§‹åŒ–åˆ—è¡¨æ‰§è¡Œä¹‹æ—¶æ‰ä¼šæœ‰thiså¯¹è±¡çš„äº§ç”Ÿï¼ï¼å› æ­¤å¿…é¡»è¦ç”¨åˆå§‹åŒ–åˆ—è¡¨ï¼ï¼ 
+	MinPQ<int, Less> q;	//ç¬¬äºŒä¸ªå‚æ•°æ˜¯priority_queueåº•å±‚ä½¿ç”¨ä»€ä¹ˆå®¹å™¨æ¥æ„å»ºpriority_queue. //å”‰ã€‚ä¸ç”¨æ¯”è¾ƒå™¨äº†ã€‚C++è‡ªé€‚é…<é‡è½½ã€‚ä¼ æ¯”è¾ƒå™¨å‡½æ•°å®åœ¨è‰°éš¾å•Šã€‚ 
 	vector<double> distance;
 public:
 	bool compare(int v1, int v2){
@@ -35,7 +35,7 @@ public:
 public:
 	Dijkstra(Graph & g, int v): g(g), l(*this), q(l), distance(g.getV(), INT_MAX){
 		if(v < 0 || v > g.getV() - 1){
-			cerr << "illegal argument of v£¡" << endl;
+			cerr << "illegal argument of vï¼" << endl;
 			return;
 		}
 		dijkstra(v);
@@ -47,14 +47,14 @@ public:
 		}
 		
 		while(!q.isEmpty()){
-			v = q.getMin(); q.deleteMin();	//Ê¹ÓÃÄ¿Ç°Óëv¾àÀë×î¶ÌµÄµã¶Ô¸÷µã½øĞĞËÉ³Ú¡£ 
-			for(const Edge & e : g.getAdj(v)){	//ĞŞ¸Ä³Éfor(Edge e: g.getAdj(v))Í¬Ñù³ÉÁ¢¡£¼ûq.top()ÄÇĞĞµÄ×¢ÊÍ°É¡£¡¾¾ÍÊÇĞŞ¸ÄÖ®ºóÕû¸ö¶ÔÏó¶¼Òª¸´ÖÆÈ¡³ö£¬Õ¼ÓÃÁËÄÚ´æ°¡¡£¡¿ Òò´Ë²»½¨ÒéĞŞ¸Ä¡£ 
-				if(distance[v] + e.weight < distance[e.to]){	//ËÉ³Ú¡£ 
+			v = q.getMin(); q.deleteMin();	//ä½¿ç”¨ç›®å‰ä¸vè·ç¦»æœ€çŸ­çš„ç‚¹å¯¹å„ç‚¹è¿›è¡Œæ¾å¼›ã€‚ 
+			for(const Edge & e : g.getAdj(v)){	//ä¿®æ”¹æˆfor(Edge e: g.getAdj(v))åŒæ ·æˆç«‹ã€‚è§q.top()é‚£è¡Œçš„æ³¨é‡Šå§ã€‚ã€å°±æ˜¯ä¿®æ”¹ä¹‹åæ•´ä¸ªå¯¹è±¡éƒ½è¦å¤åˆ¶å–å‡ºï¼Œå ç”¨äº†å†…å­˜å•Šã€‚ã€‘ å› æ­¤ä¸å»ºè®®ä¿®æ”¹ã€‚ 
+				if(distance[v] + e.weight < distance[e.to]){	//æ¾å¼›ã€‚ 
 					distance[e.to] = distance[v] + e.weight;
-					int index = q.getIndex(e.to);	//µÃµ½minPQÖĞfromµÄÎ»ÖÃ
-					q.changeValue(index, e.to);	//ÓÉÓÚ×Ô¼ºÊµÏÖµÄAPIĞèÇó£¬ÕâÀïµÄindexÏÂ±êÉÏµÄÖµÒ²ÊÇe.to¡£Òò´Ë²¢²»¸Ä±ävalue£¬Ö»ÊÇÈÃÕâ¸öindexÉÏ¸¡/ÏÂ³ÁÁË¡£ 
-				}								//×¢ÒâÕâÀï£¡£¡less<T>ĞèÒªÔËËã·û<ÖØÔØ£¬µ«ÊÇÖØÔØ<Ê±±ØĞë±ê¼Çconstº¯ÊıÉùÃ÷£¡·ñÔòerror £º passing " "as" " discards qualifiers£¡
-												//Ïê¼ûhttp://www.cppblog.com/cppblogs/archive/2012/09/06/189749.html 
+					int index = q.getIndex(e.to);	//å¾—åˆ°minPQä¸­fromçš„ä½ç½®
+					q.changeValue(index, e.to);	//ç”±äºè‡ªå·±å®ç°çš„APIéœ€æ±‚ï¼Œè¿™é‡Œçš„indexä¸‹æ ‡ä¸Šçš„å€¼ä¹Ÿæ˜¯e.toã€‚å› æ­¤å¹¶ä¸æ”¹å˜valueï¼Œåªæ˜¯è®©è¿™ä¸ªindexä¸Šæµ®/ä¸‹æ²‰äº†ã€‚ 
+				}								//æ³¨æ„è¿™é‡Œï¼ï¼less<T>éœ€è¦è¿ç®—ç¬¦<é‡è½½ï¼Œä½†æ˜¯é‡è½½<æ—¶å¿…é¡»æ ‡è®°constå‡½æ•°å£°æ˜ï¼å¦åˆ™error ï¼š passing " "as" " discards qualifiersï¼
+												//è¯¦è§http://www.cppblog.com/cppblogs/archive/2012/09/06/189749.html 
 			}
 		}
 	}
@@ -79,7 +79,7 @@ int main()
 	
 	Dijkstra d(g, 1);
 	vector<double> && v = d.getDistance();
-	cout << "1µ½ÆäËûµãµÄ×î¶ÌÂ·¾¶ÈçÏÂ£º" << endl; 
+	cout << "1åˆ°å…¶ä»–ç‚¹çš„æœ€çŸ­è·¯å¾„å¦‚ä¸‹ï¼š" << endl; 
 	for(vector<double>::const_iterator it = v.begin(); it != v.end(); ++it){
 		if(*it == INT_MAX)	cout << "MAX" << " "; 
 		else cout << *it << " ";

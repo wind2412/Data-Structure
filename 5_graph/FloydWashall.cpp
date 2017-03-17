@@ -33,7 +33,7 @@ public:
 		for(int t = 0; t < g.getV(); t ++){
 			for(int i = 0; i < g.getV(); i ++){
 				for(int j = 0; j < g.getV(); j ++){
-					//Ç§Íò×¢ÒâÏÂ±êµÄË³Ðò£¡£¡+Ò»¶¨±ðÍüÁËdistanceËÉ³Ú²»ÄÜÓÐmax£¡£¡£¡·ñÔòmaxµÄÖµÈç¹ûÅöµ½ÁíÒ»¸öÊÇ¸ºÖµ£¬max»á¼õÐ¡£¬±È½ÏÂé·³¡£¡£ 
+					//åƒä¸‡æ³¨æ„ä¸‹æ ‡çš„é¡ºåºï¼ï¼+ä¸€å®šåˆ«å¿˜äº†distanceæ¾å¼›ä¸èƒ½æœ‰maxï¼ï¼ï¼å¦åˆ™maxçš„å€¼å¦‚æžœç¢°åˆ°å¦ä¸€ä¸ªæ˜¯è´Ÿå€¼ï¼Œmaxä¼šå‡å°ï¼Œæ¯”è¾ƒéº»çƒ¦ã€‚ã€‚ 
 					if(distance[i][t] + distance[t][j] < distance[i][j] && distance[i][t] != INT_MAX && distance[t][j] != INT_MAX){
 						distance[i][j] = distance[i][t] + distance[t][j];
 					}
@@ -65,7 +65,7 @@ int main()
 	for(int i = 0; i < g.getV(); i ++){
 		for(int j = 0; j < g.getV(); j ++){
 			if(v[i][j] == INT_MAX)	printf("  MAX  ");
-			else printf("  %4.2lf ", v[i][j]);		//×¢ÒâÊÇ%lf...
+			else printf("  %4.2lf ", v[i][j]);		//æ³¨æ„æ˜¯%lf...
 		}
 		cout << endl;
 	}

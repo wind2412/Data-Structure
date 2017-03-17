@@ -7,7 +7,7 @@
 template <typename T, typename Comp>
 using TreeNode = typename Treap<T, Comp>::TreeNode;
 
-/**************»ù´¡º¯Êı********************/
+/**************åŸºç¡€å‡½æ•°********************/
 template <typename T, typename Comp>
 void Treap<T, Comp>::rotateWithLeftChild(TreeNode* &x){	//right-rotation
 	TreeNode* temp = x->left;
@@ -31,16 +31,16 @@ int Treap<T, Comp>::size(TreeNode* &x){
 
 template <typename T, typename Comp>
 int Treap<T, Comp>::priority(TreeNode* &x){
-	return x == nullptr ? MAX_PRIORITY : x->priority;	//×¢ÒâÊÇ·Åµ½×î´óÖµ£¡ 
+	return x == nullptr ? MAX_PRIORITY : x->priority;	//æ³¨æ„æ˜¯æ”¾åˆ°æœ€å¤§å€¼ï¼ 
 }
 
-/***************ÖØÒªº¯Êı*******************/
+/***************é‡è¦å‡½æ•°*******************/
 template <typename T, typename Comp>
 void Treap<T, Comp>::insert(TreeNode* &x, T data, int priority){
 	if(x == nullptr)	x = new TreeNode(data, priority);
 	else if(comp(x->data, data)) {
 		insert(x->right, data, priority);
-		if(x->priority > x->right->priority)	rotateWithRightChild(x);	//Èç¹ûÓÅÏÈ¼¶Ğ¡£¬¾Íµ÷ÉÏÈ¥¡£ 
+		if(x->priority > x->right->priority)	rotateWithRightChild(x);	//å¦‚æœä¼˜å…ˆçº§å°ï¼Œå°±è°ƒä¸Šå»ã€‚ 
 	}
 	else if(comp(data, x->data)) {
 		insert(x->left, data, priority);
@@ -51,9 +51,9 @@ void Treap<T, Comp>::insert(TreeNode* &x, T data, int priority){
 	x->size = size(x->left) + size(x->right) + 1;
 }
 
-/***************²âÊÔº¯Êı*******************/
+/***************æµ‹è¯•å‡½æ•°*******************/
 template <typename T, typename Comp>
-void Treap<T, Comp>::inOrderTraversal(){	//¶ş²æÊ÷µÄ²åÈë·½Ê½+µ÷Õû¶ÑË³ĞòµÄĞı×ª·½Ê½ 
+void Treap<T, Comp>::inOrderTraversal(){	//äºŒå‰æ ‘çš„æ’å…¥æ–¹å¼+è°ƒæ•´å †é¡ºåºçš„æ—‹è½¬æ–¹å¼ 
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
 	while(true){
@@ -68,23 +68,23 @@ void Treap<T, Comp>::inOrderTraversal(){	//¶ş²æÊ÷µÄ²åÈë·½Ê½+µ÷Õû¶ÑË³ĞòµÄĞı×ª·½Ê½
 	}
 }
 
-template <typename T, typename Comp>	//²»¶ÏµØ°Ñ´ıÉ¾½ÚµãĞı×ªµ½×îµ×ÏÂ£¬È»ºóÖ±½ÓÉ¾³ı£¡ 
-void Treap<T, Comp>::remove(TreeNode* &x, T data){	//ÓÃ¶ş²æÊ÷²éÕÒ±»É¾µã£¬Ê¹ÓÃpriority´óĞ¡±È½Ï²¢Ğı×ª¶ÑÊ¹µÃ±»É¾³ıµãÒÆÖÁ×î×Ó½Úµã È»ºóÖ±½ÓÈ¥³ı×Ó½Úµã¡£ 
+template <typename T, typename Comp>	//ä¸æ–­åœ°æŠŠå¾…åˆ èŠ‚ç‚¹æ—‹è½¬åˆ°æœ€åº•ä¸‹ï¼Œç„¶åç›´æ¥åˆ é™¤ï¼ 
+void Treap<T, Comp>::remove(TreeNode* &x, T data){	//ç”¨äºŒå‰æ ‘æŸ¥æ‰¾è¢«åˆ ç‚¹ï¼Œä½¿ç”¨priorityå¤§å°æ¯”è¾ƒå¹¶æ—‹è½¬å †ä½¿å¾—è¢«åˆ é™¤ç‚¹ç§»è‡³æœ€å­èŠ‚ç‚¹ ç„¶åç›´æ¥å»é™¤å­èŠ‚ç‚¹ã€‚ 
 	if(x == nullptr)	return;
 	else if(comp(x->data, data))	remove(x->right, data);
 	else if(comp(data, x->data))	remove(x->left,  data);
-	else{	//´ïµ½É¾³ıµØµã£¡Òª¿ªÊ¼Ğı×ªÁË£¡ 
-		if(!(x->left == nullptr && x->right == nullptr)){	//Ã»±ä³É×Ó½ÚµãÖ®Ç° 
+	else{	//è¾¾åˆ°åˆ é™¤åœ°ç‚¹ï¼è¦å¼€å§‹æ—‹è½¬äº†ï¼ 
+		if(!(x->left == nullptr && x->right == nullptr)){	//æ²¡å˜æˆå­èŠ‚ç‚¹ä¹‹å‰ 
 			if(priority(x->left) < priority(x->right)){
-				rotateWithLeftChild(x);	//×ó±ßÓÅÏÈÖµĞ¡ÓÚÓÒ±ß£¬¼´ÓÅÏÈ¼¶´óÓÚÓÒ±ß¡£ÕâÑù£¬¾Í°Ñ¸ßµÄÌáÉÏÀ´¡£°Ñx½µÏÂÈ¥¡£
-				remove(x->right, data);	//·¢ÉúÁËÓÒĞı£¬Òò´ËÉÏÓÒ±ßµİ¹éµØÈ¥É¾³ı¡£ 
+				rotateWithLeftChild(x);	//å·¦è¾¹ä¼˜å…ˆå€¼å°äºå³è¾¹ï¼Œå³ä¼˜å…ˆçº§å¤§äºå³è¾¹ã€‚è¿™æ ·ï¼Œå°±æŠŠé«˜çš„æä¸Šæ¥ã€‚æŠŠxé™ä¸‹å»ã€‚
+				remove(x->right, data);	//å‘ç”Ÿäº†å³æ—‹ï¼Œå› æ­¤ä¸Šå³è¾¹é€’å½’åœ°å»åˆ é™¤ã€‚ 
 			}else {
 				rotateWithRightChild(x);
 				remove(x->left, data);
 			}
-//			x->size = size(x->left) + size(x->right) + 1;	//²»ÄÜÔÚÕâÀïĞ´¡£Ô­ÒòÊÇÒ»¿ªÊ¼µÄ¶¼½øµÄelse if¡£Ö»ÓĞ×îºóµÄ²Å½øelse.¹Ê¶ø±ØĞëĞ´ÔÚÍâ±ß£¬£¬ÔõÃ´»¹·¸ÕâÃ´ÈõÖÇµÄ´í¡£¡£ 
+//			x->size = size(x->left) + size(x->right) + 1;	//ä¸èƒ½åœ¨è¿™é‡Œå†™ã€‚åŸå› æ˜¯ä¸€å¼€å§‹çš„éƒ½è¿›çš„else ifã€‚åªæœ‰æœ€åçš„æ‰è¿›else.æ•…è€Œå¿…é¡»å†™åœ¨å¤–è¾¹ï¼Œï¼Œæ€ä¹ˆè¿˜çŠ¯è¿™ä¹ˆå¼±æ™ºçš„é”™ã€‚ã€‚ 
 		}
-		else{	//Á½±ßÈ«ÊÇ¿Õ£¬Òò´ËÊÇ¿ÉÒÔÉ¾³ıÁË¡£ 
+		else{	//ä¸¤è¾¹å…¨æ˜¯ç©ºï¼Œå› æ­¤æ˜¯å¯ä»¥åˆ é™¤äº†ã€‚ 
 			delete x;
 			x = nullptr;
 		}
@@ -93,7 +93,7 @@ void Treap<T, Comp>::remove(TreeNode* &x, T data){	//ÓÃ¶ş²æÊ÷²éÕÒ±»É¾µã£¬Ê¹ÓÃpri
 	if(x != nullptr)	x->size = size(x->left) + size(x->right) + 1;
 }
 
-template <typename T, typename Comp>	//²»ÒªÍüÁËÎö¹¹£¡£¡	ÊÍ·ÅÄÚ´æ°¡£¡£¡ 
+template <typename T, typename Comp>	//ä¸è¦å¿˜äº†ææ„ï¼ï¼	é‡Šæ”¾å†…å­˜å•Šï¼ï¼ 
 Treap<T, Comp>::~Treap(){
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
@@ -106,7 +106,7 @@ Treap<T, Comp>::~Treap(){
 		while(!s.empty()){
 			temp = s.top(); s.pop();
 			if(temp->right == q){
-				delete temp;	//ÕâÀïdelete»¹ÊÇĞÄĞé°¡¡£ÆäÊµ¸Ğ¾õ²¢²»Ã÷Îú£¬µ«ÊÇËü¿Ï¶¨ÊÇ¶ÔµÄ£¡ 
+				delete temp;	//è¿™é‡Œdeleteè¿˜æ˜¯å¿ƒè™šå•Šã€‚å…¶å®æ„Ÿè§‰å¹¶ä¸æ˜æ™°ï¼Œä½†æ˜¯å®ƒè‚¯å®šæ˜¯å¯¹çš„ï¼ 
 				q = temp;
 			}
 			else{

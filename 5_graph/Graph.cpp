@@ -4,7 +4,7 @@
 
 using Edge = typename Graph::Edge;
 
-void Graph::addEdge(int from, int to, double weight){	//ÓĞÏòÍ¼£¡ 
+void Graph::addEdge(int from, int to, double weight){	//æœ‰å‘å›¾ï¼ 
 	if(from < 0 || from > V || to < 0 || to > V){
 		cerr << "illegal arguments! " << endl;
 		return;
@@ -13,7 +13,7 @@ void Graph::addEdge(int from, int to, double weight){	//ÓĞÏòÍ¼£¡
 		cerr << "can't add the same point! " << endl;
 		return;
 	}
-	if(find_if(begin(adj[from]), end(adj[from]), [=](const Edge & e){return e.to == to;}) != end(adj[from])){	//Ñ°ÕÒÊÇ·ñÒÑ¾­´æÔÚtoµã 
+	if(find_if(begin(adj[from]), end(adj[from]), [=](const Edge & e){return e.to == to;}) != end(adj[from])){	//å¯»æ‰¾æ˜¯å¦å·²ç»å­˜åœ¨toç‚¹ 
 		cerr << "the \"to\" vertex has been existed and its value is " << to << endl;
 		return;
 	}
@@ -33,8 +33,8 @@ int Graph::getE(){
 	return E;
 }
 
-const list<Edge> & Graph::getAdj(int v){	//ºÜÓĞÒâË¼¡£ÔÚTopological_sort.cppÖĞ£¬½øĞĞ¶Ô´Ë·µ»ØÖµfor-eachÊ±£¬ÌáÊ¾ÎÒlistÖĞµÄÃ¿¸öEdgeµÄÀàĞÍÊÇconstµÄ£¡ÕâÊÇ²»ÊÇÒâÎ¶×ÅÊ²Ã´£¿ 
-	return adj[v];							//Ã»ÓĞÏëµ½¾¹È»ÊÇÈİÆ÷ÖĞµÄÃ¿¸öÔªËØÒ²ÊÇconstµÄ£¿¶øĞ´ÁËÒ»¾älist<Edge> l = g.getAdj(v);ËµÃ÷list²»ÊÇconstµÄ£¿ 
+const list<Edge> & Graph::getAdj(int v){	//å¾ˆæœ‰æ„æ€ã€‚åœ¨Topological_sort.cppä¸­ï¼Œè¿›è¡Œå¯¹æ­¤è¿”å›å€¼for-eachæ—¶ï¼Œæç¤ºæˆ‘listä¸­çš„æ¯ä¸ªEdgeçš„ç±»å‹æ˜¯constçš„ï¼è¿™æ˜¯ä¸æ˜¯æ„å‘³ç€ä»€ä¹ˆï¼Ÿ 
+	return adj[v];							//æ²¡æœ‰æƒ³åˆ°ç«Ÿç„¶æ˜¯å®¹å™¨ä¸­çš„æ¯ä¸ªå…ƒç´ ä¹Ÿæ˜¯constçš„ï¼Ÿè€Œå†™äº†ä¸€å¥list<Edge> l = g.getAdj(v);è¯´æ˜listä¸æ˜¯constçš„ï¼Ÿ 
 }
 
 int Graph::getDegree(int v){
@@ -44,7 +44,7 @@ int Graph::getDegree(int v){
 	return adj[v].size();
 } 
 
-Graph Graph::reverse(){	//¸Ã·µ»Ø¶ÔÏóÊ±ºòÒ»¶¨Òª·µ»Ø¶ÔÏó¡£²»ÄÜ·µ»Øconst£¦£¡Item21. http://harttle.com/2015/08/18/effective-cpp-21.html 
+Graph Graph::reverse(){	//è¯¥è¿”å›å¯¹è±¡æ—¶å€™ä¸€å®šè¦è¿”å›å¯¹è±¡ã€‚ä¸èƒ½è¿”å›constï¼†ï¼Item21. http://harttle.com/2015/08/18/effective-cpp-21.html 
 	if(!directed)	return *this;
 	Graph rev(V);
 	for(vector<list<Edge>>::size_type i = 0; i < adj.size(); i ++){

@@ -9,51 +9,51 @@ using namespace std;
 
 using Edge = Graph::Edge;
 
-//ÍØÆËÅÅÐòµÄË³Ðò¼ÆËã×î¶ÌÂ·¾¶¡£	//ºÍÍØÆËÅÅÐòÒ»Ñù£¬¾ö²»ÄÜÓÐ»·¡£	//SedgeWick 
+//æ‹“æ‰‘æŽ’åºçš„é¡ºåºè®¡ç®—æœ€çŸ­è·¯å¾„ã€‚	//å’Œæ‹“æ‰‘æŽ’åºä¸€æ ·ï¼Œå†³ä¸èƒ½æœ‰çŽ¯ã€‚	//SedgeWick 
 class Topological_SP{
 private:
 	Graph & g;
-	int count = 0;	//¼ÇÂ¼¼ÓÈëqµÄ½áµã´ÎÊý¡£Èç¹ûÐ¡ÓÚg.getV()¼´ÊÇÓÐ»·¡£ºÍTopological_SortÒ»Ñù¡£ 
-	vector<int> indegree;	//½áµãµÄÈë¶È¡£ÓÉÓÚÊý×éµÄ³ÉÔ±±äÁ¿³õÊ¼»¯Ì«²»ºÃÊ¹¡£¡£¡£ÓÖ²»Ïënew 
-	deque<int> q;	//½áµãµÄÈë¶ÈÎª0µÄµã¶ÓÁÐ¡£ 
+	int count = 0;	//è®°å½•åŠ å…¥qçš„ç»“ç‚¹æ¬¡æ•°ã€‚å¦‚æžœå°äºŽg.getV()å³æ˜¯æœ‰çŽ¯ã€‚å’ŒTopological_Sortä¸€æ ·ã€‚ 
+	vector<int> indegree;	//ç»“ç‚¹çš„å…¥åº¦ã€‚ç”±äºŽæ•°ç»„çš„æˆå‘˜å˜é‡åˆå§‹åŒ–å¤ªä¸å¥½ä½¿ã€‚ã€‚ã€‚åˆä¸æƒ³new 
+	deque<int> q;	//ç»“ç‚¹çš„å…¥åº¦ä¸º0çš„ç‚¹é˜Ÿåˆ—ã€‚ 
 	vector<double> distance; 
 public:
-	//TopologicalÒ²¿ÉÒÔÕÒµ¥Ô´×î¶ÌÂ·¾¶£¡£¡£¡ËäÈ»±ÈÆðDijkstraµÄÖ»Ïò×ÅsµãÖ®ºóµÄµã±éÀú£¬Topological¶ÔÕû¸öÍ¼È«¶¼±éÀú¡£µ«ÊÇ»¹ÊÇ¿ÉÒÔÇóµÄ£¡·´Õý
-	//ÎÒÃÇÐèÒªµÄÖ»ÊÇsÒÔ¼°ËüÄÜµ½´ïµÄµã£¬sÖ®Ç°£¨¼´ÄÜµ½´ïsµ«ÊÇsµ½´ï²»ÁËµÄ£©¿ÉÒÔ½øÐÐËÉ³Ú°¡¡£µ«ÊÇËÉ³ÚµÄ½á¹û£¬ÓÉÓÚÖ»°Ñdistance[s]Éè³É0£¬
-	//sÖ®Ç°µÄdistanceÈ«ÊÇ¡Þ£¬Ò²ËÉ³Ú²»ÁË°¡¡£ÎÒÃÇ¸ù±¾ÓÃ²»µ½ËüÃÇ¡£ÖÁÓÚsºóÃæµÄ£¬Ò²¿Ï¶¨ËÉ³ÚÁË£¬£¨TopologicalÈ«¾ÖËÉ³Ú£©Ö±½ÓÈ¡Öµ¼´¿É¡£ 
-	//¡ª¡ª¡ª¡ª¿´À´ÉÏ±ßµÄÏë·¨Ó¦¸ÃÓÃÔÚBellman-FordÖÐ¡£ 
+	//Topologicalä¹Ÿå¯ä»¥æ‰¾å•æºæœ€çŸ­è·¯å¾„ï¼ï¼ï¼è™½ç„¶æ¯”èµ·Dijkstraçš„åªå‘ç€sç‚¹ä¹‹åŽçš„ç‚¹éåŽ†ï¼ŒTopologicalå¯¹æ•´ä¸ªå›¾å…¨éƒ½éåŽ†ã€‚ä½†æ˜¯è¿˜æ˜¯å¯ä»¥æ±‚çš„ï¼åæ­£
+	//æˆ‘ä»¬éœ€è¦çš„åªæ˜¯sä»¥åŠå®ƒèƒ½åˆ°è¾¾çš„ç‚¹ï¼Œsä¹‹å‰ï¼ˆå³èƒ½åˆ°è¾¾sä½†æ˜¯såˆ°è¾¾ä¸äº†çš„ï¼‰å¯ä»¥è¿›è¡Œæ¾å¼›å•Šã€‚ä½†æ˜¯æ¾å¼›çš„ç»“æžœï¼Œç”±äºŽåªæŠŠdistance[s]è®¾æˆ0ï¼Œ
+	//sä¹‹å‰çš„distanceå…¨æ˜¯âˆžï¼Œä¹Ÿæ¾å¼›ä¸äº†å•Šã€‚æˆ‘ä»¬æ ¹æœ¬ç”¨ä¸åˆ°å®ƒä»¬ã€‚è‡³äºŽsåŽé¢çš„ï¼Œä¹Ÿè‚¯å®šæ¾å¼›äº†ï¼Œï¼ˆTopologicalå…¨å±€æ¾å¼›ï¼‰ç›´æŽ¥å–å€¼å³å¯ã€‚ 
+	//â€•â€•â€•â€•çœ‹æ¥ä¸Šè¾¹çš„æƒ³æ³•åº”è¯¥ç”¨åœ¨Bellman-Fordä¸­ã€‚ 
 	Topological_SP(Graph & g, int s): g(g), indegree(g.getV()), /*q(g.getV()),*/ distance(g.getV(), INT_MAX){
-		//¡¾md£¡£¡£¡£¡£¡¡¿Ê¹ÓÃÓÐ»·µÄÀý×Ó²âÊÔ£¬·¢ÏÖÓÐ»·Ò²²â²»³öÀ´¡£¡£¡£Ò»¶Ô±ÈÍØÆËÅÅÐò£¬Topological_sortÊ¹ÓÃµÄÊÇÊý×é£¬¶øTopological_SPÊ¹ÓÃµÄdeque£¬
-		//ÖØµãÊÇËüÊ¹ÓÃÁËq(g.getV())À´³õÊ¼»¯£¡£¡ÎÒ»¹ÒÔÎªÄÜÊÇreverse()µÄÐ§¹û¡£¡£Ã»Ïëµ½¾¹È»Àï±ßÖ±½Ó³öÏÖÁË5¸ö0......È»ºóÔÙpush_backµÄÖµ¾ÍÔÚ
-		//µÚ6¡¢µÚ7Î»ÁË¡£¡£¡£ËùÒÔ»áÏÈµ¯³öÒ»¶Ñ0¡£¡£¡£¡£ÓÃÈÝÆ÷Ç§ÍòÒª½÷É÷°¡£¡£¡£¡woc 
+		//ã€mdï¼ï¼ï¼ï¼ï¼ã€‘ä½¿ç”¨æœ‰çŽ¯çš„ä¾‹å­æµ‹è¯•ï¼Œå‘çŽ°æœ‰çŽ¯ä¹Ÿæµ‹ä¸å‡ºæ¥ã€‚ã€‚ã€‚ä¸€å¯¹æ¯”æ‹“æ‰‘æŽ’åºï¼ŒTopological_sortä½¿ç”¨çš„æ˜¯æ•°ç»„ï¼Œè€ŒTopological_SPä½¿ç”¨çš„dequeï¼Œ
+		//é‡ç‚¹æ˜¯å®ƒä½¿ç”¨äº†q(g.getV())æ¥åˆå§‹åŒ–ï¼ï¼æˆ‘è¿˜ä»¥ä¸ºèƒ½æ˜¯reverse()çš„æ•ˆæžœã€‚ã€‚æ²¡æƒ³åˆ°ç«Ÿç„¶é‡Œè¾¹ç›´æŽ¥å‡ºçŽ°äº†5ä¸ª0......ç„¶åŽå†push_backçš„å€¼å°±åœ¨
+		//ç¬¬6ã€ç¬¬7ä½äº†ã€‚ã€‚ã€‚æ‰€ä»¥ä¼šå…ˆå¼¹å‡ºä¸€å †0ã€‚ã€‚ã€‚ã€‚ç”¨å®¹å™¨åƒä¸‡è¦è°¨æ…Žå•Šï¼ï¼ï¼woc 
 		buildSP(s);
 	}
 	void buildSP(int s){
-		distance[s] = 0;	//²»ÕâÃ´´¦Àí£¬½ÓÏÂÀ´¶¼×ö²»ÁËÁË¡£¡£¡£½ÓÏÂÀ´È«ÊÇ¡Þ£¬¸ù±¾Ã»·¨ËÉ³Ú¡£¡£¡£¡Þ+3==¡Þ¡£¡£¡£ 
+		distance[s] = 0;	//ä¸è¿™ä¹ˆå¤„ç†ï¼ŒæŽ¥ä¸‹æ¥éƒ½åšä¸äº†äº†ã€‚ã€‚ã€‚æŽ¥ä¸‹æ¥å…¨æ˜¯âˆžï¼Œæ ¹æœ¬æ²¡æ³•æ¾å¼›ã€‚ã€‚ã€‚âˆž+3==âˆžã€‚ã€‚ã€‚ 
 		Graph && rev = g.reverse();
 		for(int i = 0; i < rev.getV(); i ++){
-			indegree[i] = rev.getDegree(i);	//±£´æÈë¶È¡£
+			indegree[i] = rev.getDegree(i);	//ä¿å­˜å…¥åº¦ã€‚
 			if(indegree[i] == 0){
 				q.push_back(i);
 				count ++; 
 			} 
 		} 
 		while(!q.empty()){
-			int v = q.front(); q.pop_front();	//Êµ¼ÊÉÏÒ»¿ªÊ¼ÎÒÏë´íÁË¡£Ò»¿ªÊ¼µÄÏë·¨Ó¦¸ÃÓÃÔÚBellman-FordÉÏ¡£Topological²¢²»ÊÇ¶ÔËùÓÐËÉ³Ú¡£Ö»ÊÇ
-												//¶ÔÁÙÊ±popµÄµãºó±ßÔªËØ½øÐÐËÉ³Ú¡£ 
+			int v = q.front(); q.pop_front();	//å®žé™…ä¸Šä¸€å¼€å§‹æˆ‘æƒ³é”™äº†ã€‚ä¸€å¼€å§‹çš„æƒ³æ³•åº”è¯¥ç”¨åœ¨Bellman-Fordä¸Šã€‚Topologicalå¹¶ä¸æ˜¯å¯¹æ‰€æœ‰æ¾å¼›ã€‚åªæ˜¯
+												//å¯¹ä¸´æ—¶popçš„ç‚¹åŽè¾¹å…ƒç´ è¿›è¡Œæ¾å¼›ã€‚ 
 			for(const Edge & e : g.getAdj(v)){
 				if(--indegree[e.to] == 0){
-					q.push_back(e.to);	//Èç¹ûÁÚ½ÓÖµµÄÈë¶È¼õÎª0£¬ÄÇ¾Í¼ÓÈëq¡£
+					q.push_back(e.to);	//å¦‚æžœé‚»æŽ¥å€¼çš„å…¥åº¦å‡ä¸º0ï¼Œé‚£å°±åŠ å…¥qã€‚
 					count ++;
 				}
-				if(distance[v] + e.weight < distance[e.to]){	//ËÉ³Ú¡£ 
+				if(distance[v] + e.weight < distance[e.to]){	//æ¾å¼›ã€‚ 
 					distance[e.to] = distance[v] + e.weight;	
 				}
 			}
 		}
 		if(count < g.getV()){
 			cerr << "there is a circle in the graph!! topological sort failed! " << endl;
-			distance.clear();	//³É»·¾Í³ö´í£¬Çå¿Õdistance. 
+			distance.clear();	//æˆçŽ¯å°±å‡ºé”™ï¼Œæ¸…ç©ºdistance. 
 		}
 	}
 	vector<double> getDistance(){
@@ -77,7 +77,7 @@ int main()
 	
 	Topological_SP t(g, 1);
 	vector<double> && v = t.getDistance();
-	cout << "1µ½ÆäËûµãµÄ×î¶ÌÂ·¾¶ÈçÏÂ£º" << endl; 
+	cout << "1åˆ°å…¶ä»–ç‚¹çš„æœ€çŸ­è·¯å¾„å¦‚ä¸‹ï¼š" << endl; 
 	for(vector<double>::const_iterator it = v.begin(); it != v.end(); ++it){
 		if(*it == INT_MAX)	cout << "MAX" << " "; 
 		else cout << *it << " ";

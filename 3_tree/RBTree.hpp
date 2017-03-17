@@ -7,12 +7,12 @@ using namespace std;
 #define BLACK 	1
 
 /**
- *	ºìºÚÊ÷¡£
- *  Ë¼Â·Ñ§×Ô£º1.https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91 
+ *	çº¢é»‘æ ‘ã€‚
+ *  æ€è·¯å­¦è‡ªï¼š1.https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91 
  *			  2.http://blog.csdn.net/v_JULY_v/article/details/6105630 
- *  ´úÂëÍêÈ«À´Ô´ÓÚwikipedia¡£ÒòÎªÕı´¦ÓÚÑ§Ï°½×¶Î£¬Ñ§Ï°Ã÷°×ÁËÖ®ºó¼ÓÉÏÁËÖî¶à×¢ÊÍºÍÀí½â¡£ 
- *	µ«ÊÇwikipediaµÄ×ö·¨ÊÇ×Ôµ×ÏòÉÏ½øĞĞĞı×ª¡£ÎªÁËºÍ±¾×÷Ö®Ç°AVLÊ÷µÈAPI±£³ÖÒ»ÖÂ£¬¹Ê¶øÊ¹ÓÃ×Ô¶¥ÏòÏÂĞı×ª·½·¨¡£
- *	¼´£¬´«Èë¶¥½áµã²ÎÊıÈ»ºó¶Ô×Ó½Úµã½øĞĞĞı×ª¡£ 
+ *  ä»£ç å®Œå…¨æ¥æºäºwikipediaã€‚å› ä¸ºæ­£å¤„äºå­¦ä¹ é˜¶æ®µï¼Œå­¦ä¹ æ˜ç™½äº†ä¹‹ååŠ ä¸Šäº†è¯¸å¤šæ³¨é‡Šå’Œç†è§£ã€‚ 
+ *	ä½†æ˜¯wikipediaçš„åšæ³•æ˜¯è‡ªåº•å‘ä¸Šè¿›è¡Œæ—‹è½¬ã€‚ä¸ºäº†å’Œæœ¬ä½œä¹‹å‰AVLæ ‘ç­‰APIä¿æŒä¸€è‡´ï¼Œæ•…è€Œä½¿ç”¨è‡ªé¡¶å‘ä¸‹æ—‹è½¬æ–¹æ³•ã€‚
+ *	å³ï¼Œä¼ å…¥é¡¶ç»“ç‚¹å‚æ•°ç„¶åå¯¹å­èŠ‚ç‚¹è¿›è¡Œæ—‹è½¬ã€‚ 
  */
 template <typename T, typename Comp = std::less<T>>
 class RBTree{
@@ -23,9 +23,9 @@ public:
 		TreeNode* left;
 		TreeNode* right;
 		TreeNode* parent;
-		static TreeNode* NIL;	//NIL²»ÒªÍüÁË¡£NIL±ØĞëÊÇËùÓĞÒ¶½ÚµãµÄ×óÓÒ¹«¹²nullptrÖ¸Õë¡£Ò²¾ÍÊÇÕû¸öÊ÷±äµÃ¡°Á¬Í¨ÁË¡±¡£
+		static TreeNode* NIL;	//NILä¸è¦å¿˜äº†ã€‚NILå¿…é¡»æ˜¯æ‰€æœ‰å¶èŠ‚ç‚¹çš„å·¦å³å…¬å…±nullptræŒ‡é’ˆã€‚ä¹Ÿå°±æ˜¯æ•´ä¸ªæ ‘å˜å¾—â€œè¿é€šäº†â€ã€‚
 		
-		TreeNode(T data, TreeNode* parent, TreeNode* left = NIL, TreeNode* right = NIL)	//NILÒªÉèÎªstatic£¬Òª²»ÕâÀïÉèÖÃ²»ÁË¡£¡£ 
+		TreeNode(T data, TreeNode* parent, TreeNode* left = NIL, TreeNode* right = NIL)	//NILè¦è®¾ä¸ºstaticï¼Œè¦ä¸è¿™é‡Œè®¾ç½®ä¸äº†ã€‚ã€‚ 
 							:data(data), color(RED), left(left), right(right), parent(parent){}
 		TreeNode* sibling(){
 			if(this->parent == nullptr)	return nullptr;
@@ -40,7 +40,7 @@ public:
 			return this->grandparent()->left == this->parent ? this->grandparent()->right : this->grandparent()->left;
 		}
 	};
-//	TreeNode* TreeNode::NIL = new TreeNode(-1, nullptr);	//ÇĞ¼Ç²»ÄÜ¶¨ÒåÔÚÕâÀï¡£ÒòÎªÒªstatic±äÁ¿Òª¶¨ÒåÔÚ¡°namespace scope¡±ÖĞ¡£ 
+//	TreeNode* TreeNode::NIL = new TreeNode(-1, nullptr);	//åˆ‡è®°ä¸èƒ½å®šä¹‰åœ¨è¿™é‡Œã€‚å› ä¸ºè¦staticå˜é‡è¦å®šä¹‰åœ¨â€œnamespace scopeâ€ä¸­ã€‚ 
 private:
 	Comp comp;
 	TreeNode* root = nullptr; 
@@ -49,22 +49,22 @@ public:
 	~RBTree(){ make_empty(root); }
 private:
 	void make_empty(TreeNode* x);
-	TreeNode* find_left_max(TreeNode* x);	//ÕÒµ½´Ë½Úµã×ó×ÓÊ÷×î´óÖµ£¨É¾³ıº¬ÓĞË«×ÓµÄ½ÚµãÊ±£© 
+	TreeNode* find_left_max(TreeNode* x);	//æ‰¾åˆ°æ­¤èŠ‚ç‚¹å·¦å­æ ‘æœ€å¤§å€¼ï¼ˆåˆ é™¤å«æœ‰åŒå­çš„èŠ‚ç‚¹æ—¶ï¼‰ 
 	void rotate_left(TreeNode* x);
 	void rotate_right(TreeNode* x);
-	void insert(TreeNode* x, const T & data);	//ÓÉÓÚ»¹ÒªÖ¸Ïòparent¡£¡£¡£ËùÒÔ»¹Òª·µ»ØÖµ°¡¡£¡£¡£ ¿´À´Ö»ÒªÊÇÏßË÷Ê÷¾ÍÒª¡°Ô¤²â¡±×óÓÒ½Úµã°¡¡£¡£ 
-	void remove(TreeNode* x, const T & data);	//¼û´úÂëÊµÏÖ°É¡£¡£¡£ 
+	void insert(TreeNode* x, const T & data);	//ç”±äºè¿˜è¦æŒ‡å‘parentã€‚ã€‚ã€‚æ‰€ä»¥è¿˜è¦è¿”å›å€¼å•Šã€‚ã€‚ã€‚ çœ‹æ¥åªè¦æ˜¯çº¿ç´¢æ ‘å°±è¦â€œé¢„æµ‹â€å·¦å³èŠ‚ç‚¹å•Šã€‚ã€‚ 
+	void remove(TreeNode* x, const T & data);	//è§ä»£ç å®ç°å§ã€‚ã€‚ã€‚ 
 	void remove_one_child(TreeNode* x); 
 	void balance_insert(TreeNode* x);
 	void balance_remove(TreeNode* x);
 public:
-	void insert(const T & data)/*{ insert(root, data); }*/;//ÏßË÷Ê÷²åÈë²»ÄÜÊµÏÖµÃÄÇÃ´¼òµ¥¡£¡£¡£ÒòÎªÒªÔ¤ÅĞ¡£¡£ÓĞĞ©¹¤×÷·ÅÔÚÈë¿Úº¯ÊıºÃĞ©£¬ÆäÊµ²»·ÁÒ²ĞĞ¡£ 
-	void remove(const T & data){ remove(root, data); };	   //µ«ÊÇÉ¾³ıÊÇOKµÄ¡£ÒòÎªÉ¾³ıÊ±Ã¿¸ö½Úµã¶¼ÒÑ¾­Á¬ÉÏ¸¸Ç×ÁË¡£²»»á³öÏÖÕÒ²»µ½µÄÇé¿ö¡£
+	void insert(const T & data)/*{ insert(root, data); }*/;//çº¿ç´¢æ ‘æ’å…¥ä¸èƒ½å®ç°å¾—é‚£ä¹ˆç®€å•ã€‚ã€‚ã€‚å› ä¸ºè¦é¢„åˆ¤ã€‚ã€‚æœ‰äº›å·¥ä½œæ”¾åœ¨å…¥å£å‡½æ•°å¥½äº›ï¼Œå…¶å®ä¸å¦¨ä¹Ÿè¡Œã€‚ 
+	void remove(const T & data){ remove(root, data); };	   //ä½†æ˜¯åˆ é™¤æ˜¯OKçš„ã€‚å› ä¸ºåˆ é™¤æ—¶æ¯ä¸ªèŠ‚ç‚¹éƒ½å·²ç»è¿ä¸Šçˆ¶äº²äº†ã€‚ä¸ä¼šå‡ºç°æ‰¾ä¸åˆ°çš„æƒ…å†µã€‚
 	void inOrderTraversal(); 
 	void preOrderTraversal(); 
 };
 
-template <typename T, typename Comp>	//×¢ÒâÕâÀïÒªÏÔÊ¾¹æ¶¨×óÓÒ¶ù×Ó£¡£¡ÊÇnullptr£¡£¡²»ÄÜÊ¹ÓÃÄ¬ÈÏµÄ¹¹Ôì£¡Òª²»»áËÀÑ­»·£¡
+template <typename T, typename Comp>	//æ³¨æ„è¿™é‡Œè¦æ˜¾ç¤ºè§„å®šå·¦å³å„¿å­ï¼ï¼æ˜¯nullptrï¼ï¼ä¸èƒ½ä½¿ç”¨é»˜è®¤çš„æ„é€ ï¼è¦ä¸ä¼šæ­»å¾ªç¯ï¼
 										//http://stackoverflow.com/questions/41339584/c-error-invalid-use-of-qualified-name 
 typename RBTree<T, Comp>::TreeNode* RBTree<T, Comp>::TreeNode::NIL = new TreeNode(-1, nullptr, nullptr, nullptr);
 

@@ -9,12 +9,12 @@ void Trie::insert(const char* s){
 	int len = strlen(s);
 	TreeNode* temp = root;
 	for(int pos = 0; pos < len; pos ++){
-		if(temp->next[s[pos]-'a'] == nullptr){	//Èç¹ûÎ»ÖÃÉÏÊÇ¿ÕµÄ£¬ÄÇÃ´¾ÍĞÂ½¨½Úµã¡£ 
+		if(temp->next[s[pos]-'a'] == nullptr){	//å¦‚æœä½ç½®ä¸Šæ˜¯ç©ºçš„ï¼Œé‚£ä¹ˆå°±æ–°å»ºèŠ‚ç‚¹ã€‚ 
 			temp->next[s[pos]-'a'] = new TreeNode(s[pos]);
 		}
-		temp = temp->next[s[pos]-'a'];	//×ÖµäÊ÷Ö¸ÕëÏòÏÂ²ã¸üĞÂ
-		if(pos == len - 1){	//ÒÑ¾­µ½ÁËµ¥´ÊÄ©Î² 
-			temp->count ++;	//µ¥´ÊÊı+1 
+		temp = temp->next[s[pos]-'a'];	//å­—å…¸æ ‘æŒ‡é’ˆå‘ä¸‹å±‚æ›´æ–°
+		if(pos == len - 1){	//å·²ç»åˆ°äº†å•è¯æœ«å°¾ 
+			temp->count ++;	//å•è¯æ•°+1 
 		} 
 	}
 }
@@ -24,10 +24,10 @@ int Trie::findWordCount(const char* s){
 	TreeNode* temp = root;
 	for(int pos = 0; pos < len; pos ++){
 		if(temp->next[s[pos]-'a'] == nullptr){
-			return -1;	//²éÎŞ´Ëµ¥´Ê¡£ 
+			return -1;	//æŸ¥æ— æ­¤å•è¯ã€‚ 
 		}
-		else{	//ÕÒµ½ÁË¸Ã×Ö·û£¬ÄÇÃ´¾ÍÏòÏÂÑ°ÕÒ 
-			temp = temp->next[s[pos]-'a'];	//×¢ÒâÕâ¸öÓ¦¸ÃĞ´ÔÚÇ°±ß£¡£¡£¡ÒòÎªÕÒµ½ÁËµÄ»°£¬Ó¦¸ÃÒªË÷Òıµ½ÄÇ¸ö×Ö·ûµÄnode£¡ 
+		else{	//æ‰¾åˆ°äº†è¯¥å­—ç¬¦ï¼Œé‚£ä¹ˆå°±å‘ä¸‹å¯»æ‰¾ 
+			temp = temp->next[s[pos]-'a'];	//æ³¨æ„è¿™ä¸ªåº”è¯¥å†™åœ¨å‰è¾¹ï¼ï¼ï¼å› ä¸ºæ‰¾åˆ°äº†çš„è¯ï¼Œåº”è¯¥è¦ç´¢å¼•åˆ°é‚£ä¸ªå­—ç¬¦çš„nodeï¼ 
 			if(pos == len - 1){
 				return temp->count;
 			}
@@ -36,7 +36,7 @@ int Trie::findWordCount(const char* s){
 }
 
 void Trie::printAll(TreeNode* x, int level){
-	if(x == nullptr)	return;	//µİ¹é»ù ÒòÎªÒªÒ»Ö±ÏòÏÂµİ¹é
+	if(x == nullptr)	return;	//é€’å½’åŸº å› ä¸ºè¦ä¸€ç›´å‘ä¸‹é€’å½’
 	for(int i = 0; i < level; i ++)	cout << "\t";
 	if(x->c != ' ')		cout << x->c << " " << x->count << endl;
 	for(int pos = 0; pos < CHARSET; pos ++){

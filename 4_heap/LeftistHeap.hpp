@@ -4,8 +4,8 @@
 using namespace std;
 
 /**
- *	×óÊ½¶Ñ¡£	http://www.cnblogs.com/pacoson/p/5142330.html 
- *				¿ÉÊÓ»¯¹¤¾ß£º http://www.u396.com/wp-content/collection/data-structure-visualizations/LeftistHeap.html 
+ *	å·¦å¼å †ã€‚	http://www.cnblogs.com/pacoson/p/5142330.html 
+ *				å¯è§†åŒ–å·¥å…·ï¼š http://www.u396.com/wp-content/collection/data-structure-visualizations/LeftistHeap.html 
  */
 template <typename T, typename Comp = std::less<T>>
 class LeftistHeap{
@@ -14,7 +14,7 @@ public:
 		T data;
 		TreeNode* left;
 		TreeNode* right;
-		int npl;	//null pointer length ÁãÂ·¾¶³¤¡£ 
+		int npl;	//null pointer length é›¶è·¯å¾„é•¿ã€‚ 
 		
 		TreeNode(T data, TreeNode* left = nullptr, TreeNode* right = nullptr)
 										:data(data), left(left), right(right), npl(0){}; 
@@ -23,11 +23,11 @@ private:
 	TreeNode* root = nullptr;
 	Comp comp;
 private:
-	void merge(LeftistHeap & rhs);	//½ÓÊÜÁíÒ»¿Ã×óÆ«Ê÷×÷Îª²ÎÊı ²¢ºÏ²¢
-	TreeNode* merge(TreeNode* h1, TreeNode* h2);	//±ØĞë·µ»ØTreeNode£¡£¡¼´Ê¹ ´«²ÎTreeNode*&Ò²²»ĞĞ£¡£¡ÒòÎªÎŞ·¨ÕÒµ½Ã¿Ò»²ãµÄ¸ù½Úµã¡£²»ÖªµÀ»á±»¸ù½Úµã»áÊÇ×óÊ÷ 
-	TreeNode* innerMerge(TreeNode* h1, TreeNode* h2);	//»¹ÊÇÓÒÊ÷¡£Ë¼¿¼ÆğÀ´Ì«Âé·³£¬²»ÈçÍ³Ò»·µ»Ø°¡¡£ 
-	void swap(TreeNode* x);	//swap×óÓÒ×ÓÊ÷
-	int npl(TreeNode* x);	//µÃµ½npl
+	void merge(LeftistHeap & rhs);	//æ¥å—å¦ä¸€æ£µå·¦åæ ‘ä½œä¸ºå‚æ•° å¹¶åˆå¹¶
+	TreeNode* merge(TreeNode* h1, TreeNode* h2);	//å¿…é¡»è¿”å›TreeNodeï¼ï¼å³ä½¿ ä¼ å‚TreeNode*&ä¹Ÿä¸è¡Œï¼ï¼å› ä¸ºæ— æ³•æ‰¾åˆ°æ¯ä¸€å±‚çš„æ ¹èŠ‚ç‚¹ã€‚ä¸çŸ¥é“ä¼šè¢«æ ¹èŠ‚ç‚¹ä¼šæ˜¯å·¦æ ‘ 
+	TreeNode* innerMerge(TreeNode* h1, TreeNode* h2);	//è¿˜æ˜¯å³æ ‘ã€‚æ€è€ƒèµ·æ¥å¤ªéº»çƒ¦ï¼Œä¸å¦‚ç»Ÿä¸€è¿”å›å•Šã€‚ 
+	void swap(TreeNode* x);	//swapå·¦å³å­æ ‘
+	int npl(TreeNode* x);	//å¾—åˆ°npl
 public:
 	void insert(const T & data);
 	T getMin();

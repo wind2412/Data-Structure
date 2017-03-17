@@ -5,7 +5,7 @@
 #include <queue>
 using namespace std;
 
-//¶ş²æËÑË÷Ê÷¡£ Ê¹ÓÃÍêÈ«µü´ú£¬·Çµİ¹é£¡
+//äºŒå‰æœç´¢æ ‘ã€‚ ä½¿ç”¨å®Œå…¨è¿­ä»£ï¼Œéé€’å½’ï¼
 template <typename T, typename Comp = std::less<T>>
 class BST {
 public:
@@ -24,7 +24,7 @@ private:
 	void makeEmpty();
 	void makeEmpty() const;
 public:
-	BST(TreeNode * root = nullptr) :root(root) {};	//²»¶Ïput¹¹Ôì¡£
+	BST(TreeNode * root = nullptr) :root(root) {};	//ä¸æ–­putæ„é€ ã€‚
 	void preOrderTraversal1();
 	void preOrderTraversal2();
 	void inOrderTraversal();
@@ -33,7 +33,7 @@ public:
 	void put(T data);
 	int getHeight();
 	int getMin();
-	void deleteMin();	//deleteMinÔ­ÏÈÎÒµÄÉè¶¨ÊÇ·µ»ØgetMinÏàÍ¬µÄÖµ£¬¼´±»É¾³ıµÄ×îĞ¡½áµãµÄÖµ£¬µ«ÊÇÕâÑùÓëgetMinĞ§¹ûÖØ¸´ÁË¡£¶øÇÒ±ØĞëÒª¸üĞÂ¸ù½Úµã!!
+	void deleteMin();	//deleteMinåŸå…ˆæˆ‘çš„è®¾å®šæ˜¯è¿”å›getMinç›¸åŒçš„å€¼ï¼Œå³è¢«åˆ é™¤çš„æœ€å°ç»“ç‚¹çš„å€¼ï¼Œä½†æ˜¯è¿™æ ·ä¸getMinæ•ˆæœé‡å¤äº†ã€‚è€Œä¸”å¿…é¡»è¦æ›´æ–°æ ¹èŠ‚ç‚¹!!
 	void deleteNode(T data);
 	~BST();
 };

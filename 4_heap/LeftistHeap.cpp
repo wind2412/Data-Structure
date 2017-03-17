@@ -21,16 +21,16 @@ int LeftistHeap<T, Comp>::npl(TreeNode* x){
 }
 
 template <typename T, typename Comp>
-void LeftistHeap<T, Comp>::merge(LeftistHeap & rhs){	//Ö÷Òª±ÜÃâÖØÃû£¬²¢ÇÒÔö¼Óº¯ÊıÈë¿Ú¡£ 
-	if(this == &rhs)	return;	//±ÜÃâmergeÍ¬Ò»¿ÃÊ÷
-	root = merge(root, rhs.root);	//°ÑÓÒ±ßµÄmergeµ½×ó±ß£¬È»ºóÇå¿ÕÓÒ±ß¡£ 
+void LeftistHeap<T, Comp>::merge(LeftistHeap & rhs){	//ä¸»è¦é¿å…é‡åï¼Œå¹¶ä¸”å¢åŠ å‡½æ•°å…¥å£ã€‚ 
+	if(this == &rhs)	return;	//é¿å…mergeåŒä¸€æ£µæ ‘
+	root = merge(root, rhs.root);	//æŠŠå³è¾¹çš„mergeåˆ°å·¦è¾¹ï¼Œç„¶åæ¸…ç©ºå³è¾¹ã€‚ 
 }
 
-template <typename T, typename Comp>	//ÓÉ¶Ô¡¶¿ÉÊÓ»¯Êı¾İ½á¹¹¡·µÄ¹Û²ìĞ´³ö  //http://www.u396.com/wp-content/collection/data-structure-visualizations/LeftistHeap.html 
+template <typename T, typename Comp>	//ç”±å¯¹ã€Šå¯è§†åŒ–æ•°æ®ç»“æ„ã€‹çš„è§‚å¯Ÿå†™å‡º  //http://www.u396.com/wp-content/collection/data-structure-visualizations/LeftistHeap.html 
 typename LeftistHeap<T, Comp>::TreeNode* LeftistHeap<T, Comp>::merge(TreeNode* h1, TreeNode* h2){
-	if(h1 == nullptr)		return h2;	//µİ¹é»ù 	²»Ğè¸üĞÂnpl 
-	else if(h2 == nullptr)	return h1;	//µİ¹é»ù 	²»Ğè¸üĞÂnpl 
-	else if(comp(h1->data, h2->data)){	//²»¹ÜÆäËû£¬¾ÍÊÇ°ÑĞ¡Ê÷µÄrightºÍ´óÊ÷Õû¸ömerge£¡È»ºó·µ»Ø¸ù½Úµã£¡ 
+	if(h1 == nullptr)		return h2;	//é€’å½’åŸº 	ä¸éœ€æ›´æ–°npl 
+	else if(h2 == nullptr)	return h1;	//é€’å½’åŸº 	ä¸éœ€æ›´æ–°npl 
+	else if(comp(h1->data, h2->data)){	//ä¸ç®¡å…¶ä»–ï¼Œå°±æ˜¯æŠŠå°æ ‘çš„rightå’Œå¤§æ ‘æ•´ä¸ªmergeï¼ç„¶åè¿”å›æ ¹èŠ‚ç‚¹ï¼ 
 		h1->right = merge(h1->right, h2);	
 		h1->npl = min(npl(h1->left), npl(h1->right)) + 1;
 		if(npl(h1->left) < npl(h1->right))	swap(h1);
@@ -44,27 +44,27 @@ typename LeftistHeap<T, Comp>::TreeNode* LeftistHeap<T, Comp>::merge(TreeNode* h
 	}
 } 
 
-/***************¡¶Êı¾İ½á¹¹ÓëËã·¨·ÖÎö¡·´úÂë********************/
+/***************ã€Šæ•°æ®ç»“æ„ä¸ç®—æ³•åˆ†æã€‹ä»£ç ********************/
 /**template <typename T, typename Comp>
-typename LeftistHeap<T, Comp>::TreeNode* LeftistHeap<T, Comp>::merge(TreeNode* h1, TreeNode* h2){	//°Ñ¸ùĞ¡µÄTreeNode·Åµ½×ó±ß¡£²¢ÇÒÔö¼Óº¯ÊıÈë¿Ú¡£ 
-	if(h1 == nullptr)		return h2;	//µİ¹é»ù 
-	else if(h2 == nullptr)	return h1;	//µİ¹é»ù 
+typename LeftistHeap<T, Comp>::TreeNode* LeftistHeap<T, Comp>::merge(TreeNode* h1, TreeNode* h2){	//æŠŠæ ¹å°çš„TreeNodeæ”¾åˆ°å·¦è¾¹ã€‚å¹¶ä¸”å¢åŠ å‡½æ•°å…¥å£ã€‚ 
+	if(h1 == nullptr)		return h2;	//é€’å½’åŸº 
+	else if(h2 == nullptr)	return h1;	//é€’å½’åŸº 
 	else if(comp(h1->data, h2->data))	return innerMerge(h1, h2);
-	else 								return innerMerge(h2, h1);	//ÏàµÈµÄÌõ¼şÒ²ËãÉÏÁË¡£ 
+	else 								return innerMerge(h2, h1);	//ç›¸ç­‰çš„æ¡ä»¶ä¹Ÿç®—ä¸Šäº†ã€‚ 
 }
 
 template <typename T, typename Comp>
-typename LeftistHeap<T, Comp>::TreeNode* LeftistHeap<T, Comp>::innerMerge(TreeNode* h1, TreeNode* h2){	//Ä¿Ç°h1ÊÇ¸ù½Úµã½ÏĞ¡µÄÊ÷¡£ 
-	//×¢ÒâÕâ¸öif¡£ÒòÎªÏàµ±ÓÚÖ±½Ó²åÈëµ½h1µÄÓÒ±ß£¬È»ºóÓÉÓÚnplÎÊÌâ£¨this->left->npl < this->right->npl£©Òò¶øÒªswap£¡¶ø¸÷½Úµãnpl²¢Ã»¸üĞÂ£¬ËùÒÔ
-	//Õâ¸öµ¥¶ÀµÄÇé¿ö¾ÍÏàµ±ÓÚÖ±½ÓÔÚ×ó±ß²åÈëÁË£¡£¡ÕâÖÖÓÅ»¯ºÜÃî£¬µ«ÊÇ¶Ô³õÑ§ÕßºÜ²»ÓÑºÃ¾ÍÊÇÁË¡£¡£ 
-	if(h1->left == nullptr) h1->left = h2;	//Ö»ÓĞ½áµãÎª×Ô¼ºµÄh1	//Á¬npl¶¼²»ĞèÒª¸üĞÂ¡£	//ÒòÎªthis->nplÊÇ×óÓÒ½áµãnpl×îĞ¡Öµ+1. ¶øÓÒ½áµãnullptr->npl=-1.Òò´Ëthis->npl»¹ÊÇ0. 
+typename LeftistHeap<T, Comp>::TreeNode* LeftistHeap<T, Comp>::innerMerge(TreeNode* h1, TreeNode* h2){	//ç›®å‰h1æ˜¯æ ¹èŠ‚ç‚¹è¾ƒå°çš„æ ‘ã€‚ 
+	//æ³¨æ„è¿™ä¸ªifã€‚å› ä¸ºç›¸å½“äºç›´æ¥æ’å…¥åˆ°h1çš„å³è¾¹ï¼Œç„¶åç”±äºnplé—®é¢˜ï¼ˆthis->left->npl < this->right->nplï¼‰å› è€Œè¦swapï¼è€Œå„èŠ‚ç‚¹nplå¹¶æ²¡æ›´æ–°ï¼Œæ‰€ä»¥
+	//è¿™ä¸ªå•ç‹¬çš„æƒ…å†µå°±ç›¸å½“äºç›´æ¥åœ¨å·¦è¾¹æ’å…¥äº†ï¼ï¼è¿™ç§ä¼˜åŒ–å¾ˆå¦™ï¼Œä½†æ˜¯å¯¹åˆå­¦è€…å¾ˆä¸å‹å¥½å°±æ˜¯äº†ã€‚ã€‚ 
+	if(h1->left == nullptr) h1->left = h2;	//åªæœ‰ç»“ç‚¹ä¸ºè‡ªå·±çš„h1	//è¿npléƒ½ä¸éœ€è¦æ›´æ–°ã€‚	//å› ä¸ºthis->nplæ˜¯å·¦å³ç»“ç‚¹nplæœ€å°å€¼+1. è€Œå³ç»“ç‚¹nullptr->npl=-1.å› æ­¤this->nplè¿˜æ˜¯0. 
 	else{
-		//h2µÄrootËÍ¸ø°Ñh1£¨Ğ¡£©µÄrightÖØĞÂmerge().
+		//h2çš„rooté€ç»™æŠŠh1ï¼ˆå°ï¼‰çš„righté‡æ–°merge().
 		h1->right = merge(h1->right, h2);
 		
-		//µİ¹é¸üĞÂnpl
+		//é€’å½’æ›´æ–°npl
 		h1->npl = std::min(npl(h1->left), npl(h1->right)) + 1;
-		//×ó±ßnpl < ÓÒ±ßnpl    Ôò½»»»¡£    ÒòÎª×ó±ßnplÒ»¶¨Òª´óÓÚÓÒ±ßnpl²ÅÊÇ×óÆ«Ê÷¡£ 
+		//å·¦è¾¹npl < å³è¾¹npl    åˆ™äº¤æ¢ã€‚    å› ä¸ºå·¦è¾¹nplä¸€å®šè¦å¤§äºå³è¾¹nplæ‰æ˜¯å·¦åæ ‘ã€‚ 
 		if(npl(h1->left) < npl(h2->right))	swap(h1);	 
 	}
 	return h1;

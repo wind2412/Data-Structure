@@ -7,43 +7,43 @@
 using namespace std;
 
 template <typename Pointer>
-class Less;	//×îĞ¡ÀàÉùÃ÷ 
+class Less;	//æœ€å°ç±»å£°æ˜ 
 /**
- * ¹ş·òÂüÊ÷£º
- * ´øÈ¨×î¶Ì¶ş²æÊ÷£¬¼´×îÓÅ¶ş²æÊ÷¡£ 
+ * å“ˆå¤«æ›¼æ ‘ï¼š
+ * å¸¦æƒæœ€çŸ­äºŒå‰æ ‘ï¼Œå³æœ€ä¼˜äºŒå‰æ ‘ã€‚ 
  */
 template <typename T, typename Comp = std::less<T>>
 class HuffmanTree{
 public:
 	struct TreeNode{
 		public: 
-			T weight;	//½áµãµÄÈ¨Öµ 
+			T weight;	//ç»“ç‚¹çš„æƒå€¼ 
 			TreeNode* left;
 			TreeNode* right;
 		public:
 			TreeNode(T weight, TreeNode* left = nullptr, TreeNode* right = nullptr) :weight(weight), left(left), right(right) {};
-			bool operator < (TreeNode & x) const {return comp(weight, x.weight);}	//ÕâÀïµÄcompÊÇÍâ²¿staticµÄ¡£C++ÄÚ²¿ÀàÖ»ÄÜµ÷ÓÃÍâ±ßµÄstatic£¿£¿ÓÃÀàÃû::³ÉÔ±Ò²¿ÉÒÔµ÷ÓÃ°É£¬Ã»ÊÔ¹ı¡£ 
+			bool operator < (TreeNode & x) const {return comp(weight, x.weight);}	//è¿™é‡Œçš„compæ˜¯å¤–éƒ¨staticçš„ã€‚C++å†…éƒ¨ç±»åªèƒ½è°ƒç”¨å¤–è¾¹çš„staticï¼Ÿï¼Ÿç”¨ç±»å::æˆå‘˜ä¹Ÿå¯ä»¥è°ƒç”¨å§ï¼Œæ²¡è¯•è¿‡ã€‚ 
 	};
 private:
-	static Comp comp;		//±È½ÏÆ÷ 
-	TreeNode* root = nullptr;	//¸ù½Úµã 
-	//×¢ÒâÕâ¸ö×î´ó¶Ñ£¡£¡Ô½Ğ¡Ô½ÅÅÔÚºó±ß£¡£¡Òò´Ë±ØĞë·´×ÅĞ´Less¡£¡£¡£Òª²»»áÅÅ³É40,30,20,10...... 
-	priority_queue<TreeNode*, vector<TreeNode*>, Less<TreeNode*>> nodes;	//´ıÅÅĞòµÄ¼¯ºÏ  Ò²¿ÉÒÔÓÃvector,dequeÖ®Àà£¬µ«ÊÇĞèÒªÃ¿ÂÖÅÅĞò¡£ 
+	static Comp comp;		//æ¯”è¾ƒå™¨ 
+	TreeNode* root = nullptr;	//æ ¹èŠ‚ç‚¹ 
+	//æ³¨æ„è¿™ä¸ªæœ€å¤§å †ï¼ï¼è¶Šå°è¶Šæ’åœ¨åè¾¹ï¼ï¼å› æ­¤å¿…é¡»åç€å†™Lessã€‚ã€‚ã€‚è¦ä¸ä¼šæ’æˆ40,30,20,10...... 
+	priority_queue<TreeNode*, vector<TreeNode*>, Less<TreeNode*>> nodes;	//å¾…æ’åºçš„é›†åˆ  ä¹Ÿå¯ä»¥ç”¨vector,dequeä¹‹ç±»ï¼Œä½†æ˜¯éœ€è¦æ¯è½®æ’åºã€‚ 
 	int size;
 private:
-	void makeEmpty(TreeNode* x);	//µİ¹éÉ¾³ı 
+	void makeEmpty(TreeNode* x);	//é€’å½’åˆ é™¤ 
 public:
-	template <typename ITER>	HuffmanTree(ITER begin, ITER end);	//¹¹Ôìº¯Êı
-	~HuffmanTree();	//Îö¹¹º¯Êı
+	template <typename ITER>	HuffmanTree(ITER begin, ITER end);	//æ„é€ å‡½æ•°
+	~HuffmanTree();	//ææ„å‡½æ•°
 public: 
-	void print();	//ÏÈĞò±éÀú 
+	void print();	//å…ˆåºéå† 
 };
 
 template <typename Pointer>
-class Less{	//ÎªÁËÄÜ¹»×öµ½TreeNode*Ö®¼äµÄ±È½Ï¶øĞ´³öµÄLessÀà 
+class Less{	//ä¸ºäº†èƒ½å¤Ÿåšåˆ°TreeNode*ä¹‹é—´çš„æ¯”è¾ƒè€Œå†™å‡ºçš„Lessç±» 
 public:
 	bool operator()(Pointer & x, Pointer & y){
-		return *y < *x;	//ËäÈ»Ãû×Ö½ĞLess¡£¡£¡£µ«ÊÇÒÑ¾­Êµ¼ÊÊÇGreatÁË¡£¡£¡£ 
+		return *y < *x;	//è™½ç„¶åå­—å«Lessã€‚ã€‚ã€‚ä½†æ˜¯å·²ç»å®é™…æ˜¯Greatäº†ã€‚ã€‚ã€‚ 
 	}
 };
 

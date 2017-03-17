@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-//¶ş²æ¶Ñ£¬Ê¹ÓÃÊı×é¡£ 	//ĞÔÖÊ£ºËùÓĞroot¶¼Ğ¡ÓÚËüµÄÁ½¸öchild¡£ 
+//äºŒå‰å †ï¼Œä½¿ç”¨æ•°ç»„ã€‚ 	//æ€§è´¨ï¼šæ‰€æœ‰rootéƒ½å°äºå®ƒçš„ä¸¤ä¸ªchildã€‚ 
 template <typename T, typename Comp = std::less<T>>
 class MinPQ{
 private:
@@ -12,10 +12,10 @@ private:
 	int totalSize;
 	vector<T> data;
 private:
-	void upfloat(int k);	//²åÈëÔÚ×îºó±ßºó£¬°ÑÄ©ÔªËØÉÏ¸¡¡£ 
-	void sink(int k);	//É¾³ı×îĞ¡ÖµrootÖ®ºó£¬°ÑÄ©ÔªËØ½»»»£¬Ö®ºóÏÂ³ÁÄ©ÔªËØ¡£ 
+	void upfloat(int k);	//æ’å…¥åœ¨æœ€åè¾¹åï¼ŒæŠŠæœ«å…ƒç´ ä¸Šæµ®ã€‚ 
+	void sink(int k);	//åˆ é™¤æœ€å°å€¼rootä¹‹åï¼ŒæŠŠæœ«å…ƒç´ äº¤æ¢ï¼Œä¹‹åä¸‹æ²‰æœ«å…ƒç´ ã€‚ 
 public:
-	explicit MinPQ(Comp & comp);	//×Ô¶¨ÒåµÄ±È½ÏÆ÷¶ÔÏó 
+	explicit MinPQ(Comp & comp);	//è‡ªå®šä¹‰çš„æ¯”è¾ƒå™¨å¯¹è±¡ 
 	explicit MinPQ(int capacity = 100);
 	explicit MinPQ(const vector<T> & items);
 public:
@@ -23,7 +23,7 @@ public:
 	const T & getMin() const;
 	void insert(T const & x);
 	int getIndex(T const & x);
-	void changeValue(int index, T const & x);	//xÊÇ±»Ìæ»»Öµ¡£ 
+	void changeValue(int index, T const & x);	//xæ˜¯è¢«æ›¿æ¢å€¼ã€‚ 
 	void deleteMin();
 	void makeEmpty();
 	void printAll();

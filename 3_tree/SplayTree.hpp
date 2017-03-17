@@ -4,26 +4,26 @@
 using namespace std;
 
 //the programming information is from: https://zh.wikipedia.org/wiki/%E4%BC%B8%E5%B1%95%E6%A0%91
-//SplayTreeÊÇ×Ó½Úµã¿ØÖÆrootĞı×ª¡£ÒòÎªÊÇÏßË÷µÄ£¬ËùÒÔÓĞÖ¸ÏòparentµÄÖ¸Õë¡£ÕâÑù×Ó½Úµã¾Í±»µ¯ÉÏÈ¥ÁË¡£ 
+//SplayTreeæ˜¯å­èŠ‚ç‚¹æ§åˆ¶rootæ—‹è½¬ã€‚å› ä¸ºæ˜¯çº¿ç´¢çš„ï¼Œæ‰€ä»¥æœ‰æŒ‡å‘parentçš„æŒ‡é’ˆã€‚è¿™æ ·å­èŠ‚ç‚¹å°±è¢«å¼¹ä¸Šå»äº†ã€‚ 
 template <typename T, typename Comp = std::less<T>>
 class SplayTree{
 private:
-	Comp comp;	//±È½ÏÆ÷¡£ 
-	unsigned size; //Ê÷´óĞ¡¡£ 
+	Comp comp;	//æ¯”è¾ƒå™¨ã€‚ 
+	unsigned size; //æ ‘å¤§å°ã€‚ 
 	struct SplayNode{
 		T data;
 		SplayNode* left, * right;
-		SplayNode* parent;	//ÒªºÍ¸¸½Úµã½»»¥¡£ 
+		SplayNode* parent;	//è¦å’Œçˆ¶èŠ‚ç‚¹äº¤äº’ã€‚ 
 		SplayNode(T data, SplayNode* parent = nullptr, SplayNode* left = nullptr, SplayNode* right = nullptr)
 			:parent(parent), data(data), left(left), right(right){}; 
 	}*root = nullptr;
-private:	//6ÖÖÇé¿öĞı×ª¡£
-	void zig_only(SplayNode* x);  //Èç¹ûÃ»ÓĞ×æÏÈ(grandfather)½áµã£¬¾ÍÖ»×öÒ»´Îzig/zag. => left_rotate()
-	void zag_only(SplayNode* x);  //¾µÏñ¡£ => right_rotate()
-	void zig_zig(SplayNode* x);	  //³ÉÈı¸öµã[/]×ÖĞÎ¡£ÒªÖ±½Ó±ä³É[\]×ÖĞÎ¡£ 
-	void zig_zag(SplayNode* x);	  //³É[<]×ÖĞÎ¡£±ä³É[>]×ÖĞÎ¡£ 
-	void zag_zig(SplayNode* x);	  //¾µÏñ¡£ 
-	void zag_zag(SplayNode* x);	  //¾µÏñ¡£ 
+private:	//6ç§æƒ…å†µæ—‹è½¬ã€‚
+	void zig_only(SplayNode* x);  //å¦‚æœæ²¡æœ‰ç¥–å…ˆ(grandfather)ç»“ç‚¹ï¼Œå°±åªåšä¸€æ¬¡zig/zag. => left_rotate()
+	void zag_only(SplayNode* x);  //é•œåƒã€‚ => right_rotate()
+	void zig_zig(SplayNode* x);	  //æˆä¸‰ä¸ªç‚¹[/]å­—å½¢ã€‚è¦ç›´æ¥å˜æˆ[\]å­—å½¢ã€‚ 
+	void zig_zag(SplayNode* x);	  //æˆ[<]å­—å½¢ã€‚å˜æˆ[>]å­—å½¢ã€‚ 
+	void zag_zig(SplayNode* x);	  //é•œåƒã€‚ 
+	void zag_zag(SplayNode* x);	  //é•œåƒã€‚ 
 private:	//helping--tools
 	void preorderTraversal(SplayNode* t){
 		if(t != nullptr){
@@ -40,7 +40,7 @@ private:	//helping--tools
 		}
 	}
 	void splay(SplayNode* x); 
-	void replace(SplayNode* x, SplayNode* y);	//°ÑxµÄparentËùÖ¸ÏòµÄxÌæ»»³Éy¡£ 
+	void replace(SplayNode* x, SplayNode* y);	//æŠŠxçš„parentæ‰€æŒ‡å‘çš„xæ›¿æ¢æˆyã€‚ 
 public:
 	SplayTree() = default;
 	SplayNode* find(T const & );

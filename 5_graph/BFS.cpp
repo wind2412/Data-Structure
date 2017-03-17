@@ -4,8 +4,8 @@
 #include <deque>
 #include <queue>
 
-//¹ã¶ÈÓÅÏÈËÑË÷£º ÓĞÏòÎŞÈ¨Í¼ 
-//Í¬ÑùÊ¹ÓÃdeque<bool>À´´úÌæÎŞ·¨¶¯Ì¬³õÊ¼»¯µÄbitset 
+//å¹¿åº¦ä¼˜å…ˆæœç´¢ï¼š æœ‰å‘æ— æƒå›¾ 
+//åŒæ ·ä½¿ç”¨deque<bool>æ¥ä»£æ›¿æ— æ³•åŠ¨æ€åˆå§‹åŒ–çš„bitset 
 class BFS{
 private:
 	Graph g;
@@ -14,7 +14,7 @@ private:
 public:
 	BFS(Graph & g, int v): g(g), marked(g.getV()), distance(g.getV()){
 		if(v < 0 || v > g.getV() - 1){
-			cerr << "illegal argument of v£¡" << endl;
+			cerr << "illegal argument of vï¼" << endl;
 			return;
 		}
 		bfs(v);
@@ -29,7 +29,7 @@ public:
 				if(marked[e.to] == false){
 					q.push(e.to);
 					marked[e.to] = true;
-					distance[e.to] = distance[v] + 1;	//Æ¯ÁÁµØÊ¡È¥ÁËÒ»¸ö±äÁ¿£¡£¡ 
+					distance[e.to] = distance[v] + 1;	//æ¼‚äº®åœ°çœå»äº†ä¸€ä¸ªå˜é‡ï¼ï¼ 
 				}
 			}
 		}
@@ -53,7 +53,7 @@ int main()
 	g.print();
 	g.reverse().print();
 	
-	BFS bfs(g, 1);	//1ÄÜÍ¨ÏòÄÄ£¿
+	BFS bfs(g, 1);	//1èƒ½é€šå‘å“ªï¼Ÿ
 	for(int & i : bfs.getDistance()){
 		cout << i << " ";
 	} 

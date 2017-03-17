@@ -11,42 +11,42 @@ size_t HashTable<HashObj>::getHashPos(const HashObj & x){
 template <typename HashObj>
 void HashTable<HashObj>::insert(const HashObj & x){
 	size_t pos = getHashPos(x);
-	//Èç¹ûvectorÖ±½ÓÊ¢×°HashObj£¬²»ÊÇÖ¸Õë£¬ÄÇ¾Í¸ù±¾Ã»·¨ÅĞ¶ÏÄÇ¸ö¶ÔÏóÊÇ·ñ´æÔÚ£¡£¡³ıÁËÖ¸ÕëÓµÓĞnullptr£¬ÆäËûÀàĞÍ²»ÄÜÓÃ£¡ËùÒÔ±ØĞëÔÚHashObjÖĞ°ü×°Ò»¸öisUsed£¡£¡ 
-	for(; v[pos].isUsed != false; pos = (pos + 1)%v.size()){	//È«¶¼Õ¼ÓÃ¾ÍÒ»Ö±ÏòÏÂÏßĞÔËÑË÷¡£ 
-		if(v[pos].obj == x){	//Èç¹ûÒÑ¾­´æ¹ı£¬¾Í·µ»ØÁË¡£ Ñ­»·Ö®ÄÚ×¢ÒâÒ»¶¨Òª¡¾ÅĞµÈ£¡¡¿ 
+	//å¦‚æœvectorç›´æ¥ç››è£…HashObjï¼Œä¸æ˜¯æŒ‡é’ˆï¼Œé‚£å°±æ ¹æœ¬æ²¡æ³•åˆ¤æ–­é‚£ä¸ªå¯¹è±¡æ˜¯å¦å­˜åœ¨ï¼ï¼é™¤äº†æŒ‡é’ˆæ‹¥æœ‰nullptrï¼Œå…¶ä»–ç±»å‹ä¸èƒ½ç”¨ï¼æ‰€ä»¥å¿…é¡»åœ¨HashObjä¸­åŒ…è£…ä¸€ä¸ªisUsedï¼ï¼ 
+	for(; v[pos].isUsed != false; pos = (pos + 1)%v.size()){	//å…¨éƒ½å ç”¨å°±ä¸€ç›´å‘ä¸‹çº¿æ€§æœç´¢ã€‚ 
+		if(v[pos].obj == x){	//å¦‚æœå·²ç»å­˜è¿‡ï¼Œå°±è¿”å›äº†ã€‚ å¾ªç¯ä¹‹å†…æ³¨æ„ä¸€å®šè¦ã€åˆ¤ç­‰ï¼ã€‘ 
 			return;
 		}
 	}	
-	v[pos].obj = x;	//Ñ­»·Ö®ÍâÔÙ¡¾¸³Öµ£¡¡¿	//Õû¸öÑ­»·¾ÍÊÇÎªÁË¡¾ÕÒÎ»ÖÃ£¡¡¿ 
+	v[pos].obj = x;	//å¾ªç¯ä¹‹å¤–å†ã€èµ‹å€¼ï¼ã€‘	//æ•´ä¸ªå¾ªç¯å°±æ˜¯ä¸ºäº†ã€æ‰¾ä½ç½®ï¼ã€‘ 
 	v[pos].isUsed = true;
-	current_size ++;	//×¢ÒâÃ¿µ÷ÓÃÒ»´Îinsert¶¼»á++£¡£¡£¡¡¾ÏİÚå£¡£¡£¡¡¿ 
+	current_size ++;	//æ³¨æ„æ¯è°ƒç”¨ä¸€æ¬¡insertéƒ½ä¼š++ï¼ï¼ï¼ã€é™·é˜±ï¼ï¼ï¼ã€‘ 
 	if(current_size > v.capacity()/2){
-		rehash(v.capacity()*2);	//±ØĞëÊ¹ÓÃcapacity£¡£¡ÒòÎªÃ»ÓĞ´æÂú£¡ÓĞunUsed£¡£¡µ«ÊÇÁ´±í²»Í¬£¬Á´±íÈ«ÊÇÕ¼ÓÃvector¿Õ¼äµÄ£¡ 
+		rehash(v.capacity()*2);	//å¿…é¡»ä½¿ç”¨capacityï¼ï¼å› ä¸ºæ²¡æœ‰å­˜æ»¡ï¼æœ‰unUsedï¼ï¼ä½†æ˜¯é“¾è¡¨ä¸åŒï¼Œé“¾è¡¨å…¨æ˜¯å ç”¨vectorç©ºé—´çš„ï¼ 
 	}
 }
 
 template <typename HashObj>
 void HashTable<HashObj>::remove(const HashObj & x){
 	size_t pos = getHashPos(x);
-	if(!contains(x))	return;	//ÏÈÓÃcontains()¼ì²âÒ»ÏÂ¡£ÒòÎªĞ´ÔÚÒ»Æğ±È½ÏÂé·³£¬ÆäÊµÒ²¿ÉÒÔ²»ÕâÃ´Ğ´¡£ 
+	if(!contains(x))	return;	//å…ˆç”¨contains()æ£€æµ‹ä¸€ä¸‹ã€‚å› ä¸ºå†™åœ¨ä¸€èµ·æ¯”è¾ƒéº»çƒ¦ï¼Œå…¶å®ä¹Ÿå¯ä»¥ä¸è¿™ä¹ˆå†™ã€‚ 
 	
 	for(; v[pos].isUsed != false; pos = (pos + 1)%v.size()){
 		if(v[pos].obj == x){
 			break;
 		}
 	} 
-	v[pos].isUsed = false;	//±äÎªÎ´Ê¹ÓÃ¡£
+	v[pos].isUsed = false;	//å˜ä¸ºæœªä½¿ç”¨ã€‚
 	current_size --;
 	
-	pos = (pos + 1) % v.size();	//ÏòÇ°ÒÆÎ»¡£ 
-	while(v[pos].isUsed != false){	//ÎªÊ²Ã´Òª½«Ò»¸ö¼ü´ØÈ«²¿ÖØÖÃ£¿Ò»¸ö¼ü´Ø¾ÍÊÇÖ¸´ÓÒ»¸önullÓÒ±ßµ½ÁíÒ»¸önullÖ®¼äµÄËùÓĞÔªËØ¡£¶øÇÒÓĞ¿ÉÄÜ³¬³öÄ©¶Ë´ÓÍ·¿ªÊ¼¡£
-		v[pos].isUsed = false;	//ÏÈÖÃÉ¾³ı¡£ 
+	pos = (pos + 1) % v.size();	//å‘å‰ç§»ä½ã€‚ 
+	while(v[pos].isUsed != false){	//ä¸ºä»€ä¹ˆè¦å°†ä¸€ä¸ªé”®ç°‡å…¨éƒ¨é‡ç½®ï¼Ÿä¸€ä¸ªé”®ç°‡å°±æ˜¯æŒ‡ä»ä¸€ä¸ªnullå³è¾¹åˆ°å¦ä¸€ä¸ªnullä¹‹é—´çš„æ‰€æœ‰å…ƒç´ ã€‚è€Œä¸”æœ‰å¯èƒ½è¶…å‡ºæœ«ç«¯ä»å¤´å¼€å§‹ã€‚
+		v[pos].isUsed = false;	//å…ˆç½®åˆ é™¤ã€‚ 
 		insert(v[pos].obj);
-		current_size--;//¡¾±ğÍüÁËÕâTMÊÇ¸ö¿Ó¡£¡£¡£Ã¿´Îinsert()Ä¬ÈÏcurrent_sizeÒª++¡£¡£¡£¡£¡¿ 
+		current_size--;//ã€åˆ«å¿˜äº†è¿™TMæ˜¯ä¸ªå‘ã€‚ã€‚ã€‚æ¯æ¬¡insert()é»˜è®¤current_sizeè¦++ã€‚ã€‚ã€‚ã€‚ã€‘ 
 		pos = (pos + 1) % v.size(); 
 	} 
 	
-	if(current_size != 0 && current_size < v.capacity()/8){	//Ğ¡ÓÚcapacityµÄ1/8¾ÍÖØĞÂ»»ÈİÆ÷¡£ 
+	if(current_size != 0 && current_size < v.capacity()/8){	//å°äºcapacityçš„1/8å°±é‡æ–°æ¢å®¹å™¨ã€‚ 
 		rehash(v.capacity()/2);
 	}
 	
@@ -72,13 +72,13 @@ template <typename HashObj>
 void HashTable<HashObj>::rehash(size_t capacity){
 	HashTable<HashObj> newHashTable(capacity);
 	for(HashContainer<HashObj> & x : v){
-		if(x.isUsed == true)			//Ç§Íò±ğÍüÁËÕâ¾ä£¡ ÒòÎªÓĞ±êÖ¾Î»£¬ËùÒÔ²»Ò»Ñù£¡¶øÇÒ·ÖÀëÁ´±íÈ«ÊÇÁ´±í£¬±ØĞëÈ«¶¼¼ÓÈë£¡£¡ 
+		if(x.isUsed == true)			//åƒä¸‡åˆ«å¿˜äº†è¿™å¥ï¼ å› ä¸ºæœ‰æ ‡å¿—ä½ï¼Œæ‰€ä»¥ä¸ä¸€æ ·ï¼è€Œä¸”åˆ†ç¦»é“¾è¡¨å…¨æ˜¯é“¾è¡¨ï¼Œå¿…é¡»å…¨éƒ½åŠ å…¥ï¼ï¼ 
 			newHashTable.insert(x.obj);
 	}
-//	this->v = newHashTable.v;	//Ô­À´Èç´Ë¡£¡£¡£vectorµÄ¿½±´¹¹ÔìÊÇÖ±½Ó°ÑÖµÈ«¸³¹ıÈ¥¡£¡£¶øÈç¹ûnewHashTable.capacityÌ«Ğ¡£¬Ò²²»»á¸Ä±äthis->vµÄcapacity¡£
-								//¶øÖ»ÊÇÖµµÄ¸³Öµ¶øÒÑ¡£ËùÒÔcapacity¸ù±¾²»±ä£¡£¡ 
-//	this->v.reserve(capacity);	//Õâ¾äËõÈİ²»¹ÜÓÃ¡£¡£¡£
-	std::swap(this->v, newHashTable.v);	//ÖÕ¼«¾øÕĞ£¡swap£¡ °¡¹ş¹ş¹ş¹ş¹ş£¡£¡ 
+//	this->v = newHashTable.v;	//åŸæ¥å¦‚æ­¤ã€‚ã€‚ã€‚vectorçš„æ‹·è´æ„é€ æ˜¯ç›´æ¥æŠŠå€¼å…¨èµ‹è¿‡å»ã€‚ã€‚è€Œå¦‚æœnewHashTable.capacityå¤ªå°ï¼Œä¹Ÿä¸ä¼šæ”¹å˜this->vçš„capacityã€‚
+								//è€Œåªæ˜¯å€¼çš„èµ‹å€¼è€Œå·²ã€‚æ‰€ä»¥capacityæ ¹æœ¬ä¸å˜ï¼ï¼ 
+//	this->v.reserve(capacity);	//è¿™å¥ç¼©å®¹ä¸ç®¡ç”¨ã€‚ã€‚ã€‚
+	std::swap(this->v, newHashTable.v);	//ç»ˆæç»æ‹›ï¼swapï¼ å•Šå“ˆå“ˆå“ˆå“ˆå“ˆï¼ï¼ 
 }
 
 template <typename HashObj>

@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-//SedgeWick×óÇãºìºÚÊ÷LLRB¡£ 		//delete·½·¨ÉĞÎ´ÅªÇå³ş¡£¡£¹Ê¶øÃ»ÓĞÊµÏÖ 
+//SedgeWickå·¦å€¾çº¢é»‘æ ‘LLRBã€‚ 		//deleteæ–¹æ³•å°šæœªå¼„æ¸…æ¥šã€‚ã€‚æ•…è€Œæ²¡æœ‰å®ç° 
 template <typename T, typename Comp = std::less<T>>
 class RedBlackTree{
 private:
@@ -31,7 +31,7 @@ private:
 	int size(TreeNode* x);
 public:
 	RedBlackTree() = default;
-	void insert(const T & data){insert(root, data); root->color = BLACK;}	//Ç§Íò±ğÍüÁË°Ñ¸ù½Úµã±ä³ÉBLACK£¡£¡£¡ 
+	void insert(const T & data){insert(root, data); root->color = BLACK;}	//åƒä¸‡åˆ«å¿˜äº†æŠŠæ ¹èŠ‚ç‚¹å˜æˆBLACKï¼ï¼ï¼ 
 	void remove(const T & data){remove(root, data);}
 	void inOrderTraversal();
 };

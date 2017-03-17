@@ -2,17 +2,17 @@
 #define _HEAP_IMPL_H_
 #include "MinHeap.hpp"
  
-/**************¹¹Ôìº¯Êı****************/
+/**************æ„é€ å‡½æ•°****************/
 template <typename T, typename Comp>
 MinPQ<T, Comp>::MinPQ(Comp & comp) : comp(comp){
-	data.push_back(T{});	//µÚÒ»¸öÎ»ÖÃÊÇ²»ÄÜ±»Ê¹ÓÃµÄ£¬ÏÂ±ê´Ó1¿ªÊ¼¡£
+	data.push_back(T{});	//ç¬¬ä¸€ä¸ªä½ç½®æ˜¯ä¸èƒ½è¢«ä½¿ç”¨çš„ï¼Œä¸‹æ ‡ä»1å¼€å§‹ã€‚
 	totalSize = 0; 
 }
 
 template <typename T, typename Comp>
 MinPQ<T, Comp>::MinPQ(int capacity){
-	data.reserve(capacity + 1);	//µÚÒ»¸öÎ»ÖÃÓÃ²»ÁË¡£ 
-	data.push_back(T{});	//µÚÒ»¸öÎ»ÖÃÊÇ²»ÄÜ±»Ê¹ÓÃµÄ£¬ÏÂ±ê´Ó1¿ªÊ¼¡£
+	data.reserve(capacity + 1);	//ç¬¬ä¸€ä¸ªä½ç½®ç”¨ä¸äº†ã€‚ 
+	data.push_back(T{});	//ç¬¬ä¸€ä¸ªä½ç½®æ˜¯ä¸èƒ½è¢«ä½¿ç”¨çš„ï¼Œä¸‹æ ‡ä»1å¼€å§‹ã€‚
 	totalSize = 0; 
 }
 
@@ -21,14 +21,14 @@ MinPQ<T, Comp>::MinPQ(const vector<T> & v){
 	data.push_back(T{});
 	totalSize = v.size();
 	for(typename vector<T>::const_iterator i = v.begin(); i < v.end(); ++ i){
-		data.push_back(*i);	//°ÑÊı¾İ½øĞĞ²åÈë²Ù×÷¡£ 
+		data.push_back(*i);	//æŠŠæ•°æ®è¿›è¡Œæ’å…¥æ“ä½œã€‚ 
 	}
-	for(int k = totalSize/2; k > 1; k --){	//Õâ¸öÌ«Ãî£¡£¡ÓÉÓÚÊÇÍêÈ«¶ş²æÊ÷£¬Òò´Ë³ıÒÔ¶ş¾ÍÊÇ×îºóÒ»¸öparent£¬µ¹×Å¶ÔËùÓĞsink£¡ 
+	for(int k = totalSize/2; k > 1; k --){	//è¿™ä¸ªå¤ªå¦™ï¼ï¼ç”±äºæ˜¯å®Œå…¨äºŒå‰æ ‘ï¼Œå› æ­¤é™¤ä»¥äºŒå°±æ˜¯æœ€åä¸€ä¸ªparentï¼Œå€’ç€å¯¹æ‰€æœ‰sinkï¼ 
 		sink(k);
 	}
 }
 
-/**************»ù±¾¹¤¾ß****************/
+/**************åŸºæœ¬å·¥å…·****************/
 template <typename T, typename Comp>
 void MinPQ<T, Comp>::upfloat(int k){	//after insertion
 	for(; k > 1 && comp(data[k], data[k/2]); k /= 2){
@@ -49,10 +49,10 @@ void MinPQ<T, Comp>::sink(int k){	//after deletion
 	}
 }
 
-/**************ÖØÒªº¯Êı***************/
+/**************é‡è¦å‡½æ•°***************/
 template <typename T, typename Comp>
 void MinPQ<T, Comp>::insert(T const & x){
-	data.push_back(x);	//ÔÚºó±ß¼ÓÉÏ£¡ 
+	data.push_back(x);	//åœ¨åè¾¹åŠ ä¸Šï¼ 
 	totalSize ++;
 	upfloat(totalSize);
 }
@@ -64,14 +64,14 @@ const T & MinPQ<T, Comp>::getMin() const{
 
 template <typename T, typename Comp>
 void MinPQ<T, Comp>::deleteMin(){
-	if(isEmpty()) return;	//Ö»ÓĞÒ»¸öÔªËØÊ±£¬ÏÂ±ßÒ²ÄÜ¹¤×÷£¡×Ô¼ººÍ×Ô¼º½»»»¡£ 
+	if(isEmpty()) return;	//åªæœ‰ä¸€ä¸ªå…ƒç´ æ—¶ï¼Œä¸‹è¾¹ä¹Ÿèƒ½å·¥ä½œï¼è‡ªå·±å’Œè‡ªå·±äº¤æ¢ã€‚ 
 	swap(data[1], data[totalSize]);
 	data.pop_back();
 	totalSize --;
 	sink(1);
 }
 
-/**************ÆäËûº¯Êı**************/
+/**************å…¶ä»–å‡½æ•°**************/
 template <typename T, typename Comp>
 int MinPQ<T, Comp>::getIndex(T const & x){
 	for(int i = 1; i < totalSize; i ++){
@@ -85,9 +85,9 @@ int MinPQ<T, Comp>::getIndex(T const & x){
 template <typename T, typename Comp>
 void MinPQ<T, Comp>::changeValue(int index, const T & value){
 	if(index < 1 || index > totalSize)	return;
-	if(comp(value, data[index])){	//Ê¹ÓÃ±È½ÏÆ÷¡£ÔÚDijkstraÖĞÕâ¸ö·½·¨±»Ê¹ÓÃµ½¡£ËäÈ»½áµã²¢Ã»ÓĞ¸Ä±ä£¬µ«ÊÇÍâ²¿vectorÖĞµÄÈ¨Öµ¸Ä±äÁË¡£ 
-		data[index] = value;		//½áµã±¾Éí²¢²»±ä»¯£¬µ«ÊÇÓÉÓÚÍâ²¿È¨ÖµµÄ±ä»¯£¬Ôì³É¸Ã½ÚµãĞèÒªÉÏ¸¡/ÏÂ³Á¡£ 
-		upfloat(index);				//Òò´Ë±ØĞëÊ¹ÓÃ±È½ÏÆ÷½øĞĞ±È½Ï¡£µ±È»£¬Ê¹ÓÃ±È½ÏÆ÷±È½ÏÒ²Ó¦¸ÃÊÇ»ù±¾Ô­Ôò¡£ 
+	if(comp(value, data[index])){	//ä½¿ç”¨æ¯”è¾ƒå™¨ã€‚åœ¨Dijkstraä¸­è¿™ä¸ªæ–¹æ³•è¢«ä½¿ç”¨åˆ°ã€‚è™½ç„¶ç»“ç‚¹å¹¶æ²¡æœ‰æ”¹å˜ï¼Œä½†æ˜¯å¤–éƒ¨vectorä¸­çš„æƒå€¼æ”¹å˜äº†ã€‚ 
+		data[index] = value;		//ç»“ç‚¹æœ¬èº«å¹¶ä¸å˜åŒ–ï¼Œä½†æ˜¯ç”±äºå¤–éƒ¨æƒå€¼çš„å˜åŒ–ï¼Œé€ æˆè¯¥èŠ‚ç‚¹éœ€è¦ä¸Šæµ®/ä¸‹æ²‰ã€‚ 
+		upfloat(index);				//å› æ­¤å¿…é¡»ä½¿ç”¨æ¯”è¾ƒå™¨è¿›è¡Œæ¯”è¾ƒã€‚å½“ç„¶ï¼Œä½¿ç”¨æ¯”è¾ƒå™¨æ¯”è¾ƒä¹Ÿåº”è¯¥æ˜¯åŸºæœ¬åŸåˆ™ã€‚ 
 	}
 	else if(comp(value, data[index])){
 		data[index] = value;
@@ -120,7 +120,7 @@ void MinPQ<T, Comp>::printAll(){
 
 void testMinHeap()
 {
-	MinPQ<int> m;	//ÎŞ²Î¹¹Ôìº¯Êı²»ÄÜ¼ÓÀ¨ºÅ¡£¡£¡£·ñÔò±¨´í³¬Ææ¹Ö¡£¡£ 
+	MinPQ<int> m;	//æ— å‚æ„é€ å‡½æ•°ä¸èƒ½åŠ æ‹¬å·ã€‚ã€‚ã€‚å¦åˆ™æŠ¥é”™è¶…å¥‡æ€ªã€‚ã€‚ 
 	m.insert(3);
 	m.insert(6);
 	m.insert(2);

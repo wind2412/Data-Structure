@@ -4,18 +4,18 @@
 #include <vector>
 using namespace std;
 
-//²¢²é¼¯ £¨Ê÷ĞÎ½á¹¹£©	×¢£º±¾×ÅÖ»ÊÇÑ§Ï°Êı¾İ½á¹¹µÄÄ¿µÄ£¬²¢Ã»×ö¹ıÓÚÏ¸ÖÂµÄÒì³£¼ì²é 
+//å¹¶æŸ¥é›† ï¼ˆæ ‘å½¢ç»“æ„ï¼‰	æ³¨ï¼šæœ¬ç€åªæ˜¯å­¦ä¹ æ•°æ®ç»“æ„çš„ç›®çš„ï¼Œå¹¶æ²¡åšè¿‡äºç»†è‡´çš„å¼‚å¸¸æ£€æŸ¥ 
 class UnionFind{
 private:
 	vector<int> root;
-	vector<int> size;	//°ÑĞ¡µÄÊ÷¹éµ½´óµÄÊ÷ÖĞ 
+	vector<int> size;	//æŠŠå°çš„æ ‘å½’åˆ°å¤§çš„æ ‘ä¸­ 
 public:
 	UnionFind(int num);
-	int find(int k);	//µÃµ½¸ù 
-	void Union(int m, int n);	//ºÏ²¢Á½ÕßµÄ¸ù½Úµã 
-	bool connected(int m, int n);	//¼ì²âÁ½ÕßÊÇ·ñÁ¬Í¨ 
+	int find(int k);	//å¾—åˆ°æ ¹ 
+	void Union(int m, int n);	//åˆå¹¶ä¸¤è€…çš„æ ¹èŠ‚ç‚¹ 
+	bool connected(int m, int n);	//æ£€æµ‹ä¸¤è€…æ˜¯å¦è¿é€š 
 public: 
-	void print();	//´òÓ¡µ÷ÊÔĞÅÏ¢ 
+	void print();	//æ‰“å°è°ƒè¯•ä¿¡æ¯ 
 }; 
 
 #include "union-find_impl.hpp"

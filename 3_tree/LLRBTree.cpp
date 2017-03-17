@@ -6,21 +6,21 @@
 template <typename T, typename Comp>
 using TreeNode = typename RedBlackTree<T, Comp>::TreeNode;
 
-/*****************»ù±¾º¯Êı*******************/ 
+/*****************åŸºæœ¬å‡½æ•°*******************/ 
 template <typename T, typename Comp>
 int RedBlackTree<T, Comp>::size(TreeNode* x){
 	return x == nullptr ? 0 : x->size;
 }
 
 template <typename T, typename Comp>
-bool RedBlackTree<T, Comp>::isRed(TreeNode* x){	//nullptr½áµãµ±³ÉºÚÉ«£¡×îµ×ÏÂµÄÈ«ÊÇºÚÉ«±ğÍüÁË£¡ 
+bool RedBlackTree<T, Comp>::isRed(TreeNode* x){	//nullptrç»“ç‚¹å½“æˆé»‘è‰²ï¼æœ€åº•ä¸‹çš„å…¨æ˜¯é»‘è‰²åˆ«å¿˜äº†ï¼ 
 	if(x == nullptr)	return false;
 	return x->color == RED;
 }
 
-/*****************ÖØÒªº¯Êı*******************/
-template <typename T, typename Comp>	//×óĞı¡¢ÓÒĞıµÄÌõ¼şÓ¦¸Ã¶¼ÊÇ£ºÁ½¸ö½ÚµãÖ®¼äµÄÏß¶ÎÊÇRED¡£ 
-void RedBlackTree<T, Comp>::rotateLeft(TreeNode* &x){	//×óĞı£¬±ØĞëÊÇx->right->color == RED. 
+/*****************é‡è¦å‡½æ•°*******************/
+template <typename T, typename Comp>	//å·¦æ—‹ã€å³æ—‹çš„æ¡ä»¶åº”è¯¥éƒ½æ˜¯ï¼šä¸¤ä¸ªèŠ‚ç‚¹ä¹‹é—´çš„çº¿æ®µæ˜¯REDã€‚ 
+void RedBlackTree<T, Comp>::rotateLeft(TreeNode* &x){	//å·¦æ—‹ï¼Œå¿…é¡»æ˜¯x->right->color == RED. 
 	TreeNode* temp = x->right;
 	x->right = temp->left;
 	temp->left = x;
@@ -28,12 +28,12 @@ void RedBlackTree<T, Comp>::rotateLeft(TreeNode* &x){	//×óĞı£¬±ØĞëÊÇx->right->co
 	x->color = RED;
 	x->size = temp->size;
 	temp->size = size(temp->left) + size(temp->right) + 1;
-	x = temp;	//×¢ÒâÇ§ÍòÒª¼ÓÕâ¾ä£¡¸³¸ø¸ù½Úµã~£¡ 
+	x = temp;	//æ³¨æ„åƒä¸‡è¦åŠ è¿™å¥ï¼èµ‹ç»™æ ¹èŠ‚ç‚¹~ï¼ 
 	return;
 }
 
 template <typename T, typename Comp>
-void RedBlackTree<T, Comp>::rotateRight(TreeNode* &x){	//ÓÒĞı¡£ºìºÚÊ÷ÖĞÃ»ÓĞÊ¹ÓÃÖ±½ÓÓÒĞıµÄ£¬´Ëº¯Êı×÷Îª±ğµÄº¯ÊıµÄ»ù´¡¡£//×óĞıµÄ¾µÏñ¡£ 
+void RedBlackTree<T, Comp>::rotateRight(TreeNode* &x){	//å³æ—‹ã€‚çº¢é»‘æ ‘ä¸­æ²¡æœ‰ä½¿ç”¨ç›´æ¥å³æ—‹çš„ï¼Œæ­¤å‡½æ•°ä½œä¸ºåˆ«çš„å‡½æ•°çš„åŸºç¡€ã€‚//å·¦æ—‹çš„é•œåƒã€‚ 
 	TreeNode* temp = x->left;
 	x->left = temp->right;
 	temp->right = x;
@@ -56,15 +56,15 @@ template <typename T, typename Comp>
 void RedBlackTree<T, Comp>::balance(TreeNode* &x){
 	if(x == nullptr)	return;
 	if(!isRed(x->left) && isRed(x->right))	rotateLeft(x);
-	if(isRed(x->left) && isRed(x->left->left))	rotateRight(x);	//Õâ¸öÆ¯ÁÁ£¡x->left->left±ÀÀ£µÄ¿ÉÄÜĞÔ£¨¼´x->left==nullptr£©µÄ¿ÉÄÜĞÔÔÚisRed(x->left)¾Í±ÀÀ£ÁË£¡ 
+	if(isRed(x->left) && isRed(x->left->left))	rotateRight(x);	//è¿™ä¸ªæ¼‚äº®ï¼x->left->leftå´©æºƒçš„å¯èƒ½æ€§ï¼ˆå³x->left==nullptrï¼‰çš„å¯èƒ½æ€§åœ¨isRed(x->left)å°±å´©æºƒäº†ï¼ 
 	if(isRed(x->left) && isRed(x->right))	flipColors(x);
 	
 	x->size = size(x->left) + size(x->right) + 1; 
 }
 
-/*******************APIÊµÏÖ******************/
+/*******************APIå®ç°******************/
 template <typename T, typename Comp>
-void RedBlackTree<T, Comp>::insert(TreeNode* &x, const T & data){	//µİ¹é¡£¿ÉÒÔ×Ôµ×ÏòÉÏ¸üĞÂsize£¬color²¢ÇÒ×Ôµ×ÏòÉÏ²»¶ÏĞı×ª¡£ 
+void RedBlackTree<T, Comp>::insert(TreeNode* &x, const T & data){	//é€’å½’ã€‚å¯ä»¥è‡ªåº•å‘ä¸Šæ›´æ–°sizeï¼Œcolorå¹¶ä¸”è‡ªåº•å‘ä¸Šä¸æ–­æ—‹è½¬ã€‚ 
 	if(x == nullptr)	x = new TreeNode(data);
 	else if(comp(x->data, data))	insert(x->right, data);
 	else if(comp(data, x->data))	insert(x->left, data);
@@ -77,7 +77,7 @@ void RedBlackTree<T, Comp>::insert(TreeNode* &x, const T & data){	//µİ¹é¡£¿ÉÒÔ×Ô
 	
 // }
 
-/****************ÖĞĞò±éÀú²âÊÔ****************/
+/****************ä¸­åºéå†æµ‹è¯•****************/
 template <typename T, typename Comp>
 void RedBlackTree<T, Comp>::inOrderTraversal(){
 	stack<TreeNode*> s;

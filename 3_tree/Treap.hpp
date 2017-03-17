@@ -5,9 +5,9 @@ using namespace std;
 
 /**
  *  http://blog.csdn.net/u014634338/article/details/49612159
- *	Treap = Tree + Heap¡£ TreapÊ÷×ÔÉí½áµãÂú×ã¶ş²æ²éÕÒÊ÷ĞÔÖÊ£¬¶ø×Ô´øµÄpriorityÓÅÏÈ¼¶Âú×ã¶ÑµÄĞÔÖÊ¡£ 
- *	TreapÖ»ÓĞÁ½ÖÖĞı×ª·½Ê½¡£Ğı×ªÊ±ºòÒ»¶¨ÓÉÓÚ²åÈë¹ı³ÌÆÆ»µÁËpriorityµÄ¶ÑĞÔÖÊ¡£ÓÉÓÚrotate²»¸Ä±ä¶ş²æËÑË÷ĞÔÖÊµÄinOrderTraversal,Òò´Ë¿ÉÒÔ
- *	½è´Ëµ÷ÕûÂú×ãpriority¶ÑË³Ğò¡£ 
+ *	Treap = Tree + Heapã€‚ Treapæ ‘è‡ªèº«ç»“ç‚¹æ»¡è¶³äºŒå‰æŸ¥æ‰¾æ ‘æ€§è´¨ï¼Œè€Œè‡ªå¸¦çš„priorityä¼˜å…ˆçº§æ»¡è¶³å †çš„æ€§è´¨ã€‚ 
+ *	Treapåªæœ‰ä¸¤ç§æ—‹è½¬æ–¹å¼ã€‚æ—‹è½¬æ—¶å€™ä¸€å®šç”±äºæ’å…¥è¿‡ç¨‹ç ´åäº†priorityçš„å †æ€§è´¨ã€‚ç”±äºrotateä¸æ”¹å˜äºŒå‰æœç´¢æ€§è´¨çš„inOrderTraversal,å› æ­¤å¯ä»¥
+ *	å€Ÿæ­¤è°ƒæ•´æ»¡è¶³priorityå †é¡ºåºã€‚ 
  */
 template <typename T, typename Comp = std::less<T>>
 class Treap{
@@ -30,7 +30,7 @@ private:
 	void remove(TreeNode* &x, T data);
 	void rotateWithLeftChild(TreeNode* &x);
 	void rotateWithRightChild(TreeNode* &x);
-	void balance(TreeNode* &x);	//²»ÒªÊµÏÖbalance£¡£¡ ·´µ¹¸üÂé·³ÁË£¡£¡ÒòÎªÔÚÓÒ±ß²åÈëÒ»°ã¾ÍÒª¶ÔËüµÄparent½øĞĞ×óĞı£¬×ó±ß²åÓÒĞı£¬ÊÇ¹Ì¶¨µÄ£¡²»ÒªÔÚÒ»¸öº¯ÊıÀï±ß3¸ö¶¼Ğ´£¡ 
+	void balance(TreeNode* &x);	//ä¸è¦å®ç°balanceï¼ï¼ åå€’æ›´éº»çƒ¦äº†ï¼ï¼å› ä¸ºåœ¨å³è¾¹æ’å…¥ä¸€èˆ¬å°±è¦å¯¹å®ƒçš„parentè¿›è¡Œå·¦æ—‹ï¼Œå·¦è¾¹æ’å³æ—‹ï¼Œæ˜¯å›ºå®šçš„ï¼ä¸è¦åœ¨ä¸€ä¸ªå‡½æ•°é‡Œè¾¹3ä¸ªéƒ½å†™ï¼ 
 	int size(TreeNode* &x);
 	int priority(TreeNode* &x); 
 public:

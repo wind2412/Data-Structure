@@ -7,25 +7,25 @@ template <typename T, typename Comp>
 using TreeNode = typename SkewHeap<T, Comp>::TreeNode;
 
 template <typename T, typename Comp>
-void SkewHeap<T, Comp>::swap(TreeNode* x){	//Í¬×óÊ½¶Ñ 
+void SkewHeap<T, Comp>::swap(TreeNode* x){	//åŒå·¦å¼å † 
 	TreeNode* temp = x->left;
 	x->left = x->right;
 	x->right = temp;
 } 
 
 template <typename T, typename Comp>
-void SkewHeap<T, Comp>::merge(SkewHeap & rhs){	//Í¬×óÊ½¶Ñ 
+void SkewHeap<T, Comp>::merge(SkewHeap & rhs){	//åŒå·¦å¼å † 
 	if(this == &rhs)	return;	
 	root = merge(root, rhs.root); 
 }
 
 template <typename T, typename Comp>	
 typename SkewHeap<T, Comp>::TreeNode* SkewHeap<T, Comp>::merge(TreeNode* h1, TreeNode* h2){
-	if(h1 == nullptr)		return h2;	//µİ¹é»ù 	 swapµÄÊÂ½»¸øÉÏÒ»¸öµ÷ÓÃËüµÄÈË½â¾ö£¡£¡½»¸øÉÏ²ãĞ­Òé666    ¡ª¡ªÎÒ¾ÍÊÇ¸ºÔğ·µ»ØµÄ£¡ 
-	else if(h2 == nullptr)	return h1;	//µİ¹é»ù 	 
-	else if(comp(h2->data, h1->data)){	//²»¹ÜÆäËû£¬¾ÍÊÇ°ÑĞ¡Ê÷µÄrightºÍ´óÊ÷Õû¸ömerge£¡È»ºó·µ»Ø¸ù½Úµã£¡ 
-		h2->right = merge(h2->right, h1);	//×¢£ºÕâÀï±ß°Ñh2->data == h1->dataµÄÇé¿öĞ´ÔÚµÚÒ»¸öÖĞÁË¡£ÎªÁËÓë¿ÉÊÓ»¯µÄ½á¹ûÍêÈ«Ò»ÖÂ¡£ 
-		swap(h2);							//ÔÚ×óÊ½¶ÑµÄÊµÏÖÖĞ£¬ÎªÁËÓëMr.WeissµÄ´úÂëÍêÈ«Ò»ÖÂ£¬Òò´ËequalµÄÇé¿ö·ÅÔÚÁËelseÖĞ¡£Äª¼û¹Ö¡£ 
+	if(h1 == nullptr)		return h2;	//é€’å½’åŸº 	 swapçš„äº‹äº¤ç»™ä¸Šä¸€ä¸ªè°ƒç”¨å®ƒçš„äººè§£å†³ï¼ï¼äº¤ç»™ä¸Šå±‚åè®®666    â€•â€•æˆ‘å°±æ˜¯è´Ÿè´£è¿”å›çš„ï¼ 
+	else if(h2 == nullptr)	return h1;	//é€’å½’åŸº 	 
+	else if(comp(h2->data, h1->data)){	//ä¸ç®¡å…¶ä»–ï¼Œå°±æ˜¯æŠŠå°æ ‘çš„rightå’Œå¤§æ ‘æ•´ä¸ªmergeï¼ç„¶åè¿”å›æ ¹èŠ‚ç‚¹ï¼ 
+		h2->right = merge(h2->right, h1);	//æ³¨ï¼šè¿™é‡Œè¾¹æŠŠh2->data == h1->dataçš„æƒ…å†µå†™åœ¨ç¬¬ä¸€ä¸ªä¸­äº†ã€‚ä¸ºäº†ä¸å¯è§†åŒ–çš„ç»“æœå®Œå…¨ä¸€è‡´ã€‚ 
+		swap(h2);							//åœ¨å·¦å¼å †çš„å®ç°ä¸­ï¼Œä¸ºäº†ä¸Mr.Weissçš„ä»£ç å®Œå…¨ä¸€è‡´ï¼Œå› æ­¤equalçš„æƒ…å†µæ”¾åœ¨äº†elseä¸­ã€‚è«è§æ€ªã€‚ 
 	}
 	else{
 		h1->right = merge(h1->right, h2);
@@ -34,24 +34,24 @@ typename SkewHeap<T, Comp>::TreeNode* SkewHeap<T, Comp>::merge(TreeNode* h1, Tre
 } 
 
 template <typename T, typename Comp>
-void SkewHeap<T, Comp>::insert(const T & data){	//Í¬×óÊ½¶Ñ 
+void SkewHeap<T, Comp>::insert(const T & data){	//åŒå·¦å¼å † 
 	root = merge(root, new TreeNode(data));
 }
 
 template <typename T, typename Comp>
-T SkewHeap<T, Comp>::getMin(){	//Í¬×óÊ½¶Ñ 
+T SkewHeap<T, Comp>::getMin(){	//åŒå·¦å¼å † 
 	return root->data;
 }
 
 template <typename T, typename Comp>
-void SkewHeap<T, Comp>::deleteMin(){	//Í¬×óÊ½¶Ñ 
+void SkewHeap<T, Comp>::deleteMin(){	//åŒå·¦å¼å † 
 	TreeNode* temp = root;
 	root = merge(root->left, root->right);
 	delete temp;
 }
 
 template <typename T, typename Comp>
-void SkewHeap<T, Comp>::preOrderTraversal(){	//Í¬×óÊ½¶Ñ 
+void SkewHeap<T, Comp>::preOrderTraversal(){	//åŒå·¦å¼å † 
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
 	while(true){

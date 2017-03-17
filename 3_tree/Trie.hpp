@@ -6,9 +6,9 @@ using namespace std;
 #define CHARSET ('z'-'a'+1)
 
 /**
- *	Trie Ç°×ºÊ÷£¬»ò×ÖµäÊ÷¡£ 
- *	Ñ§Ï°À´Ô´: http://blog.csdn.net/v_july_v/article/details/6897097
- *  Ö»Éæ¼°26¸ö×ÖÄ¸½¨Ê÷¡£ 
+ *	Trie å‰ç¼€æ ‘ï¼Œæˆ–å­—å…¸æ ‘ã€‚ 
+ *	å­¦ä¹ æ¥æº: http://blog.csdn.net/v_july_v/article/details/6897097
+ *  åªæ¶‰åŠ26ä¸ªå­—æ¯å»ºæ ‘ã€‚ 
  */
 
 class Trie{
@@ -25,7 +25,7 @@ private:
 private:
 	void printAll(TreeNode* x, int level);
 public:
-	Trie(): root(new TreeNode(' ')){}	//ÒÔ¿Õ¸ñ×Ö·û×÷Îª³õÊ¼½Úµã¡£ Ò²¾ÍÊÇ´ÓTrieµÄµÚ¶ş²ã¿ªÊ¼£¬²ÅÊÇÊ÷µÄÕıÌå¡£
+	Trie(): root(new TreeNode(' ')){}	//ä»¥ç©ºæ ¼å­—ç¬¦ä½œä¸ºåˆå§‹èŠ‚ç‚¹ã€‚ ä¹Ÿå°±æ˜¯ä»Trieçš„ç¬¬äºŒå±‚å¼€å§‹ï¼Œæ‰æ˜¯æ ‘çš„æ­£ä½“ã€‚
 	void insert(const string & s){ insert(s.c_str()); };
 	void insert(const char* s);
 	int findWordCount(const string & s){ findWordCount(s.c_str()); }

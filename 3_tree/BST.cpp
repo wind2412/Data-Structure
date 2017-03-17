@@ -3,13 +3,13 @@
 #include "BST.hpp"
 
 template <typename T, typename Comp>
-using TreeNode = typename BST<T, Comp>::TreeNode;	//ÊÔÁË°ëÌì²ÅÊÔ³öÀ´¡£Õâ¸öºÜ°ô£¡£¡
+using TreeNode = typename BST<T, Comp>::TreeNode;	//è¯•äº†åŠå¤©æ‰è¯•å‡ºæ¥ã€‚è¿™ä¸ªå¾ˆæ£’ï¼ï¼
 
-/********************ÖØÒªº¯Êı**********************/
+/********************é‡è¦å‡½æ•°**********************/
 template <typename T, typename Comp>
 void BST<T, Comp>::put(T data){
 	TreeNode* parent = root;
-	TreeNode* temp = root;	//Èç¹ûroot==null tempÓÖ=root ÄÇÃ´temp¾ÍÓÖ¸´ÖÆÁËÒ»¸önullÖ¸Õë¡£¡£¡£ËùÒÔÔÚËûÉÏ±ßnew»¹ÊÇÃ»ÔÚrootÉÏ£¬±ØĞë¸ôÉ½´òÅ£¡£ 
+	TreeNode* temp = root;	//å¦‚æœroot==null tempåˆ=root é‚£ä¹ˆtempå°±åˆå¤åˆ¶äº†ä¸€ä¸ªnullæŒ‡é’ˆã€‚ã€‚ã€‚æ‰€ä»¥åœ¨ä»–ä¸Šè¾¹newè¿˜æ˜¯æ²¡åœ¨rootä¸Šï¼Œå¿…é¡»éš”å±±æ‰“ç‰›ã€‚ 
 	while(temp){
 		if(comp(temp->data, data)){
 			parent = temp;
@@ -20,12 +20,12 @@ void BST<T, Comp>::put(T data){
 			temp = temp->left;
 		}
 		else {
-			//Èç¹ûÕÒµ½Ò»ÑùµÄ£¬Ê²Ã´Ò²²»×ö·µ»Ø¡£
+			//å¦‚æœæ‰¾åˆ°ä¸€æ ·çš„ï¼Œä»€ä¹ˆä¹Ÿä¸åšè¿”å›ã€‚
 			return; 
 		}
 	} 
 	if(comp(parent->data, data)){
-		parent->right /*temp*/= new TreeNode(data);	//²»ÄÜÓÃtempÖ±½Ó¸³Öµ£¡Ó¦¸Ã¼ÓÒ»¸öparentÖ¸Õë£¡ 
+		parent->right /*temp*/= new TreeNode(data);	//ä¸èƒ½ç”¨tempç›´æ¥èµ‹å€¼ï¼åº”è¯¥åŠ ä¸€ä¸ªparentæŒ‡é’ˆï¼ 
 	}
 	else{
 		parent->left = new TreeNode(data);
@@ -33,27 +33,27 @@ void BST<T, Comp>::put(T data){
 }
 
 template <typename T, typename Comp>
-int BST<T, Comp>::getHeight(){	//Ê÷¸ß¶È£¬µü´úÊµÏÖ¡£ 
+int BST<T, Comp>::getHeight(){	//æ ‘é«˜åº¦ï¼Œè¿­ä»£å®ç°ã€‚ 
 	if(root == nullptr)	return 0;
 	int height = 0;
 	queue<TreeNode*> q1, q2;
 	q1.push(root);
 	TreeNode* temp = root;
 	while(!q1.empty()){
-		while(!q1.empty()){	//Ò»Ö±³ÖĞø£¬Ö±µ½q1Îª¿ÕÎªÖ¹£¡ 
+		while(!q1.empty()){	//ä¸€ç›´æŒç»­ï¼Œç›´åˆ°q1ä¸ºç©ºä¸ºæ­¢ï¼ 
 			TreeNode* p = q1.front();
 			q1.pop();
 			if(p->left != nullptr)	q2.push(p->left);
 			if(p->right!= nullptr)	q2.push(p->right);
 		}
 		height ++; 
-		std::swap(q1, q2);	//½»»»Á½¸ö¶ÓÁĞ¡£ ÕâÊ±×ó¶ÓÁĞÓ¦Îª¿Õ¡£ 
+		std::swap(q1, q2);	//äº¤æ¢ä¸¤ä¸ªé˜Ÿåˆ—ã€‚ è¿™æ—¶å·¦é˜Ÿåˆ—åº”ä¸ºç©ºã€‚ 
 	}
 	return height;
 }
 
 template <typename T, typename Comp>
-int BST<T, Comp>::getMin(){	//µÃµ½×îĞ¡ÔªËØ¡£µü´úÊµÏÖ¡£
+int BST<T, Comp>::getMin(){	//å¾—åˆ°æœ€å°å…ƒç´ ã€‚è¿­ä»£å®ç°ã€‚
 	if(root == nullptr)	return -1;
 	TreeNode* temp = root;
 	while(temp->left){
@@ -70,13 +70,13 @@ void BST<T, Comp>::deleteMin(){
 		parent = temp;
 		temp = temp->left;
 	} 
-	if(temp == root){	//É¾³ıµÄÊÇ¸ù½Úµã Õâ¸ö±ØĞë×¢Òâ£¡£¡ÕâÊÇÇé¿öÖ®Ò»£¡£¡ 
+	if(temp == root){	//åˆ é™¤çš„æ˜¯æ ¹èŠ‚ç‚¹ è¿™ä¸ªå¿…é¡»æ³¨æ„ï¼ï¼è¿™æ˜¯æƒ…å†µä¹‹ä¸€ï¼ï¼ 
 		root = root->right;
 		delete temp;
 	}
 	else if(temp->right == nullptr)	{
 		delete temp;
-		parent->left = nullptr;	//Ò»¶¨±ğÍüÁËÕâ¾ä=¡£= 
+		parent->left = nullptr;	//ä¸€å®šåˆ«å¿˜äº†è¿™å¥=ã€‚= 
 	}
 	else {	//temp->right != nullptr
 		parent->left = temp->right;
@@ -98,19 +98,19 @@ void BST<T, Comp>::deleteNode(T data){
 		}
 		else{
 			if(temp->left == nullptr || temp->right == nullptr){
-				//temp == rootÊ±£¬ parent == À¬»øÖµ¡£ÒòÎª²¢Ã»±»¸³Öµ¡£ 
-				if(temp == root){	//ÒòÎªµü´ú·½Ê½¶øÇÒÃ»ÓĞ½áµã²ÎÊıµÄÒıÓÃ£¦µÄ´«µİ£¬ÕâÖÖÇé¿öÌ«Î£ÏÕ¡£ Òªµ¥ÁĞ³öÀ´¡£¶øÇÒ±ØĞëÊ¹ÓÃroot½øĞĞÖ±½Ó²Ù×÷¡£ 
-					root = (root->left == nullptr) ? root->right : root->left;//root¾ÍÊÇÕıÍ³µÄ£¡Ö±½ÓĞŞ¸ÄÃ»ÎÊÌâ£¡ 
+				//temp == rootæ—¶ï¼Œ parent == åƒåœ¾å€¼ã€‚å› ä¸ºå¹¶æ²¡è¢«èµ‹å€¼ã€‚ 
+				if(temp == root){	//å› ä¸ºè¿­ä»£æ–¹å¼è€Œä¸”æ²¡æœ‰ç»“ç‚¹å‚æ•°çš„å¼•ç”¨ï¼†çš„ä¼ é€’ï¼Œè¿™ç§æƒ…å†µå¤ªå±é™©ã€‚ è¦å•åˆ—å‡ºæ¥ã€‚è€Œä¸”å¿…é¡»ä½¿ç”¨rootè¿›è¡Œç›´æ¥æ“ä½œã€‚ 
+					root = (root->left == nullptr) ? root->right : root->left;//rootå°±æ˜¯æ­£ç»Ÿçš„ï¼ç›´æ¥ä¿®æ”¹æ²¡é—®é¢˜ï¼ 
 					delete temp;
 				}
 				else{
 					if(parent->left == temp)
-						parent->left = (temp->left == nullptr) ? temp->right : temp->left;	//tempÊÇÅÔÂ·£¡ĞŞ¸ÄÒ²ĞŞ¸Ä²»ÁËÕıÍ³µÄ£¡Ö»ÄÜĞŞ¸ÄÅÔÂ·£¡Òò´Ë±ØĞëÒªÒ»¸öparent£¡ 
+						parent->left = (temp->left == nullptr) ? temp->right : temp->left;	//tempæ˜¯æ—è·¯ï¼ä¿®æ”¹ä¹Ÿä¿®æ”¹ä¸äº†æ­£ç»Ÿçš„ï¼åªèƒ½ä¿®æ”¹æ—è·¯ï¼å› æ­¤å¿…é¡»è¦ä¸€ä¸ªparentï¼ 
 					else parent->right = (temp->left == nullptr) ? temp->right : temp->left;
 					delete temp;
 				}
 			}
-			else{	//left rightÈ«¶¼ÓĞ 
+			else{	//left rightå…¨éƒ½æœ‰ 
 				TreeNode* saveDeleteNode = temp;
 				parent = temp;
 				temp = temp->left;
@@ -118,10 +118,10 @@ void BST<T, Comp>::deleteNode(T data){
 					parent = temp;
 					temp = temp->right;
 				}
-//				if(saveDeleteNode == root){	//ÒªÉ¾³ırootÊ±£¬ĞèÒªµ¥ÁĞ³öÀ´¡£ÒòÎª¶Ô±ÈAVLTree£¬Õâ¸öº¯ÊıÃ»ÓĞ²ÎÊıÇÒ·Çµİ¹é²»ºÃÅª¡£ 
+//				if(saveDeleteNode == root){	//è¦åˆ é™¤rootæ—¶ï¼Œéœ€è¦å•åˆ—å‡ºæ¥ã€‚å› ä¸ºå¯¹æ¯”AVLTreeï¼Œè¿™ä¸ªå‡½æ•°æ²¡æœ‰å‚æ•°ä¸”éé€’å½’ä¸å¥½å¼„ã€‚ 
 //					
-//				}	//²»ĞèÒªµ¥ÁĞ³öÀ´ÁË£¡£¡£¡ÒòÎª²¢²»ÊÇÕæµÄÉ¾³ı°¡ =¡£= 
-				if(parent->left == temp){	//tempÃ»ÓĞÓÒ½áµã  ¼´tempÒÑÎª×îĞ¡ 
+//				}	//ä¸éœ€è¦å•åˆ—å‡ºæ¥äº†ï¼ï¼ï¼å› ä¸ºå¹¶ä¸æ˜¯çœŸçš„åˆ é™¤å•Š =ã€‚= 
+				if(parent->left == temp){	//tempæ²¡æœ‰å³ç»“ç‚¹  å³tempå·²ä¸ºæœ€å° 
 					saveDeleteNode->data = temp->data;
 					parent->left = temp->left;
 					delete temp; 
@@ -133,14 +133,14 @@ void BST<T, Comp>::deleteNode(T data){
 				}
 				
 			}
-			return;	//±ğÍüÁËreturn£¡£¡ 
+			return;	//åˆ«å¿˜äº†returnï¼ï¼ 
 		}
 	}
 }
 
-/***************±éÀúÊµÏÖ£¨µü´ú£©*******************/
+/***************éå†å®ç°ï¼ˆè¿­ä»£ï¼‰*******************/
 template <typename T, typename Comp>
-void BST<T, Comp>::preOrderTraversal1(){	//Ç°Ğò±éÀú1 
+void BST<T, Comp>::preOrderTraversal1(){	//å‰åºéå†1 
 	if(root == nullptr)	return;
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
@@ -150,14 +150,14 @@ void BST<T, Comp>::preOrderTraversal1(){	//Ç°Ğò±éÀú1
 			s.push(temp);
 			temp = temp->left;
 		}
-		if(s.empty())	break;	//Õâ¸öË³ĞòÌ«Æ¯ÁÁÁË£¡ 
+		if(s.empty())	break;	//è¿™ä¸ªé¡ºåºå¤ªæ¼‚äº®äº†ï¼ 
 		temp = s.top()->right;
 		s.pop();
 	};
 }
 
 template <typename T, typename Comp>
-void BST<T, Comp>::preOrderTraversal2(){	//Ç°Ğò±éÀú2 
+void BST<T, Comp>::preOrderTraversal2(){	//å‰åºéå†2 
 	if(root == nullptr)	return;
 	stack<TreeNode*> s;
 	TreeNode* temp;
@@ -166,13 +166,13 @@ void BST<T, Comp>::preOrderTraversal2(){	//Ç°Ğò±éÀú2
 		temp = s.top();
 		cout << temp->data << " ";
 		s.pop();
-		if(temp->right != nullptr)	s.push(temp->right);	//Ç§ÍòÒªÏÈpushÓÒ±ß£¡£¡£¡£¡ÒòÎªÊÇÈëÕ»£¬ÓÒ±ß»á±È×ó±ßµÄÑ¹µÃ¸üµÍ£¬Òò´ËÏÈµ¯³ö×ó±ß£¡£¡ 
+		if(temp->right != nullptr)	s.push(temp->right);	//åƒä¸‡è¦å…ˆpushå³è¾¹ï¼ï¼ï¼ï¼å› ä¸ºæ˜¯å…¥æ ˆï¼Œå³è¾¹ä¼šæ¯”å·¦è¾¹çš„å‹å¾—æ›´ä½ï¼Œå› æ­¤å…ˆå¼¹å‡ºå·¦è¾¹ï¼ï¼ 
 		if(temp->left != nullptr)	s.push(temp->left);
 	};
 }
 
 template <typename T, typename Comp>
-void BST<T, Comp>::inOrderTraversal(){	//ÖĞĞò±éÀú£¬Ê¹ÓÃÇ°Ğò±éÀú1¸Ä±äÏÂË³Ğò¼´¿É¡£ 
+void BST<T, Comp>::inOrderTraversal(){	//ä¸­åºéå†ï¼Œä½¿ç”¨å‰åºéå†1æ”¹å˜ä¸‹é¡ºåºå³å¯ã€‚ 
 	if(root == nullptr)	return;
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
@@ -181,7 +181,7 @@ void BST<T, Comp>::inOrderTraversal(){	//ÖĞĞò±éÀú£¬Ê¹ÓÃÇ°Ğò±éÀú1¸Ä±äÏÂË³Ğò¼´¿É¡£
 			s.push(temp);
 			temp = temp->left;
 		}
-		if(s.empty())	break;	//±ğÍüÁË£¡ 
+		if(s.empty())	break;	//åˆ«å¿˜äº†ï¼ 
 		temp = s.top();
 		s.pop();
 		cout << temp->data << " ";
@@ -190,7 +190,7 @@ void BST<T, Comp>::inOrderTraversal(){	//ÖĞĞò±éÀú£¬Ê¹ÓÃÇ°Ğò±éÀú1¸Ä±äÏÂË³Ğò¼´¿É¡£
 }
 
 template <typename T, typename Comp> 
-void BST<T, Comp>::postOrderTraversal(){	//¼«ÄÑºóĞø±éÀú¡£²Î¼ûLeet½â·¨¡£ //»òÕß½«Ç°ĞòµÄ[¸ù-×ó-ÓÒ]¸Ä¶¯³É[¸ù-ÓÒ-×ó]±£´æµ½vectorÈ»ºóstd::reverse¡£ 
+void BST<T, Comp>::postOrderTraversal(){	//æéš¾åç»­éå†ã€‚å‚è§Leetè§£æ³•ã€‚ //æˆ–è€…å°†å‰åºçš„[æ ¹-å·¦-å³]æ”¹åŠ¨æˆ[æ ¹-å³-å·¦]ä¿å­˜åˆ°vectorç„¶åstd::reverseã€‚ 
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
 	while(true){
@@ -198,26 +198,26 @@ void BST<T, Comp>::postOrderTraversal(){	//¼«ÄÑºóĞø±éÀú¡£²Î¼ûLeet½â·¨¡£ //»òÕß½«
 			s.push(temp);
 			temp = temp->left;
 		}
-		TreeNode* q = nullptr; 	//qÎªÁË±£´æ·ÃÎÊ½áµã¡£¶øÇÒ¸³ÖµÎªnullptr¿ÉÒÔ½øĞĞ½ö½öÒ»´ÎµÄ¡¾ÓÒ½áµãÊÇ·ñnullµÄÅĞ¶Ï¡¿£¬¼ûÏÂ£¬Ãî£¡£¡£¡
+		TreeNode* q = nullptr; 	//qä¸ºäº†ä¿å­˜è®¿é—®ç»“ç‚¹ã€‚è€Œä¸”èµ‹å€¼ä¸ºnullptrå¯ä»¥è¿›è¡Œä»…ä»…ä¸€æ¬¡çš„ã€å³ç»“ç‚¹æ˜¯å¦nullçš„åˆ¤æ–­ã€‘ï¼Œè§ä¸‹ï¼Œå¦™ï¼ï¼ï¼
 		while(!s.empty()){
 			temp = s.top();	 
-			s.pop();	//ËäÈ»popÁËÖĞ¼ä½Úµã£¬µ«ÊÇÓÒ½áµã²»ÖªµÀÊÇ·ñnull»òÕßÓĞÃ»ÓĞÒÑ¾­±»·ÃÎÊ£¬»¹Òª½÷É÷¡£
-			if(temp->right == q) {	//¿´ÊÇ·ñÊÇnull£¿ÊÇ·ñ±»·ÃÎÊ£¿ 
+			s.pop();	//è™½ç„¶popäº†ä¸­é—´èŠ‚ç‚¹ï¼Œä½†æ˜¯å³ç»“ç‚¹ä¸çŸ¥é“æ˜¯å¦nullæˆ–è€…æœ‰æ²¡æœ‰å·²ç»è¢«è®¿é—®ï¼Œè¿˜è¦è°¨æ…ã€‚
+			if(temp->right == q) {	//çœ‹æ˜¯å¦æ˜¯nullï¼Ÿæ˜¯å¦è¢«è®¿é—®ï¼Ÿ 
 				cout << temp->data << " ";
-				q = temp;	//±£´æ±»·ÃÎÊµÄµã£¡£¡ Îª[\]ĞÎ´Óµ×ÏòÉÏ·ÃÎÊ´ò»ù´¡¡£ 
+				q = temp;	//ä¿å­˜è¢«è®¿é—®çš„ç‚¹ï¼ï¼ ä¸º[\]å½¢ä»åº•å‘ä¸Šè®¿é—®æ‰“åŸºç¡€ã€‚ 
 			} 
-			else {	//µ±Ç°½ÚµãÎŞ·¨·ÃÎÊ¡£ÒòÎªtemp->rightÃ»±»·ÃÎÊ¹ı¡£ µ±È»£¬Èç¹ûÊÇµÚ¶şÂÖÅĞ¶Ï£¬qÒÑ¾­±äÁË£¬¿Ï¶¨!=¡£Ò²ÍÆ³ÙÒ»ÂÖ£¬Ö´ĞĞ´Ëelse¡£°²È«¡£ 
-				s.push(temp);	//ÖØĞÂÈëÕ»¡£ 
-				temp = temp->right;	//×ªÒÆµ½ÓÒ±ß£¡ 
-				break;	//Ö±½ÓÌø³öÑ­»·£¡ 
+			else {	//å½“å‰èŠ‚ç‚¹æ— æ³•è®¿é—®ã€‚å› ä¸ºtemp->rightæ²¡è¢«è®¿é—®è¿‡ã€‚ å½“ç„¶ï¼Œå¦‚æœæ˜¯ç¬¬äºŒè½®åˆ¤æ–­ï¼Œqå·²ç»å˜äº†ï¼Œè‚¯å®š!=ã€‚ä¹Ÿæ¨è¿Ÿä¸€è½®ï¼Œæ‰§è¡Œæ­¤elseã€‚å®‰å…¨ã€‚ 
+				s.push(temp);	//é‡æ–°å…¥æ ˆã€‚ 
+				temp = temp->right;	//è½¬ç§»åˆ°å³è¾¹ï¼ 
+				break;	//ç›´æ¥è·³å‡ºå¾ªç¯ï¼ 
 			}
 		} 
-		if(s.empty())	break;	//ÍêÈ«Ìø³öµÄÌõ¼ş£¡£¡£¡ 
+		if(s.empty())	break;	//å®Œå…¨è·³å‡ºçš„æ¡ä»¶ï¼ï¼ï¼ 
 	}
 }
 
 template <typename T, typename Comp>
-void BST<T, Comp>::levelOrderTraversal(){	//²ãĞò±éÀú¡£ 
+void BST<T, Comp>::levelOrderTraversal(){	//å±‚åºéå†ã€‚ 
 	if(root == nullptr)	return;
 	queue<TreeNode*> q;
 	TreeNode* temp = root;
@@ -231,7 +231,7 @@ void BST<T, Comp>::levelOrderTraversal(){	//²ãĞò±éÀú¡£
 	}
 }
 
-/***************Îö¹¹º¯Êı*******************/
+/***************ææ„å‡½æ•°*******************/
 
 template <typename T, typename Comp>
 BST<T, Comp>::~BST(){
@@ -239,7 +239,7 @@ BST<T, Comp>::~BST(){
 }
 
 template <typename T, typename Comp>
-void BST<T, Comp>::makeEmpty(){	//Îö¹¹×îºÃ²ÉÓÃºóĞø±éÀúµÄÊÖ¶Î¡£½ö½öÊ¹ÓÃÒ»¸östack¡£ 
+void BST<T, Comp>::makeEmpty(){	//ææ„æœ€å¥½é‡‡ç”¨åç»­éå†çš„æ‰‹æ®µã€‚ä»…ä»…ä½¿ç”¨ä¸€ä¸ªstackã€‚ 
 	if(root == nullptr)	return;
 	stack<TreeNode*> s;
 	TreeNode* temp = root;
@@ -252,8 +252,8 @@ void BST<T, Comp>::makeEmpty(){	//Îö¹¹×îºÃ²ÉÓÃºóĞø±éÀúµÄÊÖ¶Î¡£½ö½öÊ¹ÓÃÒ»¸östack¡
 		while(!s.empty()){
 			temp = s.top();
 			s.pop();
-			if(temp->right == q){	//¿ÉÒÔ¶Ôtemp½øĞĞ²Ù×÷¡£ 
-				delete temp;	//......µ½ÏÖÔÚÎÒÒ²²»È·¶¨Õâ¸öĞĞ²»ĞĞ¡£¡£¡£¡£deleteÖ®ºó»á·¢ÉúÊ²Ã´£¿£¿£¿ 
+			if(temp->right == q){	//å¯ä»¥å¯¹tempè¿›è¡Œæ“ä½œã€‚ 
+				delete temp;	//......åˆ°ç°åœ¨æˆ‘ä¹Ÿä¸ç¡®å®šè¿™ä¸ªè¡Œä¸è¡Œã€‚ã€‚ã€‚ã€‚deleteä¹‹åä¼šå‘ç”Ÿä»€ä¹ˆï¼Ÿï¼Ÿï¼Ÿ 
 				q = temp;
 			} 
 			else{
@@ -267,8 +267,8 @@ void BST<T, Comp>::makeEmpty(){	//Îö¹¹×îºÃ²ÉÓÃºóĞø±éÀúµÄÊÖ¶Î¡£½ö½öÊ¹ÓÃÒ»¸östack¡
 	root = nullptr; 
 } 
 
-template <typename T, typename Comp>	//ÆäÊµÕâ¸öconstº¯ÊıÃ»ÓĞÈÎºÎ×÷ÓÃ¡£Ö»ÊÇÎªÁËÖØÔØ¶øÒÑ=¡£= 
-void BST<T, Comp>::makeEmpty() const{	//ÓÃqueue+stack·½·¨½øĞĞÎö¹¹¡£°Ñ½áµã´ÓÉÏÍùÏÂ²ãĞòÍÆÈëstack¡£Ö®ºó²»¶ÏÎö¹¹¾ÍºÃ¡£ 
+template <typename T, typename Comp>	//å…¶å®è¿™ä¸ªconstå‡½æ•°æ²¡æœ‰ä»»ä½•ä½œç”¨ã€‚åªæ˜¯ä¸ºäº†é‡è½½è€Œå·²=ã€‚= 
+void BST<T, Comp>::makeEmpty() const{	//ç”¨queue+stackæ–¹æ³•è¿›è¡Œææ„ã€‚æŠŠç»“ç‚¹ä»ä¸Šå¾€ä¸‹å±‚åºæ¨å…¥stackã€‚ä¹‹åä¸æ–­ææ„å°±å¥½ã€‚ 
 	if(root == nullptr)	return;
 	queue<TreeNode*> q;
 	stack<TreeNode*> s;
@@ -293,7 +293,7 @@ void BST<T, Comp>::makeEmpty() const{	//ÓÃqueue+stack·½·¨½øĞĞÎö¹¹¡£°Ñ½áµã´ÓÉÏÍùÏ
 //		cout << temp->data << " ";
 		delete temp; 
 	}
-	root = nullptr;	//temp´ËÊ±Ö¸ÏòrootµÄ¶«Î÷£¬µ«ÊÇ¾ö²»ÄÜtemp=nullptr£¡£¡ÒòÎªtempÊÇÅÔÂ·£¡Ö»ÄÜ°Ñtemp±ä³Énullptr£¡£¡µ«ÊÇroot²»¸Ä£¡·¸´íÎóºÃ¶à´ÎÁË£¡ 
+	root = nullptr;	//tempæ­¤æ—¶æŒ‡å‘rootçš„ä¸œè¥¿ï¼Œä½†æ˜¯å†³ä¸èƒ½temp=nullptrï¼ï¼å› ä¸ºtempæ˜¯æ—è·¯ï¼åªèƒ½æŠŠtempå˜æˆnullptrï¼ï¼ä½†æ˜¯rootä¸æ”¹ï¼çŠ¯é”™è¯¯å¥½å¤šæ¬¡äº†ï¼ 
 }
 
 #endif
@@ -319,12 +319,12 @@ int main()
 //	b.deleteNode(9); 
 //	b.deleteNode(2);
 	
-	b.preOrderTraversal1();cout << " £¨ÏÈĞò±éÀú£©" << endl;
-	b.preOrderTraversal2();cout << " £¨ÏÈĞò±éÀú£©" << endl;
-	b.inOrderTraversal();cout << " £¨ÖĞĞò±éÀú£©" << endl;
-	b.postOrderTraversal();cout << " £¨ºóĞò±éÀú£©" << endl;
-	b.levelOrderTraversal();cout << " £¨²ãĞò±éÀú£©" << endl;
-	cout << "Ê÷µÄ¸ß¶ÈÊÇ£º" << b.getHeight() << endl;
-	cout << "Ê÷µÄ×îĞ¡Öµ£º" << b.getMin() << endl; 
+	b.preOrderTraversal1();cout << " ï¼ˆå…ˆåºéå†ï¼‰" << endl;
+	b.preOrderTraversal2();cout << " ï¼ˆå…ˆåºéå†ï¼‰" << endl;
+	b.inOrderTraversal();cout << " ï¼ˆä¸­åºéå†ï¼‰" << endl;
+	b.postOrderTraversal();cout << " ï¼ˆååºéå†ï¼‰" << endl;
+	b.levelOrderTraversal();cout << " ï¼ˆå±‚åºéå†ï¼‰" << endl;
+	cout << "æ ‘çš„é«˜åº¦æ˜¯ï¼š" << b.getHeight() << endl;
+	cout << "æ ‘çš„æœ€å°å€¼ï¼š" << b.getMin() << endl; 
 }
 

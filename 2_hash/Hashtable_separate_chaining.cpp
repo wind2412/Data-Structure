@@ -12,11 +12,11 @@ template <typename HashObj>
 void HashTable<HashObj>::insert(const HashObj & x){
 	size_t pos = getHashPos(x);
 	list<HashObj> & targetList = lists[pos];
-	if(std::find(begin(targetList), end(targetList), x) != end(targetList))	return;	//ÏÈ½øĞĞ²éÕÒ¡£Èç¹û³É¹¦£¬¾Í²»²åÈë¡£ 
+	if(std::find(begin(targetList), end(targetList), x) != end(targetList))	return;	//å…ˆè¿›è¡ŒæŸ¥æ‰¾ã€‚å¦‚æœæˆåŠŸï¼Œå°±ä¸æ’å…¥ã€‚ 
 	targetList.push_front(x);
 	current_size ++;
-	if(current_size > lists.size()){	//Èç¹ûÒÑÓĞÔªËØµÄÊıÁ¿´óÓÚlists.size()£¬ÄÇ¾Írehash¡£±ÈÈçsize = 10. ÎÒÒÑ¾­´¢´æÁË10¸ö£¬¾ÍÒªrehash¡£ 
-		rehash();						//´Ë¾ÙÈÃÁ´±í³¤¶ÈµÄÆ½¾ùÖµ½ö½öÎª1.ÄÜ¹»ÍêÈ«¼õÉÙ²éÑ¯Ê±¼ä¡£ 
+	if(current_size > lists.size()){	//å¦‚æœå·²æœ‰å…ƒç´ çš„æ•°é‡å¤§äºlists.size()ï¼Œé‚£å°±rehashã€‚æ¯”å¦‚size = 10. æˆ‘å·²ç»å‚¨å­˜äº†10ä¸ªï¼Œå°±è¦rehashã€‚ 
+		rehash();						//æ­¤ä¸¾è®©é“¾è¡¨é•¿åº¦çš„å¹³å‡å€¼ä»…ä»…ä¸º1.èƒ½å¤Ÿå®Œå…¨å‡å°‘æŸ¥è¯¢æ—¶é—´ã€‚ 
 	}
 }
 
@@ -25,7 +25,7 @@ void HashTable<HashObj>::remove(const HashObj & x){
 	size_t pos = getHashPos(x);
 	list<HashObj> & targetList = lists[pos];
 	auto it = std::find(begin(targetList), end(targetList), x);
-	if(it == end(targetList))	return;	//Ã»ÕÒµ½²»É¾³ı¡£
+	if(it == end(targetList))	return;	//æ²¡æ‰¾åˆ°ä¸åˆ é™¤ã€‚
 	targetList.erase(it);
 	-- current_size;
 } 
@@ -46,13 +46,13 @@ void HashTable<HashObj>::makeEmpty(){
 
 template <typename HashObj>
 void HashTable<HashObj>::rehash(){
-	HashTable<HashObj> newHashTable(lists.size() * 2);	//Ö±½ÓĞÂ½¨Ò»¸ö¶ÔÏóÊÇ·Ç³£Æ¯ÁÁµÄ£¡	//ÕâÀïÓÃvector.size()ÊÇ¿ÉÒÔµÄ£¡ÒòÎªÈ«¶¼´æÂúÁË£¡È«ÊÇÁ´±í£¡ 
+	HashTable<HashObj> newHashTable(lists.size() * 2);	//ç›´æ¥æ–°å»ºä¸€ä¸ªå¯¹è±¡æ˜¯éå¸¸æ¼‚äº®çš„ï¼	//è¿™é‡Œç”¨vector.size()æ˜¯å¯ä»¥çš„ï¼å› ä¸ºå…¨éƒ½å­˜æ»¡äº†ï¼å…¨æ˜¯é“¾è¡¨ï¼ 
 	for(auto & list : lists){
 		for(HashObj & x : list){
 			newHashTable.insert(x);
 		}
 	}
-//	this = &newHashTable;	//Îí²İÓï·¨´íÎó¡£¡£¡£Ö»ÄÜÒ»¸öÔªËØÒ»¸öÔªËØ¸ü»»ÁË¡£¡£¡£¡£
+//	this = &newHashTable;	//é›¾è‰è¯­æ³•é”™è¯¯ã€‚ã€‚ã€‚åªèƒ½ä¸€ä¸ªå…ƒç´ ä¸€ä¸ªå…ƒç´ æ›´æ¢äº†ã€‚ã€‚ã€‚ã€‚
 	this->lists = newHashTable.lists; 
 }
 
@@ -84,7 +84,7 @@ int main()
 	ht.insert("left");
 	ht.insert("right");
 	ht.print();
-	ht.insert("change£¡£¡£¡");
+	ht.insert("changeï¼ï¼ï¼");
 	cout << "after rehashing: " << endl; 
 	ht.print();
 	

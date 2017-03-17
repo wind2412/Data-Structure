@@ -7,16 +7,16 @@
 using namespace std;
 
 /**
- *	KosarajuÇ¿Á¬Í¨·ÖÁ¿Ëã·¨¡£
- *  ÀûÓÃÁËÒ»¸öÍ¼¼´Ê¹reverseÁË£¬ºÍÔ­Í¼»¹ÊÇ¾ßÓĞÏàÍ¬µÄÇ¿Á¬Í¨·ÖÁ¿µÄĞÔÖÊ£¡
- *	·Ç³£Í¨Ë×Ò×¶®¡£ACMÖ®¼Òblog£ºhttp://www.acmerblog.com/strongly-connected-components-6099.html
- *	ÓĞÒ»¸öÍ¼ÌØ±ğÒ×¶®¡£
+ *	Kosarajuå¼ºè¿é€šåˆ†é‡ç®—æ³•ã€‚
+ *  åˆ©ç”¨äº†ä¸€ä¸ªå›¾å³ä½¿reverseäº†ï¼Œå’ŒåŸå›¾è¿˜æ˜¯å…·æœ‰ç›¸åŒçš„å¼ºè¿é€šåˆ†é‡çš„æ€§è´¨ï¼
+ *	éå¸¸é€šä¿—æ˜“æ‡‚ã€‚ACMä¹‹å®¶blogï¼šhttp://www.acmerblog.com/strongly-connected-components-6099.html
+ *	æœ‰ä¸€ä¸ªå›¾ç‰¹åˆ«æ˜“æ‡‚ã€‚
  * 
- *  Ëã·¨²½Öè£º
- *	1.¶ÔËùÓĞµÄ½áµã½øĞĞDFSÉî¶È±éÀú¡£markËùÓĞÈ¥¹ıµÄµã¡£ÔÚ·ÃÎÊÒ»¸öµãv½áÊøÊ±£¬°Ñv¼ÓÈëstackÖĞ¡£ 
- *	2.µÃµ½Í¼gµÄreverse°æ±¾¡£È»ºó°Ñstack²»¶Ïµ¯³ö£¬ÒÔ·´ĞòµÄĞÎÊ½ÔÚ·´ĞòÍ¼ÉÏDFS±éÀúÃ¿¸ö·ÃÎÊ¹ıµÄµã¡£È»ºóË³±ãunion-find¼Óµ½idÊı×éÖĞ¡£ 
+ *  ç®—æ³•æ­¥éª¤ï¼š
+ *	1.å¯¹æ‰€æœ‰çš„ç»“ç‚¹è¿›è¡ŒDFSæ·±åº¦éå†ã€‚markæ‰€æœ‰å»è¿‡çš„ç‚¹ã€‚åœ¨è®¿é—®ä¸€ä¸ªç‚¹vç»“æŸæ—¶ï¼ŒæŠŠvåŠ å…¥stackä¸­ã€‚ 
+ *	2.å¾—åˆ°å›¾gçš„reverseç‰ˆæœ¬ã€‚ç„¶åæŠŠstackä¸æ–­å¼¹å‡ºï¼Œä»¥ååºçš„å½¢å¼åœ¨ååºå›¾ä¸ŠDFSéå†æ¯ä¸ªè®¿é—®è¿‡çš„ç‚¹ã€‚ç„¶åé¡ºä¾¿union-findåŠ åˆ°idæ•°ç»„ä¸­ã€‚ 
  *  
- *  Ê¹ÓÃstackÊÇÒòÎª£¬ÔÚgÍ¼µÄÔ´µã»á±ä³ÉÖÕµã¡£ Èç¹û²»ÓÃstack·´Ğò£¬ÄÇÔÚ·´ĞòÍ¼ÉÏË³Ğò±éÀú£¬0~g.getV()Ò»¿ªÊ¼µÄµãÈ«±ä³ÉÖÕµãÁË¡£ 
+ *  ä½¿ç”¨stackæ˜¯å› ä¸ºï¼Œåœ¨gå›¾çš„æºç‚¹ä¼šå˜æˆç»ˆç‚¹ã€‚ å¦‚æœä¸ç”¨stackååºï¼Œé‚£åœ¨ååºå›¾ä¸Šé¡ºåºéå†ï¼Œ0~g.getV()ä¸€å¼€å§‹çš„ç‚¹å…¨å˜æˆç»ˆç‚¹äº†ã€‚ 
  *
  */
 
@@ -25,9 +25,9 @@ private:
 	Graph & g;
 	Graph && rev;
 	vector<bool> marked;
-	vector<int> id;	//union-find²¢²é¼¯
+	vector<int> id;	//union-findå¹¶æŸ¥é›†
 	stack<int> s; 
-	int count; //²¢²é¼¯¸öÊı¡£¼´Ç¿Á¬Í¨·ÖÁ¿µÄ¸öÊı¡£ 
+	int count; //å¹¶æŸ¥é›†ä¸ªæ•°ã€‚å³å¼ºè¿é€šåˆ†é‡çš„ä¸ªæ•°ã€‚ 
 public:
 	KosarajuSCC(Graph & g): g(g), rev(g.reverse()), marked(g.getV(), 0), id(g.getV(), 0), count(0){buildSCC();};
 	void buildSCC(){
@@ -36,7 +36,7 @@ public:
 				dfsOrigin(i);
 			}
 		}
-		marked.assign(g.getV(), 0); //¹éÁãmarked
+		marked.assign(g.getV(), 0); //å½’é›¶marked
 		while(!s.empty()){
 			int v = s.top(); s.pop();
 			if(!marked[v]){
@@ -45,16 +45,16 @@ public:
 			}
 		} 
 	}
-	void dfsOrigin(int v){	//¶ÔÔ­Í¼½øĞĞdfs 
+	void dfsOrigin(int v){	//å¯¹åŸå›¾è¿›è¡Œdfs 
 		marked[v] = true;
-		s.push(v);	//¼ÓÈëÕ» 
+		s.push(v);	//åŠ å…¥æ ˆ 
 		for(const Edge & e : g.getAdj(v)){
 			if(!marked[e.to]){
 				dfsOrigin(e.to);
 			}
 		}
 	}
-	void dfsReverse(int v){	//¶ÔreverseÍ¼½øĞĞdfs 
+	void dfsReverse(int v){	//å¯¹reverseå›¾è¿›è¡Œdfs 
 		marked[v] = true;
 		for(const Edge & e : rev.getAdj(v)){
 			if(!marked[e.to]){

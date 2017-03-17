@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-//ÏßĞÔÌ½²â·¨ Linear-Probing-HashTable	ÕâÀï²ÉÓÃ 
+//çº¿æ€§æ¢æµ‹æ³• Linear-Probing-HashTable	è¿™é‡Œé‡‡ç”¨ 
 template <typename HashObj>
 class HashTable{
 private:
@@ -18,7 +18,7 @@ private:
 public:
 	explicit HashTable(int size = 10): v(size){};
 public:
-	size_t getHashPos(const HashObj & x); //Ê¹ÓÃ ³ı·¨¹şÏ£ µÃµ½ÓàÊı²¢È·¶¨Ó¦¸Ã·ÅÔÚHashTableÄÄ¸öÎ»ÖÃ¡£ 
+	size_t getHashPos(const HashObj & x); //ä½¿ç”¨ é™¤æ³•å“ˆå¸Œ å¾—åˆ°ä½™æ•°å¹¶ç¡®å®šåº”è¯¥æ”¾åœ¨HashTableå“ªä¸ªä½ç½®ã€‚ 
 	void insert(const HashObj & x);
 	void remove(const HashObj & x);
 	bool contains(const HashObj & x);

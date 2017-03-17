@@ -7,7 +7,7 @@ using namespace std;
 template <typename HashObj>
 class Hash{
 public:
-	size_t operator()(const HashObj & key);	//²¢Ã»ÓĞÊµÏÖ 
+	size_t operator()(const HashObj & key);	//å¹¶æ²¡æœ‰å®ç° 
 };
 
 template <>
@@ -16,8 +16,8 @@ public:
 	size_t operator()(const string & key){
 		size_t hashVal = 0;
 		for(char ch : key){
-			hashVal = hashVal * 37 + ch;	//hash_value*37 + ch£¬
-				//Ò²¾ÍÊÇËµhash_valueÃ¿´Î¶¼Òª³Ë37±¶¡£ÕâÒ²ÊÇJava HashÔ­Ôò¡£ 
+			hashVal = hashVal * 37 + ch;	//hash_value*37 + chï¼Œ
+				//ä¹Ÿå°±æ˜¯è¯´hash_valueæ¯æ¬¡éƒ½è¦ä¹˜37å€ã€‚è¿™ä¹Ÿæ˜¯Java HashåŸåˆ™ã€‚ 
 		}
 		return hashVal; 
 	}

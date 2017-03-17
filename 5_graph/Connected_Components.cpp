@@ -5,7 +5,7 @@
 #include "Graph.hpp"
 using namespace std;
 
-//Á¬Í¨·ÖÁ¿Ëã·¨¡£	ÀàËÆÓÚ²¢²é¼¯¡£	//from SedgeWick 
+//è¿é€šåˆ†é‡ç®—æ³•ã€‚	ç±»ä¼¼äºå¹¶æŸ¥é›†ã€‚	//from SedgeWick 
 class ConnectedComponents{
 private:
 	Graph & g;
@@ -17,9 +17,9 @@ public:
 		for(int i = 0; i < g.getV(); i ++){
 			if(!marked[i]){
 				dfs(i);
-				count ++;	//count·ÅÔÚÀï±ßÆ¯ÁÁ£¡£¡Ô­ÏÈ·ÅÔÚÍâ±ßµÄÉè¼Æ¼òÖ±²î¾¢£¡Àï±ßÖ»ÓĞÕÒµ½ĞÂµÄÁ¬Í¨·ÖÁ¿Ö®ºó²Å»ácount++£¡£¡ 
+				count ++;	//countæ”¾åœ¨é‡Œè¾¹æ¼‚äº®ï¼ï¼åŸå…ˆæ”¾åœ¨å¤–è¾¹çš„è®¾è®¡ç®€ç›´å·®åŠ²ï¼é‡Œè¾¹åªæœ‰æ‰¾åˆ°æ–°çš„è¿é€šåˆ†é‡ä¹‹åæ‰ä¼šcount++ï¼ï¼ 
 			}
-//			count++;	//²î¾¢£¡ 
+//			count++;	//å·®åŠ²ï¼ 
 		}
 	}
 public:

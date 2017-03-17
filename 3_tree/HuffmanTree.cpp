@@ -3,7 +3,7 @@
 #include "HuffmanTree.hpp"
 
 template <typename T, typename Comp>
-Comp HuffmanTree<T, Comp>::comp;	//static±äÁ¿Ò»¶¨ÒªÔÚÕâÀï³õÊ¼»¯°¡£¡£¡Òª²»Á´½ÓÖ®ºó.oÎÄ¼ş»Ø±¨ÀàËÆLINK1029´íÎó£¡¼«Æä¹îÒì£¡ 
+Comp HuffmanTree<T, Comp>::comp;	//staticå˜é‡ä¸€å®šè¦åœ¨è¿™é‡Œåˆå§‹åŒ–å•Šï¼ï¼è¦ä¸é“¾æ¥ä¹‹å.oæ–‡ä»¶å›æŠ¥ç±»ä¼¼LINK1029é”™è¯¯ï¼æå…¶è¯¡å¼‚ï¼ 
 
 template <typename T, typename Comp>
 using TreeNode = typename HuffmanTree<T, Comp>::TreeNode;
@@ -13,7 +13,7 @@ template <typename ITER>
 HuffmanTree<T, Comp>::HuffmanTree(ITER begin, ITER end){
 	while(begin != end){
 		TreeNode* temp = new TreeNode(*begin++, nullptr, nullptr);
-		this->nodes.push(temp);	//¹¹Ôìº¯Êı¿ÉÒÔÖ»ÓĞÒ»¸ö²ÎÊı£¬ÇÒ·Çexplicit£¬¿ÉÒÔÖ±½ÓÓÉÈ¨ÖØ±ä³É¶ÔÏó¡£ 
+		this->nodes.push(temp);	//æ„é€ å‡½æ•°å¯ä»¥åªæœ‰ä¸€ä¸ªå‚æ•°ï¼Œä¸”éexplicitï¼Œå¯ä»¥ç›´æ¥ç”±æƒé‡å˜æˆå¯¹è±¡ã€‚ 
 	}
 	this->size = nodes.size(); 
 	if(size == 0){
@@ -23,17 +23,17 @@ HuffmanTree<T, Comp>::HuffmanTree(ITER begin, ITER end){
 		root = nodes.top(); nodes.pop();
 		return;
 	}
-	while(nodes.size() > 1){	//´´½¨¹ş·òÂüÊ÷µÄÊ±ºò£¬Êı×éÖĞÖ»ÓĞ1¸öÖµÖ»ÓĞ×îºóÖ»Ê£ÏÂÒ»¸ö×îÖÕ¸ù½ÚµãµÄÇé¿ö¡£ 
+	while(nodes.size() > 1){	//åˆ›å»ºå“ˆå¤«æ›¼æ ‘çš„æ—¶å€™ï¼Œæ•°ç»„ä¸­åªæœ‰1ä¸ªå€¼åªæœ‰æœ€ååªå‰©ä¸‹ä¸€ä¸ªæœ€ç»ˆæ ¹èŠ‚ç‚¹çš„æƒ…å†µã€‚ 
 		TreeNode* first  = nodes.top(); nodes.pop();
 		TreeNode* second = nodes.top(); nodes.pop();
-		TreeNode* newNode = new TreeNode(first->weight + second->weight, first, second);	//±ØĞëÔÚ¶ÑÉÏ£¬´´½¨Ò»¸ö¼ÓºÍµÄ½áµã²¢ÇÒ°ÑfirstºÍsecond¸³¸øËüµÄÁ½¸ö¶ù×Ó
+		TreeNode* newNode = new TreeNode(first->weight + second->weight, first, second);	//å¿…é¡»åœ¨å †ä¸Šï¼Œåˆ›å»ºä¸€ä¸ªåŠ å’Œçš„ç»“ç‚¹å¹¶ä¸”æŠŠfirstå’Œsecondèµ‹ç»™å®ƒçš„ä¸¤ä¸ªå„¿å­
 		nodes.push(newNode);
 	}
 	root = nodes.top(); nodes.pop();
 }
 
 template <typename T, typename Comp>
-void HuffmanTree<T, Comp>::print(){	//ÏÈĞò±éÀú 
+void HuffmanTree<T, Comp>::print(){	//å…ˆåºéå† 
 	stack<TreeNode*> s;
 	TreeNode* temp = root; 
 	while(true){

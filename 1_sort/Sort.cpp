@@ -6,12 +6,12 @@
 
 template <>
 int Sort<int, std::less<int>>::maxbit(){
-	//»ñÈ¡×î´óÖµ 
+	//è·å–æœ€å¤§å€¼ 
 	int max = a[0];
 	for(int i = 1; i < n; i ++){
 		if(max < a[i])	max = a[i];
 	}
-	//µÃµ½×î¸ßÎ»
+	//å¾—åˆ°æœ€é«˜ä½
 	int maxbit = 0;
 	while(max > 0){
 		max /= 10;
@@ -22,7 +22,7 @@ int Sort<int, std::less<int>>::maxbit(){
 
 template <>
 int Sort<string, std::less<string>>::maxbit(){
-	//»ñÈ¡×î´ó³¤¶È
+	//è·å–æœ€å¤§é•¿åº¦
 	int maxlen = a[0].size();
 	for(int i = 1; i < n; i ++){
 		int len = a[i].size();
@@ -52,7 +52,7 @@ void Sort<T, Comp>::print(const char* func){
 	for(int i = 0; i < n; i ++){
 		cout << a[i] << " "; 
 	}
-	if(count != 0) cout << "    ×Ü¼Æ½»»»" << count << "´Î." << endl; 
+	if(count != 0) cout << "    æ€»è®¡äº¤æ¢" << count << "æ¬¡." << endl; 
 	else cout << endl;
 }
 
@@ -105,14 +105,14 @@ void Sort<T, Comp>::insertion_sort(){
 template <typename T, typename Comp>
 void Sort<T, Comp>::shell_sort(){
 	int SedgeWick[6]{109, 41, 19, 5, 1, 0};
-	int index;	//Ñ¡¶¨sedgewickÔöÁ¿ 
-	for(index = 0; index < 6; index ++){	//ÎÔ²Û ½ö½öÒòÎªÑ­»·ÄÚ²¿Ğ´ÁË int index = 0 µ÷ÊÔµ÷ÁËºÃ¾ÃºÃ¾Ã¡£¡£ 
+	int index;	//é€‰å®šsedgewickå¢é‡ 
+	for(index = 0; index < 6; index ++){	//å§æ§½ ä»…ä»…å› ä¸ºå¾ªç¯å†…éƒ¨å†™äº† int index = 0 è°ƒè¯•è°ƒäº†å¥½ä¹…å¥½ä¹…ã€‚ã€‚ 
 		if(SedgeWick[index] < n)	break;
 	}
 	
 	int gap = SedgeWick[index];
 	for( ; gap > 0; gap = SedgeWick[++index]){
-		for(int i = gap; i < n; i ++){	//×¢ÒâÊÇi++£¡£¡ 
+		for(int i = gap; i < n; i ++){	//æ³¨æ„æ˜¯i++ï¼ï¼ 
 			T temp = std::move(a[i]);
 			int j;
 			for(j = i - gap; j >= 0; j -= gap){
@@ -170,28 +170,28 @@ void Sort<T, Comp>::merge_sort(int * src, int * temp, int lo, int hi){
 	merge_sort(src, temp, lo, mid);
 	merge_sort(src, temp, mid+1, hi);
 	
-	//´ËÊ±lo->mid   mid+1->hiÒÑ¾­È«²¿ÕûºÏÔÚÒ»Æğ£¬¼´ÓĞĞòÁË¡£ÒòÎªÔÚµ×²ãµÄµİ¹éÖĞ£¬²»¶ÏmergeÒ²»áÊ¹ËüÃÇÓĞĞò¡£ 
+	//æ­¤æ—¶lo->mid   mid+1->hiå·²ç»å…¨éƒ¨æ•´åˆåœ¨ä¸€èµ·ï¼Œå³æœ‰åºäº†ã€‚å› ä¸ºåœ¨åº•å±‚çš„é€’å½’ä¸­ï¼Œä¸æ–­mergeä¹Ÿä¼šä½¿å®ƒä»¬æœ‰åºã€‚ 
 	merge(src, temp, lo, mid, hi);	//lo->mid    mid+1->hi 
 }
 
 template <typename T, typename Comp>
 void Sort<T, Comp>::merge(int * src, int * temp, int lo, int mid, int hi){
-	int pos = lo;	//Ğ´µ½tempÊı×éµÄÏÂ±ê 
+	int pos = lo;	//å†™åˆ°tempæ•°ç»„çš„ä¸‹æ ‡ 
 	int i, j;
-	for(i = lo, j = mid+1; i <= mid && j <= hi; /*i++, j++*/){	//×¢Òâ¿Ó¡£¡£Ç§Íò±ğĞ´¡£¡£ÒòÎªÒ»»áÊÇi++£¬Ò»»áÊÇj++¡£¡£¡£ 
+	for(i = lo, j = mid+1; i <= mid && j <= hi; /*i++, j++*/){	//æ³¨æ„å‘ã€‚ã€‚åƒä¸‡åˆ«å†™ã€‚ã€‚å› ä¸ºä¸€ä¼šæ˜¯i++ï¼Œä¸€ä¼šæ˜¯j++ã€‚ã€‚ã€‚ 
 		if(comp(src[i], src[j]))		temp[pos++] = src[i++];
 		else 							temp[pos++] = src[j++];
 	}
 	while(i <= mid)	temp[pos++] = src[i++];
 	while(j <= hi)	temp[pos++] = src[j++];
-	//×îºó²»ÒªÍüÁËcopy»ØÈ¥£¡±ğÍüÁË¹é²¢µÄÇ°ÌáÊÇsrcµÄÇ°Ò»°ëºÍºóÒ»°ëÓĞĞò£¡Èç¹ûsrc»¹ÊÇ±£³ÖÔ­À´µÄ²»±ä£¬ÄÇ¿Ï¶¨²»¶Ô¡£ 
+	//æœ€åä¸è¦å¿˜äº†copyå›å»ï¼åˆ«å¿˜äº†å½’å¹¶çš„å‰ææ˜¯srcçš„å‰ä¸€åŠå’Œåä¸€åŠæœ‰åºï¼å¦‚æœsrcè¿˜æ˜¯ä¿æŒåŸæ¥çš„ä¸å˜ï¼Œé‚£è‚¯å®šä¸å¯¹ã€‚ 
 	for(int i = lo; i <= hi; i ++){
 		src[i] = temp[i];
 	}
 }
 
 template <>
-void Sort<int , std::less<int>>::bucket_sort(){	//»òÊÇ¼ÆÊıÅÅĞò£¬Ô­Àí¼¸ºõÀàÍ¬¡£ 
+void Sort<int , std::less<int>>::bucket_sort(){	//æˆ–æ˜¯è®¡æ•°æ’åºï¼ŒåŸç†å‡ ä¹ç±»åŒã€‚ 
 	int * buckets = new int[n];
 	for(int i = 0; i < n; i ++){
 		buckets[i] = 0;
@@ -210,17 +210,17 @@ void Sort<int , std::less<int>>::bucket_sort(){	//»òÊÇ¼ÆÊıÅÅĞò£¬Ô­Àí¼¸ºõÀàÍ¬¡£
 
 template <>
 void Sort<int, std::less<int>>::radix_sort(){
-	int m = maxbit();	//»ñÈ¡intÖµµÄ×î¸ßÎ»Êı	ÓĞ¼¸Î»ÅÅ¼¸´ÎĞò	ÕâÀïmÖ»ÊÇÂÖÊı¡£  
-	int len = n;		//Ãû³ÆÒªÆğµÄ±È½ÏºÃ²ÅĞĞ233 
-	//»ùÊıÅÅĞò¿ªÊ¼
+	int m = maxbit();	//è·å–intå€¼çš„æœ€é«˜ä½æ•°	æœ‰å‡ ä½æ’å‡ æ¬¡åº	è¿™é‡Œmåªæ˜¯è½®æ•°ã€‚  
+	int len = n;		//åç§°è¦èµ·çš„æ¯”è¾ƒå¥½æ‰è¡Œ233 
+	//åŸºæ•°æ’åºå¼€å§‹
 	int buc[10], temp[len];
-	int radix = 1;	//ÓÃÀ´É¸Ñ¡Ã¿ÂÖµÄÎ»Êı
-	for(int t = 0; t < m; t ++){	//½øĞĞm´ÎÅÅĞò£¬ÒÀ´Î¶Ô¸öÎ»£¬Ê®Î»£¬°ÙÎ»½øĞĞ²»¶ÏÅÅĞò¡£ 
-		for(int i = 0; i < 10; i ++)		buc[i] = 0;		//Çå¿ÕÍ° 
-		for(int i = 0; i < len; i ++)		buc[(a[i] / radix) % 10]++;	//ÏòÍ°Àï·ÅÈë
-		for(int i = 1; i < 10; i ++)		buc[i] += buc[i-1];	//ÀÛ¼Óbuc
-		for(int i = len-1; i >= 0; i--)		temp[--buc[(a[i] / radix) % 10]] = a[i];	//¡¾ÄæÏò¡¿°ÑÊı×é´ÓaµÄ×îºó¾­ÓÉbucµÄÖ¸Òı·Å»ØtempÖĞ£¡
-		for(int i = 0; i < len; i ++)		a[i] = temp[i];	//copy»ØÔ­À´µÄaÊı×é¡£ 
+	int radix = 1;	//ç”¨æ¥ç­›é€‰æ¯è½®çš„ä½æ•°
+	for(int t = 0; t < m; t ++){	//è¿›è¡Œmæ¬¡æ’åºï¼Œä¾æ¬¡å¯¹ä¸ªä½ï¼Œåä½ï¼Œç™¾ä½è¿›è¡Œä¸æ–­æ’åºã€‚ 
+		for(int i = 0; i < 10; i ++)		buc[i] = 0;		//æ¸…ç©ºæ¡¶ 
+		for(int i = 0; i < len; i ++)		buc[(a[i] / radix) % 10]++;	//å‘æ¡¶é‡Œæ”¾å…¥
+		for(int i = 1; i < 10; i ++)		buc[i] += buc[i-1];	//ç´¯åŠ buc
+		for(int i = len-1; i >= 0; i--)		temp[--buc[(a[i] / radix) % 10]] = a[i];	//ã€é€†å‘ã€‘æŠŠæ•°ç»„ä»açš„æœ€åç»ç”±bucçš„æŒ‡å¼•æ”¾å›tempä¸­ï¼
+		for(int i = 0; i < len; i ++)		a[i] = temp[i];	//copyå›åŸæ¥çš„aæ•°ç»„ã€‚ 
 		radix *= 10;
 	}
 	print(__func__);
@@ -230,30 +230,30 @@ template<>
 void Sort<string, std::less<string>>::radix_sort(){
 	int m = maxbit();	
 	int len = n;
-	int buc[127]; 	//ascii×Ö·ûÊı
+	int buc[127]; 	//asciiå­—ç¬¦æ•°
 	string temp[len];	
-	//ÒÔÖµĞÎÊ½²¶»ñthisÖ¸Õë¡£i´ú±ía[i]£¬¼´µÚi¸östring¡£t´ú±ístring=>a[i]µÄµÚtÎ»¡£´Ë¦Ë±íÊ¾Èç¹ût³¬³ö×î´óÏÂ±ê£¬¾Í·µ»Ø\0. 
-	auto && get_bit = [this](int i, int t)->char {return (t > this->a[i].size()-1) ? '\0' : this->a[i][t]; };  //ÒªĞ´&&¡£¡£¡£ 
-	for(int t = m - 1; t >= 0; t --){	//×¢ÒâÒ»¶¨Òª´Ó×î²»ÖØÒªµÄÎ»¿ªÊ¼ÅÅ£¡£¡Òò´ËºÍintµÄradix²»Í¬£¬intµÄÓÃradix±äÁ¿£¬¸ù±¾²»ĞèÒªt£¬¶østringµÄĞèÒªt¸¨Öú¡£ 
+	//ä»¥å€¼å½¢å¼æ•è·thisæŒ‡é’ˆã€‚iä»£è¡¨a[i]ï¼Œå³ç¬¬iä¸ªstringã€‚tä»£è¡¨string=>a[i]çš„ç¬¬tä½ã€‚æ­¤Î»è¡¨ç¤ºå¦‚æœtè¶…å‡ºæœ€å¤§ä¸‹æ ‡ï¼Œå°±è¿”å›\0. 
+	auto && get_bit = [this](int i, int t)->char {return (t > this->a[i].size()-1) ? '\0' : this->a[i][t]; };  //è¦å†™&&ã€‚ã€‚ã€‚ 
+	for(int t = m - 1; t >= 0; t --){	//æ³¨æ„ä¸€å®šè¦ä»æœ€ä¸é‡è¦çš„ä½å¼€å§‹æ’ï¼ï¼å› æ­¤å’Œintçš„radixä¸åŒï¼Œintçš„ç”¨radixå˜é‡ï¼Œæ ¹æœ¬ä¸éœ€è¦tï¼Œè€Œstringçš„éœ€è¦tè¾…åŠ©ã€‚ 
 		for(int i = 0; i < 127; i ++)		buc[i] = 0;
 		for(int i = 0; i < len; i ++)		buc[get_bit(i, t) - '\0']++;
 		for(int i = 1; i < 127; i ++)		buc[i] += buc[i-1];
-		for(int i = len-1; i >= 0; i--)		temp[--buc[get_bit(i, t) - '\0']] = std::move(a[i]);	//moveÓÒÖµÒıÓÃ¡£
+		for(int i = len-1; i >= 0; i--)		temp[--buc[get_bit(i, t) - '\0']] = std::move(a[i]);	//moveå³å€¼å¼•ç”¨ã€‚
 		for(int i = 0; i < len; i ++)		a[i] = std::move(temp[i]); 
 	}
 	print(__func__);
 }
 
-//heap_sortË¼Ïë£ºÒª´ÓĞ¡->´ó½øĞĞÅÅĞò£¬¾ÍÒªÏÈ´Ón/2->1°ÑĞ¡ÔªËØsinkÏÂÀ´¹¹½¨×î´ó¶Ñ£¬ÕâÑù¾ÍÒÑ¾­Âú×ã´ó->Ğ¡ÅÅĞòÁË¡£
-//È»ºóÔÙÒÀ´Î°Ñ×îºóÒ»¸öÔªËØºÍ×î´ó(Ê×)ÔªËØexch.Ö®ºó²»¶Ïsink(ÕâÀï±ğÍüÁË°Ñ×Ü´óĞ¡size-1£¡£¡ÒòÎª×î´óÔªÒÑ¾­µ½×îºó£¬²»ÓÃ¹ÜÁË¡£)¡£
-//¾ÍÏàµ±ÓÚÊÇ²»¶ÏdeleteMinÁË¡£
+//heap_sortæ€æƒ³ï¼šè¦ä»å°->å¤§è¿›è¡Œæ’åºï¼Œå°±è¦å…ˆä»n/2->1æŠŠå°å…ƒç´ sinkä¸‹æ¥æ„å»ºæœ€å¤§å †ï¼Œè¿™æ ·å°±å·²ç»æ»¡è¶³å¤§->å°æ’åºäº†ã€‚
+//ç„¶åå†ä¾æ¬¡æŠŠæœ€åä¸€ä¸ªå…ƒç´ å’Œæœ€å¤§(é¦–)å…ƒç´ exch.ä¹‹åä¸æ–­sink(è¿™é‡Œåˆ«å¿˜äº†æŠŠæ€»å¤§å°size-1ï¼ï¼å› ä¸ºæœ€å¤§å…ƒå·²ç»åˆ°æœ€åï¼Œä¸ç”¨ç®¡äº†ã€‚)ã€‚
+//å°±ç›¸å½“äºæ˜¯ä¸æ–­deleteMinäº†ã€‚
 template <typename T, typename Comp>
 void Sort<T, Comp>::heap_sort(){ 
 	int size = n; 
-	auto && sink = [this, &size](int k){	//×¢ÒâÕâÀïµÄ¶ÑÅÅĞò£¡Êı×éÏÂ±ê´Ó0¿ªÊ¼£¡£¡
-		while(2*k + 1 <= size - 1){	//Ö»ÒªÓĞÒ»¸ö¶ù×Ó£¬¾Í¿ÉÒÔsink¡£Èç¹ûÎŞ×óÓÒ¶ù×Ó£¬¼´Ëü×ÔÉíÊÇÒ¶½ÚµãÖ®Ê±ÍË³ö 
+	auto && sink = [this, &size](int k){	//æ³¨æ„è¿™é‡Œçš„å †æ’åºï¼æ•°ç»„ä¸‹æ ‡ä»0å¼€å§‹ï¼ï¼
+		while(2*k + 1 <= size - 1){	//åªè¦æœ‰ä¸€ä¸ªå„¿å­ï¼Œå°±å¯ä»¥sinkã€‚å¦‚æœæ— å·¦å³å„¿å­ï¼Œå³å®ƒè‡ªèº«æ˜¯å¶èŠ‚ç‚¹ä¹‹æ—¶é€€å‡º 
 			int j = 2*k + 1;
-			if(j < size-1 && comp(a[j], a[j+1]))	j++;	//¼´Ê¹ÏàµÈÒ²ÒªÑ¡ÓÒ±ßµÄ£¡ÕâÊÇÈÃ×îÓÒ±ßµÄ±ä³É×îĞ¡£¬ÍêÈ«·ûºÏ´ó->Ğ¡µÄÅÅĞò£¡£¡?
+			if(j < size-1 && comp(a[j], a[j+1]))	j++;	//å³ä½¿ç›¸ç­‰ä¹Ÿè¦é€‰å³è¾¹çš„ï¼è¿™æ˜¯è®©æœ€å³è¾¹çš„å˜æˆæœ€å°ï¼Œå®Œå…¨ç¬¦åˆå¤§->å°çš„æ’åºï¼ï¼?
 			if(!comp(a[k], a[j])) break;
 			swap(k, j);	 
 			k = j;
@@ -263,8 +263,8 @@ void Sort<T, Comp>::heap_sort(){
 		sink(k);
 	}
 //	print(__func__);
-	while(size > 0){	//Ïàµ±ÓÚdeleteMinµÄ±ä³É×îĞ¡¶Ñ£¡ 
-		swap(0, size---1);	//size×Ô¼õÎğÍü 
+	while(size > 0){	//ç›¸å½“äºdeleteMinçš„å˜æˆæœ€å°å †ï¼ 
+		swap(0, size---1);	//sizeè‡ªå‡å‹¿å¿˜ 
 		sink(0);
 	}
 	print(__func__);

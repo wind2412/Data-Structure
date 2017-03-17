@@ -7,22 +7,22 @@
 #include <string>
 using namespace std;
 
-template <typename HashObj>	//ÉùÃ÷Hash¸¨Öú²úÉú¹şÏ£ÖµÀà 
+template <typename HashObj>	//å£°æ˜Hashè¾…åŠ©äº§ç”Ÿå“ˆå¸Œå€¼ç±» 
 class Hash;
 
-//Ê¹ÓÃÁ´±íÔÚÎ²²¿½øĞĞ½ÓÈëµÄ[·ÖÀëÁ´½Ó·¨]HashTable. 
+//ä½¿ç”¨é“¾è¡¨åœ¨å°¾éƒ¨è¿›è¡Œæ¥å…¥çš„[åˆ†ç¦»é“¾æ¥æ³•]HashTable. 
 template <typename HashObj>
 class HashTable{
 private:
 	vector<list<HashObj>> lists;
 	int current_size = 0;
-	Hash<HashObj> hash;	//ÓÃÓÚ²úÉúhashÖµµÄhash¶ÔÏó¡£ 
+	Hash<HashObj> hash;	//ç”¨äºäº§ç”Ÿhashå€¼çš„hashå¯¹è±¡ã€‚ 
 private:
 	void rehash();
 public:
 	explicit HashTable(int size = 100): lists(size){};
 public:
-	size_t getHashPos(const HashObj & x); //Ê¹ÓÃ ³ı·¨¹şÏ£ µÃµ½ÓàÊı²¢È·¶¨Ó¦¸Ã·ÅÔÚHashTableÄÄ¸öÎ»ÖÃ¡£ 
+	size_t getHashPos(const HashObj & x); //ä½¿ç”¨ é™¤æ³•å“ˆå¸Œ å¾—åˆ°ä½™æ•°å¹¶ç¡®å®šåº”è¯¥æ”¾åœ¨HashTableå“ªä¸ªä½ç½®ã€‚ 
 	void insert(const HashObj & x);
 	void remove(const HashObj & x);
 	bool contains(const HashObj & x);

@@ -5,23 +5,23 @@
 #include <list>
 using namespace std;
 
-//ÁÚ½Ó±íĞÎÊ½¡£ ¼ÓÈ¨ÓĞÏòÍ¼. 
+//é‚»æ¥è¡¨å½¢å¼ã€‚ åŠ æƒæœ‰å‘å›¾. 
 class Graph{
-public:	//±ØĞëÉè³Épublic......mdzz....... 
+public:	//å¿…é¡»è®¾æˆpublic......mdzz....... 
 	struct Edge{
 		int from;
 		int to;
 		double weight;	 
 		
 		Edge(int from, int to, double weight = 1) : from(from), to(to), weight(weight){}; 
-		bool operator < (const Edge & e) const{	//ÕâÀï±ØĞë¼Óconst£¡£¡·ñÔòless<Edge>×öµ½±È½Ï<Ê±»á±¨´í£¡£¡ÒòÎª²»ÉùÃ÷const´ú±í¿ÉÒÔĞŞ¸Ä³ÉÔ±£¡!
+		bool operator < (const Edge & e) const{	//è¿™é‡Œå¿…é¡»åŠ constï¼ï¼å¦åˆ™less<Edge>åšåˆ°æ¯”è¾ƒ<æ—¶ä¼šæŠ¥é”™ï¼ï¼å› ä¸ºä¸å£°æ˜constä»£è¡¨å¯ä»¥ä¿®æ”¹æˆå‘˜ï¼!
 												//http://www.cppblog.com/cppblogs/archive/2012/09/06/189749.html 
 			return this->weight < e.weight;
 		}
 	}; 
 private:
-	int V;	//¶¥µãÊı 
-	int E;	//±ßÊı
+	int V;	//é¡¶ç‚¹æ•° 
+	int E;	//è¾¹æ•°
 	vector<list<Edge>> adj;
 	bool directed;
 public:

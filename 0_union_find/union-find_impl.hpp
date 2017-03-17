@@ -1,32 +1,32 @@
 #ifndef _UNION_FIND_IMPL_H_
 #define _UNION_FIND_IMPL_H_
 
-/***************¹¹Ôìº¯Êı*****************/ 
-UnionFind::UnionFind(int num):root(num), size(num, 1){		//size È«²¿ÉèÎª1 
-	for(size_t i = 0; i < num; i ++){ 						//root ÏÂ±êÎª¼¸ÖµÎª¼¸ 
+/***************æ„é€ å‡½æ•°*****************/ 
+UnionFind::UnionFind(int num):root(num), size(num, 1){		//size å…¨éƒ¨è®¾ä¸º1 
+	for(size_t i = 0; i < num; i ++){ 						//root ä¸‹æ ‡ä¸ºå‡ å€¼ä¸ºå‡  
 		root[i] = i;
 	}
 }
 
-/***************ÖØÒªº¯Êı*****************/ 
-int UnionFind::find(int k){	//kÊÇĞòºÅ£¬Í¬Ê±Ò²ÊÇÏÂ±ê¡£ 
-	while(k != root[k]){	//×¢Òâ£¬ÕâÀïÂ·¾¶Ñ¹ËõÈç¹ûÖ»ÓĞÒ»²ã£¬´úÂë»¹ÓĞĞ§£¬ÕâÊÇÓÉÓÚÕâÀïµÄ¹æ¶¨£ºroot[a]=aµÄ»°´ú±íaÊÇ¸ù¡£ËùÒÔÏÂÒ»¾äµÄ½á¹û»¹ÊÇa¡£ 
-		root[k] = root[root[k]];	//Â·¾¶Ñ¹Ëõ£¬ÏòÉÏÒÆ¶¯Ò»²ã¡£
-		k = root[k];				//°Ñk¸³ÖµÎªµ±Ç°²ã£¨ÒÑÎªÒÆ¶¯¹ı£©µÄÖµ¡£ 
+/***************é‡è¦å‡½æ•°*****************/ 
+int UnionFind::find(int k){	//kæ˜¯åºå·ï¼ŒåŒæ—¶ä¹Ÿæ˜¯ä¸‹æ ‡ã€‚ 
+	while(k != root[k]){	//æ³¨æ„ï¼Œè¿™é‡Œè·¯å¾„å‹ç¼©å¦‚æœåªæœ‰ä¸€å±‚ï¼Œä»£ç è¿˜æœ‰æ•ˆï¼Œè¿™æ˜¯ç”±äºè¿™é‡Œçš„è§„å®šï¼šroot[a]=açš„è¯ä»£è¡¨aæ˜¯æ ¹ã€‚æ‰€ä»¥ä¸‹ä¸€å¥çš„ç»“æœè¿˜æ˜¯aã€‚ 
+		root[k] = root[root[k]];	//è·¯å¾„å‹ç¼©ï¼Œå‘ä¸Šç§»åŠ¨ä¸€å±‚ã€‚
+		k = root[k];				//æŠŠkèµ‹å€¼ä¸ºå½“å‰å±‚ï¼ˆå·²ä¸ºç§»åŠ¨è¿‡ï¼‰çš„å€¼ã€‚ 
 	}
 	return k;
 }
 
-void UnionFind::Union(int m, int n){	//°ÑĞ¡µÄÊ÷²¢µ½´óµÄÊ÷ÉÏ£¡ 
+void UnionFind::Union(int m, int n){	//æŠŠå°çš„æ ‘å¹¶åˆ°å¤§çš„æ ‘ä¸Šï¼ 
 	int rootM = find(m);
 	int rootN = find(n);
-	//Èç¹û¸ùÏàÍ¬£¬¸ù±¾¾Í²»ĞèÒª²¢²é¡£ 
+	//å¦‚æœæ ¹ç›¸åŒï¼Œæ ¹æœ¬å°±ä¸éœ€è¦å¹¶æŸ¥ã€‚ 
 	if(rootM == rootN)	return; 
 	if(size[rootM] > size[rootN]){
 		root[rootN] = rootM;
 		size[rootM] += size[rootN];
 	} 
-	else {	//Èç¹û±È½ÏĞ¡»òÕßµÈÓÚ£¬¾ÍÄ¬ÈÏ½Óµ½ÓÒ±ßµÄÊ÷ÉÏÁË¡£ 
+	else {	//å¦‚æœæ¯”è¾ƒå°æˆ–è€…ç­‰äºï¼Œå°±é»˜è®¤æ¥åˆ°å³è¾¹çš„æ ‘ä¸Šäº†ã€‚ 
 		root[rootM] = rootN;
 		size[rootN] += size[rootM];
 	}
@@ -36,17 +36,17 @@ bool UnionFind::connected(int m, int n){
 	return find(m) == find(n);
 }
 
-/***************ÆäËûº¯Êı*****************/ 
+/***************å…¶ä»–å‡½æ•°*****************/ 
 void UnionFind::print(){
-	cout << "ĞòºÅ£º" << endl;
+	cout << "åºå·ï¼š" << endl;
 	for(int i = 0; i < root.size(); i ++){
 		cout << i << " ";
 	}
-	cout << endl << "¸¸Ç×£º" << endl;
+	cout << endl << "çˆ¶äº²ï¼š" << endl;
 	for(int i = 0; i < root.size(); i ++){
 		cout << root[i] << " ";
 	}
-	cout << endl << "´óĞ¡£º" << endl;
+	cout << endl << "å¤§å°ï¼š" << endl;
 	for(int i = 0; i < root.size(); i ++){
 		cout << size[i] << " ";
 	}

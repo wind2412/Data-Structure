@@ -32,61 +32,61 @@ int BinomialHeap<T, Comp>::capacity(){
 
 template <typename T, typename Comp>
 void BinomialHeap<T, Comp>::merge(BinomialHeap & rhs){
-	if(this == &rhs)	return;	//±ÜÃâ±ğÃûÎÊÌâ
+	if(this == &rhs)	return;	//é¿å…åˆ«åé—®é¢˜
 	
-	//¸üĞÂ½áµã×ÜÊı 
+	//æ›´æ–°ç»“ç‚¹æ€»æ•° 
 	currentSize += rhs.currentSize;
 	rhs.currentSize = 0;
 	
-	//ÈçĞèÀ©Èİ£¬ÔòÀ©Èİ
+	//å¦‚éœ€æ‰©å®¹ï¼Œåˆ™æ‰©å®¹
 	if(currentSize > this->capacity()){
-		int oldSize = forest.size();	//±£ÁôÔ­ÏÈµÄsize 
-		int newSize = max(forest.size(), rhs.forest.size()) + 1;	//ÈİÁ¿À©³äÎªÁ½¸öforestµÄsize×î´óÖµ+1 
+		int oldSize = forest.size();	//ä¿ç•™åŸå…ˆçš„size 
+		int newSize = max(forest.size(), rhs.forest.size()) + 1;	//å®¹é‡æ‰©å……ä¸ºä¸¤ä¸ªforestçš„sizeæœ€å¤§å€¼+1 
 		forest.resize(newSize);	//resize 
-		while(oldSize < newSize){	//¶ÔÓÚ´Ëforest£¬°ÑĞÂÀ©³äµÄ²¿·ÖÈ«±ä³Énullptr 
+		while(oldSize < newSize){	//å¯¹äºæ­¤forestï¼ŒæŠŠæ–°æ‰©å……çš„éƒ¨åˆ†å…¨å˜æˆnullptr 
 			forest[oldSize++] = nullptr;
 		}
 	} 
 	
-	//ºÏ²¢Ëã·¨	ÒıÈëĞÂµÄcarryÖ¸ÕëÔİ´æĞÂºÏ²¢µÄÊ÷
-	TreeNode* carry = nullptr;	//±ØĞë¸³ÖµÎªnullptr£¬ÒòÎªºó±ßĞèÒªÅĞ¶Ï¡£Èç¹û²»¸³Öµ»áÓĞ!=nullptrµÄºó¹û£¿£¿Ã»ÊÔ¹ı 
-	//Æ¯ÁÁ£¡ÒòÎªÈç¹û2^nÕıºÃµÈÓÚcurrentSizeÊ±£¬¼´currentSizeÕıºÃÊÇ2^nÊ±£¬¾Í»á·¢Éú×îºóÒ»´ÎÁ½¸öforestºÏ²¢ÍêµÄcarryÎŞ·¨´æµ½this->forest.
-	//Ê¹ÓÃÈçÏÂµÄÊÖ¶Î£¬ÒÔĞÂÔöÒ»¸ö±äÁ¿Îª´ú¼Û£¬»»À´´úÂëµÄÕû½à£¡²»ÓÃÔÚÑ­»·Íâ±ß¶îÍâÅĞ¶ÏÁË£¡
+	//åˆå¹¶ç®—æ³•	å¼•å…¥æ–°çš„carryæŒ‡é’ˆæš‚å­˜æ–°åˆå¹¶çš„æ ‘
+	TreeNode* carry = nullptr;	//å¿…é¡»èµ‹å€¼ä¸ºnullptrï¼Œå› ä¸ºåè¾¹éœ€è¦åˆ¤æ–­ã€‚å¦‚æœä¸èµ‹å€¼ä¼šæœ‰!=nullptrçš„åæœï¼Ÿï¼Ÿæ²¡è¯•è¿‡ 
+	//æ¼‚äº®ï¼å› ä¸ºå¦‚æœ2^næ­£å¥½ç­‰äºcurrentSizeæ—¶ï¼Œå³currentSizeæ­£å¥½æ˜¯2^næ—¶ï¼Œå°±ä¼šå‘ç”Ÿæœ€åä¸€æ¬¡ä¸¤ä¸ªforeståˆå¹¶å®Œçš„carryæ— æ³•å­˜åˆ°this->forest.
+	//ä½¿ç”¨å¦‚ä¸‹çš„æ‰‹æ®µï¼Œä»¥æ–°å¢ä¸€ä¸ªå˜é‡ä¸ºä»£ä»·ï¼Œæ¢æ¥ä»£ç çš„æ•´æ´ï¼ä¸ç”¨åœ¨å¾ªç¯å¤–è¾¹é¢å¤–åˆ¤æ–­äº†ï¼
 	for(int i = 0, j = 1; j <= currentSize; ++i, j *= 2){
-		TreeNode* t1 = this->forest[i];	//ÏÈÈ¡³öÖ¸Õë±£´æÏÂÀ´£¡±£´æÏÂÀ´¾Í¿ÉÒÔ¶ÔforestÈÎÒâĞŞ¸ÄÁË£¡£¡ 
-		TreeNode* t2 = i < rhs.forest.size() ? rhs.forest[i] : nullptr;	//ÒòÎªÊ¹ÓÃthis->currentSize×÷Îª±äÁ¿£¬²»È·¶¨rhsÊÇ·ñ»áÒç³ö£¡Æ¯ÁÁ£¡
+		TreeNode* t1 = this->forest[i];	//å…ˆå–å‡ºæŒ‡é’ˆä¿å­˜ä¸‹æ¥ï¼ä¿å­˜ä¸‹æ¥å°±å¯ä»¥å¯¹forestä»»æ„ä¿®æ”¹äº†ï¼ï¼ 
+		TreeNode* t2 = i < rhs.forest.size() ? rhs.forest[i] : nullptr;	//å› ä¸ºä½¿ç”¨this->currentSizeä½œä¸ºå˜é‡ï¼Œä¸ç¡®å®šrhsæ˜¯å¦ä¼šæº¢å‡ºï¼æ¼‚äº®ï¼
 		
-		//ÏÂ±ßµÄËã·¨ÀàËÆLinux chmod chownµÄÊÖ·¨£¡ÒÔ2^1 2^2 2^3µÈ²»ÖØ¸´µÄÊ½×ÓÈÎÒâÏà¼Ó£¬µÃÊı»áÈ«²»ÖØ¸´ÎªÇ°Ìá£¡£¡
+		//ä¸‹è¾¹çš„ç®—æ³•ç±»ä¼¼Linux chmod chownçš„æ‰‹æ³•ï¼ä»¥2^1 2^2 2^3ç­‰ä¸é‡å¤çš„å¼å­ä»»æ„ç›¸åŠ ï¼Œå¾—æ•°ä¼šå…¨ä¸é‡å¤ä¸ºå‰æï¼ï¼
 		int whichCase =    	t1==nullptr ? 0 : 1;
 		whichCase    +=    	t2==nullptr ? 0 : 2;
 		whichCase    +=  carry==nullptr ? 0 : 4; 
 		
 		switch(whichCase){
-			case 0:	//ÎŞÊ÷
-			case 1: //Ö»ÓĞthis
+			case 0:	//æ— æ ‘
+			case 1: //åªæœ‰this
 				break;
-			case 2: //Ö»ÓĞrhs
+			case 2: //åªæœ‰rhs
 				this->forest[i] = t2;
 				rhs.forest[i] = nullptr;
 				break;
-			case 3: //ÓĞthisºÍrhs ¼´±£´æµ½carryÖĞ
+			case 3: //æœ‰thiså’Œrhs å³ä¿å­˜åˆ°carryä¸­
 				carry = combineTrees(t1, t2);
 				this->forest[i] = rhs.forest[i] = nullptr;
 				break;
-			case 4:	//Ö»ÓĞcarry
+			case 4:	//åªæœ‰carry
 				this->forest[i] = carry;
 				carry = nullptr;
 				break;
-			case 5:	//ÓĞthisºÍcarry 
+			case 5:	//æœ‰thiså’Œcarry 
 			 	carry = combineTrees(t1, carry);
 			 	this->forest[i] = nullptr;
 			 	break;
-			case 6:	//ÓĞrhsºÍcarry
+			case 6:	//æœ‰rhså’Œcarry
 				carry = combineTrees(t2, carry);
 				rhs.forest[i] = nullptr;
 				break; 
-			case 7: //ÓĞthisºÍrhsºÍcarry 
-				this->forest[i] = carry;	//carry·Åµ½thisÖĞ
+			case 7: //æœ‰thiså’Œrhså’Œcarry 
+				this->forest[i] = carry;	//carryæ”¾åˆ°thisä¸­
 				carry = combineTrees(t1, t2);
 				rhs.forest[i] = nullptr;
 				break; 
@@ -104,7 +104,7 @@ int BinomialHeap<T, Comp>::findMinIndex(){
 	for(i = 0; forest[i] == nullptr; i ++);
 	int min = i;
 	for(; i < forest.size(); i ++){
-		if(forest[i] != nullptr && comp(forest[i]->data, forest[min]->data))	min = i; 	//ÎğÍüÅĞ¶Ïnullptr¡£ 
+		if(forest[i] != nullptr && comp(forest[i]->data, forest[min]->data))	min = i; 	//å‹¿å¿˜åˆ¤æ–­nullptrã€‚ 
 	}
 	return min;
 }
@@ -112,7 +112,7 @@ int BinomialHeap<T, Comp>::findMinIndex(){
 template <typename T, typename Comp>
 void BinomialHeap<T, Comp>::insert(T const & x){
 	BinomialHeap b(x);
-	merge(b);	//²»ÄÜÖ±½ÓÔÚÀï±ß½¨Á¢¶ÔÏó¡£ÒòÎªmerge²ÎÊıÊÇ&ÀàĞÍ¡£ÓÒÖµÊÇ²»¿ÉÒÔÈ¡ÒıÓÃµÄ¡£ 
+	merge(b);	//ä¸èƒ½ç›´æ¥åœ¨é‡Œè¾¹å»ºç«‹å¯¹è±¡ã€‚å› ä¸ºmergeå‚æ•°æ˜¯&ç±»å‹ã€‚å³å€¼æ˜¯ä¸å¯ä»¥å–å¼•ç”¨çš„ã€‚ 
 }
 
 template <typename T, typename Comp>
@@ -125,24 +125,24 @@ void BinomialHeap<T, Comp>::deleteMin(){
 	if(isEmpty())	return;
 	int minIndex = findMinIndex();
 	
-	//É¾³ı¸ù½Úµã£¬²¢ÇÒ±£´æ¸ùÏÂËùÓĞÔªËØ¡£ 
+	//åˆ é™¤æ ¹èŠ‚ç‚¹ï¼Œå¹¶ä¸”ä¿å­˜æ ¹ä¸‹æ‰€æœ‰å…ƒç´ ã€‚ 
 	TreeNode* oldTree = forest[minIndex];
 	TreeNode* remainTree = oldTree->leftChild;
 	delete oldTree; 
 	
-	//¹¹½¨H''
+	//æ„å»ºH''
 	BinomialHeap remainForest;
-	remainForest.forest.resize(minIndex + 1);	//ÊıÁ¿ÊÇÏÂ±ê+1±ğÍüÁË ´Ó0¿ªÊ¼!
+	remainForest.forest.resize(minIndex + 1);	//æ•°é‡æ˜¯ä¸‹æ ‡+1åˆ«å¿˜äº† ä»0å¼€å§‹!
 	remainForest.currentSize = (1 << minIndex) - 1;
 	for(int j = minIndex - 1; j >= 0; --j){
-		remainForest.forest[j] = remainTree;	//×ó¶ù×ÓËùÓĞ¶¼±£´æ 
-		remainTree = remainTree->nextSibling;	//ÏÂÒ»´ÎÄÃÓÒĞÖµÜ»®·Ö¡£ 
-		remainForest.forest[j]->nextSibling = nullptr;	//ÇĞ¶ÏÓÒĞÖµÜ¡£ÒÔºóµü´úµØ±£ÁôËùÓĞµÄ×ó¶ù×Ó¡£  
+		remainForest.forest[j] = remainTree;	//å·¦å„¿å­æ‰€æœ‰éƒ½ä¿å­˜ 
+		remainTree = remainTree->nextSibling;	//ä¸‹ä¸€æ¬¡æ‹¿å³å…„å¼Ÿåˆ’åˆ†ã€‚ 
+		remainForest.forest[j]->nextSibling = nullptr;	//åˆ‡æ–­å³å…„å¼Ÿã€‚ä»¥åè¿­ä»£åœ°ä¿ç•™æ‰€æœ‰çš„å·¦å„¿å­ã€‚  
 	} 
 	
-	//¹¹½¨H' 
+	//æ„å»ºH' 
 	forest[minIndex] = nullptr;
-	currentSize -= remainForest.currentSize + 1;	//ÓĞ±ØÒªÏÈ¶à¼õÈ¥ËùÓĞµÄ·ÖÀë³öÈ¥µÄremainTreeµÄcurrentSize¡£ÒòÎªmergeÖ®ºó»¹»á¼Ó»ØÀ´¡£¡£¡£ 
+	currentSize -= remainForest.currentSize + 1;	//æœ‰å¿…è¦å…ˆå¤šå‡å»æ‰€æœ‰çš„åˆ†ç¦»å‡ºå»çš„remainTreeçš„currentSizeã€‚å› ä¸ºmergeä¹‹åè¿˜ä¼šåŠ å›æ¥ã€‚ã€‚ã€‚ 
 	
 	merge(remainForest);
 	 

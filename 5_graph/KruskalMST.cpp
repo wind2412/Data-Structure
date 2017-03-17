@@ -9,15 +9,15 @@ using namespace std;
 
 using Edge = typename Graph::Edge;
 
-//×îĞ¡Éú³ÉÊ÷(Minimum Spanning Tree)  KruskalËã·¨	//SedgeWick
-class KruskalMST{	//ÑªµÄ½ÌÑµ¡£¡£¡£Ê¹ÓÃ¸÷ÖÖÈİÆ÷£¬Èç¹ûÄÚ²¿×°ÓĞclass¸´ºÏÀàĞÍ¡£¡£ÔõÃ´Ò²ÒªÊ¹ÓÃÖ¸Õë°¡£¡£¡Ò»ÊÇĞ§ÂÊ¸ß£¬½ÚÊ¡¿Õ¼ä£¬
-					//¶şÊÇÈç¹ûÏñÊÇMinPQÕâÖÖµÚ0¸öÎ»ÖÃ²»¿ÉÓÃµÄ×´¿ö£¬¾ÍÒªÔìÒ»¸öÄ¬ÈÏ¶ÔÏó¡£¡£Èç¹û¶ÔÏóÃ»ÓĞÄ¬ÈÏ³õÊ¼¹¹Ôìº¯Êı£¬ÄÇ¾Í±ÀÁË¡£¡£¡£
-					//µ«ÊÇÖ¸ÕëÄ¬ÈÏÊÇnullptr£¬ËùÒÔÇ§ÍòÒªÊ¹ÓÃÖ¸Õë°¡£¡£¡ 
+//æœ€å°ç”Ÿæˆæ ‘(Minimum Spanning Tree)  Kruskalç®—æ³•	//SedgeWick
+class KruskalMST{	//è¡€çš„æ•™è®­ã€‚ã€‚ã€‚ä½¿ç”¨å„ç§å®¹å™¨ï¼Œå¦‚æœå†…éƒ¨è£…æœ‰classå¤åˆç±»å‹ã€‚ã€‚æ€ä¹ˆä¹Ÿè¦ä½¿ç”¨æŒ‡é’ˆå•Šï¼ï¼ä¸€æ˜¯æ•ˆç‡é«˜ï¼ŒèŠ‚çœç©ºé—´ï¼Œ
+					//äºŒæ˜¯å¦‚æœåƒæ˜¯MinPQè¿™ç§ç¬¬0ä¸ªä½ç½®ä¸å¯ç”¨çš„çŠ¶å†µï¼Œå°±è¦é€ ä¸€ä¸ªé»˜è®¤å¯¹è±¡ã€‚ã€‚å¦‚æœå¯¹è±¡æ²¡æœ‰é»˜è®¤åˆå§‹æ„é€ å‡½æ•°ï¼Œé‚£å°±å´©äº†ã€‚ã€‚ã€‚
+					//ä½†æ˜¯æŒ‡é’ˆé»˜è®¤æ˜¯nullptrï¼Œæ‰€ä»¥åƒä¸‡è¦ä½¿ç”¨æŒ‡é’ˆå•Šï¼ï¼ 
 private:
 	Graph & g;
-	MinPQ<Edge*> q;//¶ÔEdgeµÄweightÅÅĞò£¬Ì°ĞÄ 
-	UnionFind uf;	//·ÀÖ¹MSTÁ¬½ÓEdgeÖ®ºó³É»·µÄÏÖÏó 
-	vector<Edge*> v;	//±£´æËùÓĞ¹¹³ÉMSTµÄEdge 
+	MinPQ<Edge*> q;//å¯¹Edgeçš„weightæ’åºï¼Œè´ªå¿ƒ 
+	UnionFind uf;	//é˜²æ­¢MSTè¿æ¥Edgeä¹‹åæˆç¯çš„ç°è±¡ 
+	vector<Edge*> v;	//ä¿å­˜æ‰€æœ‰æ„æˆMSTçš„Edge 
 public:
 	KruskalMST(Graph & g): g(g), q(g.getE()), uf(g.getV()){
 		buildMST(); 
@@ -29,7 +29,7 @@ private:
 				q.insert(const_cast<Edge*>(&e));
 			}
 		}
-		while(!q.isEmpty() && v.size() < g.getV() - 1){	//½áÊøÌõ¼ş£¡£¡»¹¿ÉÒÔÊÇÈ«²¿½ÚµãÉú³ÉÍê±Ï£¬¾Í²»ÓÃÔÙ¹ÜÆäËûµÄ±ßÁË¡£ 
+		while(!q.isEmpty() && v.size() < g.getV() - 1){	//ç»“æŸæ¡ä»¶ï¼ï¼è¿˜å¯ä»¥æ˜¯å…¨éƒ¨èŠ‚ç‚¹ç”Ÿæˆå®Œæ¯•ï¼Œå°±ä¸ç”¨å†ç®¡å…¶ä»–çš„è¾¹äº†ã€‚ 
 			Edge* e = q.getMin(); q.deleteMin();
 			if(!uf.connected(e->from, e->to)){
 				uf.Union(e->from, e->to);

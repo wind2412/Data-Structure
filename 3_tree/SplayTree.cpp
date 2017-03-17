@@ -1,13 +1,13 @@
 #include "SplayTree.hpp"
 
-//´Ëº¯ÊıÉèÖÃºóÒªºÍ¸¸½Úµã´ò½»µÀ¡£ÇÒ¿ÉÒÔ²»ÓÃ´«ÈëÒıÓÃ£¦ÊµÏÖ¡£ÒòÎªÃ»ÓĞÖ±½Ó¸Ä±äx¡£ 
-template <typename T, typename Comp>	//×¢ÒâÄ£°åÊµÏÖµÄÄ¬ÈÏ²ÎÊı²»ĞèÒªÖØ¸´Ğ´¡£¡£¡£ 
+//æ­¤å‡½æ•°è®¾ç½®åè¦å’Œçˆ¶èŠ‚ç‚¹æ‰“äº¤é“ã€‚ä¸”å¯ä»¥ä¸ç”¨ä¼ å…¥å¼•ç”¨ï¼†å®ç°ã€‚å› ä¸ºæ²¡æœ‰ç›´æ¥æ”¹å˜xã€‚ 
+template <typename T, typename Comp>	//æ³¨æ„æ¨¡æ¿å®ç°çš„é»˜è®¤å‚æ•°ä¸éœ€è¦é‡å¤å†™ã€‚ã€‚ã€‚ 
 void SplayTree<T, Comp>::zig_only(SplayNode* x){	//right_rotation
-	SplayNode* temp = x->left;	//´´½¨×ó×Ó½ÚµãÖ¸Õë 
-	x->left = temp->right;		//xµÄ×ó¶ù×Ó×§ÏÂÀ´ 
-	if(temp->right)	temp->right->parent = x;	//ÉèÖÃtemp->right->parent 
-	temp->right = x;	//ÉèÖÃtemp->right
-	temp->parent = x->parent;	//ÉèÖÃtemp->parent
+	SplayNode* temp = x->left;	//åˆ›å»ºå·¦å­èŠ‚ç‚¹æŒ‡é’ˆ 
+	x->left = temp->right;		//xçš„å·¦å„¿å­æ‹½ä¸‹æ¥ 
+	if(temp->right)	temp->right->parent = x;	//è®¾ç½®temp->right->parent 
+	temp->right = x;	//è®¾ç½®temp->right
+	temp->parent = x->parent;	//è®¾ç½®temp->parent
 	if(temp->parent == nullptr)	root = temp; 
 	else if(temp->parent->left == x)	temp->parent->left = temp;
 	else temp->parent->right = temp;
@@ -27,39 +27,39 @@ void SplayTree<T, Comp>::zag_only(SplayNode* x){	//left_rotation
 	x->parent = temp; 
 }
 
-//ÓĞÃ»ÓĞ×æÏÈÊ²Ã´µÄÅĞ¶ÏÌõ¼şÈ«ÔÚµ÷ÓÃĞı×ªµÄÊ±ºòÔÚ¼ÓÈë¡£ 
+//æœ‰æ²¡æœ‰ç¥–å…ˆä»€ä¹ˆçš„åˆ¤æ–­æ¡ä»¶å…¨åœ¨è°ƒç”¨æ—‹è½¬çš„æ—¶å€™åœ¨åŠ å…¥ã€‚ 
 template <typename T, typename Comp>
-void SplayTree<T, Comp>::zig_zig(SplayNode* x){	// [/]=>[\]	ÏÈright_rotate(x->grandparent) ÔÙright_rotate(x->parent) 
-	zig_only(x->parent->parent);	//Ô¶³ÌĞı×ªÁË×æÏÈgrandfather. 
-	zig_only(x->parent);	//ÔÙ½ü³ÌĞı×ªfather. 
+void SplayTree<T, Comp>::zig_zig(SplayNode* x){	// [/]=>[\]	å…ˆright_rotate(x->grandparent) å†right_rotate(x->parent) 
+	zig_only(x->parent->parent);	//è¿œç¨‹æ—‹è½¬äº†ç¥–å…ˆgrandfather. 
+	zig_only(x->parent);	//å†è¿‘ç¨‹æ—‹è½¬father. 
 }
 
-//Ğı×ªÖ®ºóµÄ½á¹ûÊÇ£¬Ä³¸ö½ÚµãºÍËüÉÏ±ßµÄÖ¸Õë»áÒ»ÆğĞı×ª¡£ËùÒÔÖ¸Õëx»¹ÊÇÖ¸ÏòËüÔ­ÏÈÖ¸ÏòµÄ¶ÔÏóÃ»ÓĞ±ä¡£ µ«ÊÇ¸¸Ç×±äÁË£¡Ô­ÏÈµÄÒ¯Ò¯±ä³É¸¸Ç×ÁË¡£ 
+//æ—‹è½¬ä¹‹åçš„ç»“æœæ˜¯ï¼ŒæŸä¸ªèŠ‚ç‚¹å’Œå®ƒä¸Šè¾¹çš„æŒ‡é’ˆä¼šä¸€èµ·æ—‹è½¬ã€‚æ‰€ä»¥æŒ‡é’ˆxè¿˜æ˜¯æŒ‡å‘å®ƒåŸå…ˆæŒ‡å‘çš„å¯¹è±¡æ²¡æœ‰å˜ã€‚ ä½†æ˜¯çˆ¶äº²å˜äº†ï¼åŸå…ˆçš„çˆ·çˆ·å˜æˆçˆ¶äº²äº†ã€‚ 
 template <typename T, typename Comp>
-void SplayTree<T, Comp>::zig_zag(SplayNode* x){	// [<]=>[>]	ÏÈleft_rotate(x->parent) ÕâÊ±x»áÏòÉÏÉıÒ»¼¶ ÔÙright_rotate(x->parent) 
+void SplayTree<T, Comp>::zig_zag(SplayNode* x){	// [<]=>[>]	å…ˆleft_rotate(x->parent) è¿™æ—¶xä¼šå‘ä¸Šå‡ä¸€çº§ å†right_rotate(x->parent) 
 	zag_only(x->parent);	 
 	zig_only(x->parent);	 
 }
 
-//¾µÏñ 
+//é•œåƒ 
 template <typename T, typename Comp>
-void SplayTree<T, Comp>::zag_zig(SplayNode* x){	// [>]=>[<]	ÏÈright_rotate(x->parent) ÕâÊ±x»áÏòÉÏÉıÒ»¼¶ ÔÙleft_rotate(x->parent) 
+void SplayTree<T, Comp>::zag_zig(SplayNode* x){	// [>]=>[<]	å…ˆright_rotate(x->parent) è¿™æ—¶xä¼šå‘ä¸Šå‡ä¸€çº§ å†left_rotate(x->parent) 
 	zig_only(x->parent);	 
 	zag_only(x->parent);	 
 }
 
-//¾µÏñ 
+//é•œåƒ 
 template <typename T, typename Comp>
-void SplayTree<T, Comp>::zag_zag(SplayNode* x){	// [\]=>[/]	ÏÈleft_rotate(x->grandparent) ÔÙleft_rotate(x->parent) 
-	zag_only(x->parent->parent);	//Ô¶³ÌĞı×ªÁË×æÏÈgrandfather. 
-	zag_only(x->parent);	//ÔÙ½ü³ÌĞı×ªfather. 
+void SplayTree<T, Comp>::zag_zag(SplayNode* x){	// [\]=>[/]	å…ˆleft_rotate(x->grandparent) å†left_rotate(x->parent) 
+	zag_only(x->parent->parent);	//è¿œç¨‹æ—‹è½¬äº†ç¥–å…ˆgrandfather. 
+	zag_only(x->parent);	//å†è¿‘ç¨‹æ—‹è½¬father. 
 }
 
 template <typename T, typename Comp>
 void SplayTree<T, Comp>::splay(SplayNode* x){	
-	while(x->parent){	//Ö»ÒªÓĞ¸¸½ÚµãÊ±£¨²»ÂÛÓĞÃ»ÓĞ×æÏÈ£©£¬onlyÓĞparent¾Ízig_only£¬ÓĞgrandparent¾Ízig_zig. Ö±µ½µ½´ï¸ù²¿Î»ÖÃ¡£ 
+	while(x->parent){	//åªè¦æœ‰çˆ¶èŠ‚ç‚¹æ—¶ï¼ˆä¸è®ºæœ‰æ²¡æœ‰ç¥–å…ˆï¼‰ï¼Œonlyæœ‰parentå°±zig_onlyï¼Œæœ‰grandparentå°±zig_zig. ç›´åˆ°åˆ°è¾¾æ ¹éƒ¨ä½ç½®ã€‚ 
 		if(x->parent->parent == nullptr){
-			if(x->parent->left == x)	zig_only(x->parent);	//µ¥Ğı×ª±ğÍüÁËx->parent¡£¡£¡£ 
+			if(x->parent->left == x)	zig_only(x->parent);	//å•æ—‹è½¬åˆ«å¿˜äº†x->parentã€‚ã€‚ã€‚ 
 			else zag_only(x->parent);
 		}
 		else if(x->parent->left == x && x->parent->parent->left == x->parent){
@@ -77,80 +77,80 @@ void SplayTree<T, Comp>::splay(SplayNode* x){
 	}
 }
 
-//ºÍÒÔÇ°Ò»Ñù£¬ÕÒµ½²¢²åÈë¾ÍÖ´ĞĞsplay¡£ 
+//å’Œä»¥å‰ä¸€æ ·ï¼Œæ‰¾åˆ°å¹¶æ’å…¥å°±æ‰§è¡Œsplayã€‚ 
 template <typename T, typename Comp>
 void SplayTree<T, Comp>::insert(T const & data){
 	SplayNode* temp = root;
 	SplayNode* p = nullptr;
 	while(temp){
-		p = temp;	//±ØĞëÓĞÒ»¸öÒ»Ö±ÊÇtemp->parentµÄp£¡·ñÔònewµÄÊ±ºòÓÉÓÚtemp==null»á±ä³ÉÎŞ¸ùÖ®Ä¾£¡ 
+		p = temp;	//å¿…é¡»æœ‰ä¸€ä¸ªä¸€ç›´æ˜¯temp->parentçš„pï¼å¦åˆ™newçš„æ—¶å€™ç”±äºtemp==nullä¼šå˜æˆæ— æ ¹ä¹‹æœ¨ï¼ 
 		if(comp(temp->data, data))	temp = temp->right;
-		else temp = temp->left;	//¼´Ê¹ÊÇ[µÈÓÚ]£¬Ò²Ïò×ó±ß·Å¡£ºóĞøÖ»ÒªÒ»Ö±×ñÑ­Õâ¸ö¹æÔò¾Í²»»á³öÎÊÌâ¡£ 
+		else temp = temp->left;	//å³ä½¿æ˜¯[ç­‰äº]ï¼Œä¹Ÿå‘å·¦è¾¹æ”¾ã€‚åç»­åªè¦ä¸€ç›´éµå¾ªè¿™ä¸ªè§„åˆ™å°±ä¸ä¼šå‡ºé—®é¢˜ã€‚ 
 	}
-	temp = new SplayNode(data, p);	//µü´úÏÂ£¬²»ÄÜÏñµİ¹éÒ»Ñù£¬if(root==nullptr) root = new....¾ø²»¿ÉÒÔĞ´ÔÚwhileÇ°±ß¡£¡£¡£·ñÔò¾Í½ÓÌæ×Ånew root½øĞĞwhileÁË¡£¡£ 
-	//°ÑpµÄ¶ù×ÓÉèÖÃÎªtemp
-	if(p == nullptr)	root = temp;	//¿¼ÂÇroot==nullptrµÄÇé¿ö¡£ÕâÑùwhile»áÖ±½ÓÌø¹ı¡£
+	temp = new SplayNode(data, p);	//è¿­ä»£ä¸‹ï¼Œä¸èƒ½åƒé€’å½’ä¸€æ ·ï¼Œif(root==nullptr) root = new....ç»ä¸å¯ä»¥å†™åœ¨whileå‰è¾¹ã€‚ã€‚ã€‚å¦åˆ™å°±æ¥æ›¿ç€new rootè¿›è¡Œwhileäº†ã€‚ã€‚ 
+	//æŠŠpçš„å„¿å­è®¾ç½®ä¸ºtemp
+	if(p == nullptr)	root = temp;	//è€ƒè™‘root==nullptrçš„æƒ…å†µã€‚è¿™æ ·whileä¼šç›´æ¥è·³è¿‡ã€‚
 	else if(comp(p->data, temp->data))	p->right = temp;
-	else p->left = temp;	//ÓÉÓÚÉÏ±ß×ñÑ­ÁËÏàµÈÒ²¸¶¸ø×ó±ßµÄ·¨Ôò£¬ÕâÀïÍ¬Ñù×ñÊØ¡£
+	else p->left = temp;	//ç”±äºä¸Šè¾¹éµå¾ªäº†ç›¸ç­‰ä¹Ÿä»˜ç»™å·¦è¾¹çš„æ³•åˆ™ï¼Œè¿™é‡ŒåŒæ ·éµå®ˆã€‚
 	 
 	//splay.
-	splay(temp);	//Ğı×ª¹ıºó£¬temp»¹ÊÇÖ¸Ïònew T¡£¶øÇÒ£¬Ğı×ªµÄĞ§¹ûÊ¹µÃnew T±ä³ÉÁËroot¡£
+	splay(temp);	//æ—‹è½¬è¿‡åï¼Œtempè¿˜æ˜¯æŒ‡å‘new Tã€‚è€Œä¸”ï¼Œæ—‹è½¬çš„æ•ˆæœä½¿å¾—new Tå˜æˆäº†rootã€‚
 	
 	size ++; 
 	 
 }
 
 template <typename T, typename Comp>
-typename SplayTree<T, Comp>::SplayNode* SplayTree<T, Comp>::find(T const & data){	//typename³¬¼¶ÖØÒª£¡£¡ 
+typename SplayTree<T, Comp>::SplayNode* SplayTree<T, Comp>::find(T const & data){	//typenameè¶…çº§é‡è¦ï¼ï¼ 
 	SplayNode* temp = root;
 	while(temp != nullptr){
 		if(comp(temp->data, data))	temp = temp->right;
 		else if(comp(data, temp->data))	temp = temp->left;
 		else{
-			splay(temp);	//Ğı×ªÒ»ÏÂ£¡ 
+			splay(temp);	//æ—‹è½¬ä¸€ä¸‹ï¼ 
 			return temp;
 		}
 	}
 	return nullptr;
 }
 
-//ÒÆ×ßx->parentµ½xµÄlink½Óµ½yÉÏ£¬y½Óµ½x->parentÉÏ¡£ 
+//ç§»èµ°x->parentåˆ°xçš„linkæ¥åˆ°yä¸Šï¼Œyæ¥åˆ°x->parentä¸Šã€‚ 
 template <typename T, typename Comp>
-void SplayTree<T, Comp>::replace(SplayNode* x, SplayNode* y){	//¸ü¸ÄxµÄparentµÄx·½ÏòµÄ¶ù×ÓÎªy 
+void SplayTree<T, Comp>::replace(SplayNode* x, SplayNode* y){	//æ›´æ”¹xçš„parentçš„xæ–¹å‘çš„å„¿å­ä¸ºy 
 	if(!x->parent)	root = y;
 	else if(x->parent->left == x) x->parent->left = y;
 	else x->parent->right = y;
-	//»¹ÒªÉèÖÃyµÄparentÎªx->parent.
-	//×¢Òâ£¬xµÄparent²¢Ã»ÓĞÈ¡Ïû¡£Ò²¾ÍÊÇÏÖÔÚxºÍy¶¼Ö¸ÏòÍ¬Ò»¸öparent¡£
-	if(y != nullptr)	y->parent = x->parent; 	//±ğÍüÅĞ¶Ïy == nullptr.ÒòÎªy¿ÉÄÜÊÇnull¡£µ«ÊÇxÒ»¶¨ÓĞÊµÌå¡£ÒòÎªx¶¼ÓĞparent¡£ 
+	//è¿˜è¦è®¾ç½®yçš„parentä¸ºx->parent.
+	//æ³¨æ„ï¼Œxçš„parentå¹¶æ²¡æœ‰å–æ¶ˆã€‚ä¹Ÿå°±æ˜¯ç°åœ¨xå’Œyéƒ½æŒ‡å‘åŒä¸€ä¸ªparentã€‚
+	if(y != nullptr)	y->parent = x->parent; 	//åˆ«å¿˜åˆ¤æ–­y == nullptr.å› ä¸ºyå¯èƒ½æ˜¯nullã€‚ä½†æ˜¯xä¸€å®šæœ‰å®ä½“ã€‚å› ä¸ºxéƒ½æœ‰parentã€‚ 
 }
 
-//ÕÒµ½ºóÏÈsplayÔÙÉ¾³ı¸ù½Úµã¡£ 
+//æ‰¾åˆ°åå…ˆsplayå†åˆ é™¤æ ¹èŠ‚ç‚¹ã€‚ 
 template <typename T, typename Comp>
 void SplayTree<T, Comp>::remove(T const & data){
-	SplayNode* temp = find(data);	//ÕÒµ½²¢Ìáµ½rootÀ´ ÕâÊ±temp == root¡£ 
+	SplayNode* temp = find(data);	//æ‰¾åˆ°å¹¶æåˆ°rootæ¥ è¿™æ—¶temp == rootã€‚ 
 	if(temp == nullptr)	return;  
 	
-	//Ö´ĞĞÉ¾³ı¡£ 
-	SplayNode* z = root;	//±£ÁôÏÖÔÚµÄroot£¡£¡Ò»»áreplaceÖ®ºó£¬ÓĞ¿ÉÄÜroot¾Í»»ÁË£¡£¡Ğ¡ĞÄ£¡£¡ 
+	//æ‰§è¡Œåˆ é™¤ã€‚ 
+	SplayNode* z = root;	//ä¿ç•™ç°åœ¨çš„rootï¼ï¼ä¸€ä¼šreplaceä¹‹åï¼Œæœ‰å¯èƒ½rootå°±æ¢äº†ï¼ï¼å°å¿ƒï¼ï¼ 
 	if(temp->left == nullptr)	replace(temp, temp->right);
 	else if(temp->right == nullptr)	replace(temp, temp->left);
 	else{
-		//ÕÒµ½×ó×ÓÊ÷×î´ó½áµã 
+		//æ‰¾åˆ°å·¦å­æ ‘æœ€å¤§ç»“ç‚¹ 
 		SplayNode* beforeTemp;
 		temp = temp->left;
 		while(temp->right != nullptr){
 			beforeTemp = temp;
 			temp = temp->right;
 		}
-		//·ÖÎªÁ½ÖÖÇé¿ö£º1.×î´ó½Úµã¾ÍÊÇroot->left. 2.Éî¶È´óÓÚ1.
+		//åˆ†ä¸ºä¸¤ç§æƒ…å†µï¼š1.æœ€å¤§èŠ‚ç‚¹å°±æ˜¯root->left. 2.æ·±åº¦å¤§äº1.
 		if(root->left != temp){
-			replace(temp, temp->left);	//temp½ÚµãÓëparentµÄlink½»½Ó¸øtemp->left.
+			replace(temp, temp->left);	//tempèŠ‚ç‚¹ä¸parentçš„linkäº¤æ¥ç»™temp->left.
 			temp->left = root->left;
 			temp->left->parent = temp;
 		} 
-		replace(root, temp);	//insert 1, insert 5, insert 3, Ö®ºóÉ¾³ı3»áÓÉÓÚrootÔÚreplaceÖĞ±ä³ÉºÍtempÒ»ÑùµÄ1¶øµ¼ÖÂ±ÀÀ££¡Ó¦¸ÃÊ¹ÓÃÔ­ÏÈµÄroot£¡ 
-		temp->right = /*root*/z->right;	//´ËËã·¨²¢²»ÊÇÖµÌæ»»£¡£¡¶øÊÇÖ±½ÓÌæ»»½áµã£¡£¡ 
+		replace(root, temp);	//insert 1, insert 5, insert 3, ä¹‹ååˆ é™¤3ä¼šç”±äºrootåœ¨replaceä¸­å˜æˆå’Œtempä¸€æ ·çš„1è€Œå¯¼è‡´å´©æºƒï¼åº”è¯¥ä½¿ç”¨åŸå…ˆçš„rootï¼ 
+		temp->right = /*root*/z->right;	//æ­¤ç®—æ³•å¹¶ä¸æ˜¯å€¼æ›¿æ¢ï¼ï¼è€Œæ˜¯ç›´æ¥æ›¿æ¢ç»“ç‚¹ï¼ï¼ 
 		temp->right->parent = temp;
 		
 		

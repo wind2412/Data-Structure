@@ -7,9 +7,9 @@ template <typename T, typename Comp = std::less<T>>
 class Sort{
 private:
 	Comp comp;
-	int n;	//���鳤�� 
+	int n;	//数组长度 
 	T * a;
-	int count = 0;	//�ܼƽ��������� 
+	int count = 0;	//总计交换次数。 
 public:
 	Sort(T a[], int n);
 private:
@@ -29,8 +29,8 @@ public:
 	void quick_3_sort();	
 	void merge_sort();
 	void bucket_sort(); 
-	void radix_sort();	//��?��������������λ->���λ�ţ����ܵõ���ȷ�����Ϊʲô�����о�Ӧ���Ǳ�����ʲô�����λ�ò��䣿 
-	void heap_sort();	//��?��Ϊʲô��ɹ������� 
+	void radix_sort();	//【?】基数排序从最个位->最高位排，就能得到正确结果。为什么？？感觉应该是保持了什么的相对位置不变？ 
+	void heap_sort();	//【?】为什么会成功？？？ 
 };
 
 #endif 

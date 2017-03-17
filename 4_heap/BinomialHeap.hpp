@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
- *	¶şÏî¶ÓÁĞ¡£ //Ê¹ÓÃÁËWeissµÄË¼Â·ÒÔ¼°Ëã·¨±íÊ¾¡£´úÂëÍêÈ«ÏàÍ¬£¬Î´×ö¸ü¸Ä¡£  ±ØÒªµÄµØ·½×öÁË×¢ÊÍ¡£ 
+ *	äºŒé¡¹é˜Ÿåˆ—ã€‚ //ä½¿ç”¨äº†Weissçš„æ€è·¯ä»¥åŠç®—æ³•è¡¨ç¤ºã€‚ä»£ç å®Œå…¨ç›¸åŒï¼Œæœªåšæ›´æ”¹ã€‚  å¿…è¦çš„åœ°æ–¹åšäº†æ³¨é‡Šã€‚ 
  *
  */
 template <typename T, typename Comp = std::less<T>>
@@ -14,17 +14,17 @@ public:
 	struct TreeNode{
 		T data;
 		TreeNode* leftChild;
-		TreeNode* nextSibling;	//²ÉÓÃ ¶ù×Ó-ĞÖµÜ ±íÊ¾·¨
+		TreeNode* nextSibling;	//é‡‡ç”¨ å„¿å­-å…„å¼Ÿ è¡¨ç¤ºæ³•
 		
 		TreeNode(T data, TreeNode* leftChild = nullptr, TreeNode* nextSibling = nullptr): 
 											data(data), leftChild(leftChild), nextSibling(nextSibling){}; 
 	};
 private:
-	vector<TreeNode*> forest;	//forestµÄÃ¿Ò»¸öslot·Ö±ğ±£´æ2^0 2^1 2^2 2^3......¸ö½áµãµÄÊ÷¡£
+	vector<TreeNode*> forest;	//forestçš„æ¯ä¸€ä¸ªslotåˆ†åˆ«ä¿å­˜2^0 2^1 2^2 2^3......ä¸ªç»“ç‚¹çš„æ ‘ã€‚
 	Comp comp;
-	int currentSize = 0; 	//×ÜµÄ½áµã¸öÊı¡£¼´Èç¹ûv[0],v[2],v[3]ÒÑ¾­´æ´¢£¬ÔòcurrentSize = 2^0+2^2+2^3 = 1<<0 + 1<<2 + 1<<3.
+	int currentSize = 0; 	//æ€»çš„ç»“ç‚¹ä¸ªæ•°ã€‚å³å¦‚æœv[0],v[2],v[3]å·²ç»å­˜å‚¨ï¼Œåˆ™currentSize = 2^0+2^2+2^3 = 1<<0 + 1<<2 + 1<<3.
 private:
-	TreeNode* combineTrees(TreeNode* t1, TreeNode* t2);	//×¢Òâ£¡£¡Õâ¸öÊÇ Í¬¡¾´ÎÊı¡¿Ê÷µÄºÏ²¢£¡£¡2^2ºÍ2^2ºÏ²¢ÕâÖÖ£¡ 
+	TreeNode* combineTrees(TreeNode* t1, TreeNode* t2);	//æ³¨æ„ï¼ï¼è¿™ä¸ªæ˜¯ åŒã€æ¬¡æ•°ã€‘æ ‘çš„åˆå¹¶ï¼ï¼2^2å’Œ2^2åˆå¹¶è¿™ç§ï¼ 
 	void merge(BinomialHeap & rhs);
 	int findMinIndex();
 	int capacity();

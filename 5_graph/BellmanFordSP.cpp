@@ -7,33 +7,33 @@
 using namespace std;
 
 /**
- *Bellman-Fordµ¥Ô´×î¶ÌÂ·¾¶Ëã·¨ O(|V|*|E|)	°´ÕÕ±ßfrom-toµÄ×ÖµäË³Ğò½øĞĞg.getV()-1ÂÖÂÖÑ¯ËÉ³Ú DijkstraÎŞ·¨½øĞĞ¸ºÈ¨±ß¼ÆËã ¶ø
- *Bellman-FordÖ»ÒªÃ»ÓĞ¸º»·Â·¼´¿É¡£
- *SedgeWickµÄpdfÉÏÊÇÈçÉÏËùËµ¡£
- *¡¶Êı¾İ½á¹¹ÓëËã·¨·ÖÎö¡ª¡ªC++ÓïÑÔÃèÊö£¨4th£©¡·¸ø³öÁËBellman-FordµÄ¶ÓÁĞÓÅ»¯Ëã·¨SPFA¡£¿ÉÒÔ½µµ½O(kE). ¾ø´ó¶àÊı k <= 2. 
- *Á½ÖÖ·½·¨¾ùÓèÒÔÊµÏÖ¡£ 
- *ÊµÏÖµÄÎ±´úÂë²Î¼ûwikipedia.  
+ *Bellman-Fordå•æºæœ€çŸ­è·¯å¾„ç®—æ³• O(|V|*|E|)	æŒ‰ç…§è¾¹from-toçš„å­—å…¸é¡ºåºè¿›è¡Œg.getV()-1è½®è½®è¯¢æ¾å¼› Dijkstraæ— æ³•è¿›è¡Œè´Ÿæƒè¾¹è®¡ç®— è€Œ
+ *Bellman-Fordåªè¦æ²¡æœ‰è´Ÿç¯è·¯å³å¯ã€‚
+ *SedgeWickçš„pdfä¸Šæ˜¯å¦‚ä¸Šæ‰€è¯´ã€‚
+ *ã€Šæ•°æ®ç»“æ„ä¸ç®—æ³•åˆ†æâ€•â€•C++è¯­è¨€æè¿°ï¼ˆ4thï¼‰ã€‹ç»™å‡ºäº†Bellman-Fordçš„é˜Ÿåˆ—ä¼˜åŒ–ç®—æ³•SPFAã€‚å¯ä»¥é™åˆ°O(kE). ç»å¤§å¤šæ•° k <= 2. 
+ *ä¸¤ç§æ–¹æ³•å‡äºˆä»¥å®ç°ã€‚ 
+ *å®ç°çš„ä¼ªä»£ç å‚è§wikipedia.  
  *https://zh.wikipedia.org/wiki/%E8%B4%9D%E5%B0%94%E6%9B%BC-%E7%A6%8F%E7%89%B9%E7%AE%97%E6%B3%95 
  */ 
  
 class BellmanFordSP{
 private:
 	Graph & g;
-	deque<int> q;	//ÕâÀïÖ»ÊÇÒ»¸öÆÕÍ¨µÄ¶ÓÁĞ£¬°´ÕÕ×ÖµäË³Ğò³ö¶Ó¡£Ã»ÓĞÌØÊâµÄ×÷ÓÃ¡£
+	deque<int> q;	//è¿™é‡Œåªæ˜¯ä¸€ä¸ªæ™®é€šçš„é˜Ÿåˆ—ï¼ŒæŒ‰ç…§å­—å…¸é¡ºåºå‡ºé˜Ÿã€‚æ²¡æœ‰ç‰¹æ®Šçš„ä½œç”¨ã€‚
 	vector<double> distance;
 public:
 	BellmanFordSP(Graph & g, int s): g(g), distance(g.getV(), INT_MAX){
 		buildSP(s);
 	}
 	void buildSP(int s){
-		//1.³õÊ¼»¯Í¼ 
+		//1.åˆå§‹åŒ–å›¾ 
 		distance[s] = 0;
 		q.push_back(s);
 		
-		//2.ÖØ¸´¶ÔÃ¿Ìõ±ß½øĞĞËÉ³Ú 
-		for(int t = 0; t < g.getV() - 1; t ++){	//g.getV()-1´ÎÑ­»· ÕâÑù£¬¼´Ê¹ÓĞ¸ºÈ¨»·Ò²»áÇ¿ÖÆÔÚg.getV()-1´ÎÍË³öÁË¡£²»»áÎŞÏŞÑ­»·¡£ 
+		//2.é‡å¤å¯¹æ¯æ¡è¾¹è¿›è¡Œæ¾å¼› 
+		for(int t = 0; t < g.getV() - 1; t ++){	//g.getV()-1æ¬¡å¾ªç¯ è¿™æ ·ï¼Œå³ä½¿æœ‰è´Ÿæƒç¯ä¹Ÿä¼šå¼ºåˆ¶åœ¨g.getV()-1æ¬¡é€€å‡ºäº†ã€‚ä¸ä¼šæ— é™å¾ªç¯ã€‚ 
 			for(int i = 0; i < g.getV(); i ++){
-				for(const Edge & e : g.getAdj(i)){	//´Ë·½·¨²»Í¬µÄÊÇ£¬ÓëDijkstraºÍTopological²»Í¬£¬¶ÔÃ¿Ìõ±ß¾ù½øĞĞ²»¶ÏËÉ³ÚÖ±ÖÁÍêÃÀÎªÖ¹£¡ 
+				for(const Edge & e : g.getAdj(i)){	//æ­¤æ–¹æ³•ä¸åŒçš„æ˜¯ï¼Œä¸Dijkstraå’ŒTopologicalä¸åŒï¼Œå¯¹æ¯æ¡è¾¹å‡è¿›è¡Œä¸æ–­æ¾å¼›ç›´è‡³å®Œç¾ä¸ºæ­¢ï¼ 
 					if(distance[i] + e.weight < distance[e.to]){
 						distance[e.to] = distance[i] + e.weight;
 					}
@@ -41,13 +41,13 @@ public:
 			}
 		}
 		
-		//3.¼ì²éÊÇ·ñÓĞ¸ºÈ¨»· //ÆäÊµ¾ÍÊÇ¿´ÓĞÃ»ÓĞ±ß»¹ÄÜ±äµÃ¸ü¸º 
+		//3.æ£€æŸ¥æ˜¯å¦æœ‰è´Ÿæƒç¯ //å…¶å®å°±æ˜¯çœ‹æœ‰æ²¡æœ‰è¾¹è¿˜èƒ½å˜å¾—æ›´è´Ÿ 
 		for(int i = 0; i < g.getV(); i ++){
 			for(const Edge & e : g.getAdj(i)){
-				if(distance[i] + e.weight < distance[e.to]){	//ÒòÎªÓĞ¸ºÈ¨»·¾Í»áÎŞÏŞÖØ×ö£¬Òò´Ëdistance[e.to]»¹ÊÇ»á³ÖĞø±äĞ¡µÄ£¡
-																//Òò´Ë¼ì²éËü»¹»á²»»á¼ÌĞø±äĞ¡¾ÍĞĞÁË£¡
-																//×¢Òâ²»ÄÜ¼ì²éËüÊÇ·ñÊÇ¸ºµÄ£¡ÒòÎªÃ»×¼Ã¿ÂÖËÉ³Ú-0.001¡£¡£¡£»¹ÊÇÕıÊıÒ²ÊÇ¿ÉÄÜµÄ¡£ 
-					cerr << "´ËÍ¼ÓĞ¸ºÈ¨»·£¡£¡" << endl;
+				if(distance[i] + e.weight < distance[e.to]){	//å› ä¸ºæœ‰è´Ÿæƒç¯å°±ä¼šæ— é™é‡åšï¼Œå› æ­¤distance[e.to]è¿˜æ˜¯ä¼šæŒç»­å˜å°çš„ï¼
+																//å› æ­¤æ£€æŸ¥å®ƒè¿˜ä¼šä¸ä¼šç»§ç»­å˜å°å°±è¡Œäº†ï¼
+																//æ³¨æ„ä¸èƒ½æ£€æŸ¥å®ƒæ˜¯å¦æ˜¯è´Ÿçš„ï¼å› ä¸ºæ²¡å‡†æ¯è½®æ¾å¼›-0.001ã€‚ã€‚ã€‚è¿˜æ˜¯æ­£æ•°ä¹Ÿæ˜¯å¯èƒ½çš„ã€‚ 
+					cerr << "æ­¤å›¾æœ‰è´Ÿæƒç¯ï¼ï¼" << endl;
 					distance.clear();
 					return;
 				}
@@ -62,34 +62,34 @@ public:
 class SPFA{	//https://www.renfei.org/blog/weighted-shortest-path.html
 private:
 	Graph & g;
-	deque<int> q;	//ÕâÀïÖ»ÊÇÒ»¸öÆÕÍ¨µÄ¶ÓÁĞ£¬°´ÕÕ×ÖµäË³Ğò³ö¶Ó¡£Ã»ÓĞÌØÊâµÄ×÷ÓÃ¡£
+	deque<int> q;	//è¿™é‡Œåªæ˜¯ä¸€ä¸ªæ™®é€šçš„é˜Ÿåˆ—ï¼ŒæŒ‰ç…§å­—å…¸é¡ºåºå‡ºé˜Ÿã€‚æ²¡æœ‰ç‰¹æ®Šçš„ä½œç”¨ã€‚
 	vector<double> distance;
-	vector<bool> isInQueue;	//Í¨¹ıÉèÖÃ±êÖ¾Î»£¬ÄÜ¹»¿ìËÙ²é¿´Ä³Ò»¸ö½áµãÊÇ·ñÔÚqÖĞ¡£µäĞÍµÄÒÔ¿Õ¼ä»»Ê±¼ä¡£
-	vector<int> count;	//¼ÆÈëÃ¿¸ö½áµãµÄÈë¶Ó×Ü´ÎÊı¡£ÓÉÓÚSPFA£¬Èç¹ûÄÜÓĞ×î¶ÌÂ·¾¶£¬¿ÉÖ¤Ã÷µ¥¸ö½áµãµÄ×ÜÈë¶Ó´ÎÊı²»»á³¬¹ıg.getV(). 
+	vector<bool> isInQueue;	//é€šè¿‡è®¾ç½®æ ‡å¿—ä½ï¼Œèƒ½å¤Ÿå¿«é€ŸæŸ¥çœ‹æŸä¸€ä¸ªç»“ç‚¹æ˜¯å¦åœ¨qä¸­ã€‚å…¸å‹çš„ä»¥ç©ºé—´æ¢æ—¶é—´ã€‚
+	vector<int> count;	//è®¡å…¥æ¯ä¸ªç»“ç‚¹çš„å…¥é˜Ÿæ€»æ¬¡æ•°ã€‚ç”±äºSPFAï¼Œå¦‚æœèƒ½æœ‰æœ€çŸ­è·¯å¾„ï¼Œå¯è¯æ˜å•ä¸ªç»“ç‚¹çš„æ€»å…¥é˜Ÿæ¬¡æ•°ä¸ä¼šè¶…è¿‡g.getV(). 
 public:
 	SPFA(Graph & g, int s): g(g), distance(g.getV(), INT_MAX), isInQueue(g.getV(), 0), count(g.getV(), 0){
 		buildSP(s);
 	}
 	void buildSP(int s){
-		//1.³õÊ¼»¯Í¼ 
+		//1.åˆå§‹åŒ–å›¾ 
 		distance[s] = 0;
 		q.push_back(s);
 		isInQueue[s] = true;
 		count[s] ++;
 		
-		//2.¶ÓÁĞÓÅ»¯
+		//2.é˜Ÿåˆ—ä¼˜åŒ–
 		while(!q.empty()){
-			int v = q.front(); q.pop_front();	//ÕâÒ»¿éºÍBFS²î²»¶à 
-			isInQueue[v] = false;	//count[]²»ÄÜ¼õĞ¡ ÒòÎª¼ÇÂ¼Èë¶Ó×Ü´ÎÊı 
+			int v = q.front(); q.pop_front();	//è¿™ä¸€å—å’ŒBFSå·®ä¸å¤š 
+			isInQueue[v] = false;	//count[]ä¸èƒ½å‡å° å› ä¸ºè®°å½•å…¥é˜Ÿæ€»æ¬¡æ•° 
 			for(const Edge & e : g.getAdj(v)){
 				if(distance[v] + e.weight < distance[e.to]){
-					distance[e.to] = distance[v] + e.weight;	//ËÉ³Ú 
+					distance[e.to] = distance[v] + e.weight;	//æ¾å¼› 
 				}
 				if(!isInQueue[e.to]){
 					q.push_back(e.to);
 					isInQueue[e.to] = true; 
 					if(++count[e.to] >= g.getV()){
-						cerr << "´ËÍ¼ÓĞ¸ºÈ¨»·£¡£¡" << endl;
+						cerr << "æ­¤å›¾æœ‰è´Ÿæƒç¯ï¼ï¼" << endl;
 						distance.clear();
 						return;
 					}
@@ -113,14 +113,14 @@ int main()
 	g.addEdge(0, 1, 5.1);
 	g.addEdge(1, 6, 0.8);
 	g.addEdge(3, 4, 1.5); 
-	g.addEdge(4, 1, -1);	//spfa·¢ÏÖbug¡£ 
+	g.addEdge(4, 1, -1);	//spfaå‘ç°bugã€‚ 
 	cout << "1's out_degree: "<<g.getDegree(1) << endl;
 	g.reverse().print();
 	g.print();
 	
 	BellmanFordSP b(g, 4);
 	vector<double> && v = b.getDistance();
-	cout << "1µ½ÆäËûµãµÄ×î¶ÌÂ·¾¶ÈçÏÂ£º" << endl; 
+	cout << "1åˆ°å…¶ä»–ç‚¹çš„æœ€çŸ­è·¯å¾„å¦‚ä¸‹ï¼š" << endl; 
 	for(vector<double>::const_iterator it = v.begin(); it != v.end(); ++it){
 		if(*it == INT_MAX)	cout << "MAX" << " "; 
 		else cout << *it << " ";
@@ -129,7 +129,7 @@ int main()
 	
 	SPFA spfa(g, 1);
 	vector<double> && v2 = b.getDistance();
-	cout << "1µ½ÆäËûµãµÄ×î¶ÌÂ·¾¶ÈçÏÂ£º" << endl; 
+	cout << "1åˆ°å…¶ä»–ç‚¹çš„æœ€çŸ­è·¯å¾„å¦‚ä¸‹ï¼š" << endl; 
 	for(vector<double>::const_iterator it = v2.begin(); it != v2.end(); ++it){
 		if(*it == INT_MAX)	cout << "MAX" << " "; 
 		else cout << *it << " ";
