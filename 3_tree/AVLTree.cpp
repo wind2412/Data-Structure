@@ -33,6 +33,8 @@ void AVLTree<T>::balance(AVLNode<T>* &x){
 			leftRotation(x);	//x一定会被修改。 
 		} 
 		else {	//判断过最外层if，因此一定insert在x->left->left或者x->left->right。因而不存在这两者height相等的情况。 
+			//不！是存在相等的情况的！复习数据结构课件的时候才反应过来......如果原先旋转完成之后，是有可能存在已经符合要求的AVL树的，这个树当然是可能x->left->left和x->left->right相等的。然后我删除了另一分支的一个节点，就会造成目前的这个状况x->left->left和x->left->right还是处于相等的状态，那么root节点就要执行double旋转而不是single旋转！！歪打正着地写对了代码......
+			//详见数据结构PPT chapter7第92页的example。
 			leftRightRotation(x);	//就一定是插在了x->left->right. left-right-Rotation. 
 		}
 	}
