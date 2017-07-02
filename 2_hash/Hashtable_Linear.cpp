@@ -13,7 +13,7 @@ void HashTable<HashObj>::insert(const HashObj & x){
 	size_t pos = getHashPos(x);
 	//如果vector直接盛装HashObj，不是指针，那就根本没法判断那个对象是否存在！！除了指针拥有nullptr，其他类型不能用！所以必须在HashObj中包装一个isUsed！！ 
 	for(; v[pos].isUsed != false; pos = (pos + 1)%v.size()){	//全都占用就一直向下线性搜索。 
-		if(v[pos].obj == x){	//如果已经存过，就返回了。 循环之内注意一定要【判等！】 
+		if(v[pos].obj == x){	//如果已经存过，就返回了。 循环之内注意一定要【判等！】 		//也就是说，哈希内部默认不允许重复元素的。这也是map等容器不允许重复元素的原因。因为删除会非常不好删。如果找到就删除的话，那么如果后边还有一个一模一样的元素的话，那么查找的时候，找到删掉的元素之后，发现它已经删了，标志位置位了，那么就不会再向后找了。
 			return;
 		}
 	}	
