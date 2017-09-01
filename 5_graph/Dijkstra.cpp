@@ -52,7 +52,8 @@ public:
 				if(distance[v] + e.weight < distance[e.to]){	//松弛。 
 					distance[e.to] = distance[v] + e.weight;
 					int index = q.getIndex(e.to);	//得到minPQ中from的位置
-					q.changeValue(index, e.to);	//由于自己实现的API需求，这里的index下标上的值也是e.to。因此并不改变value，只是让这个index上浮/下沉了。 
+					// q.changeValue(index, e.to);	//由于自己实现的API需求，这里的index下标上的值也是e.to。因此并不改变value，只是让这个index上浮/下沉了。
+					q.upfloat(index);	// 这样更好！！
 				}								//注意这里！！less<T>需要运算符<重载，但是重载<时必须标记const函数声明！否则error ： passing " "as" " discards qualifiers！
 												//详见http://www.cppblog.com/cppblogs/archive/2012/09/06/189749.html 
 			}

@@ -89,7 +89,7 @@ void MinPQ<T, Comp>::changeValue(int index, const T & value){
 		data[index] = value;		//结点本身并不变化，但是由于外部权值的变化，造成该节点需要上浮/下沉。 
 		upfloat(index);				//因此必须使用比较器进行比较。当然，使用比较器比较也应该是基本原则。 
 	}
-	else if(comp(value, data[index])){
+	else if(comp(data[index], value)){
 		data[index] = value;
 		sink(index);
 	}
