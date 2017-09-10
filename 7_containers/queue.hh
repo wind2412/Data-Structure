@@ -35,7 +35,10 @@ void Queue<T>::push_back (const T & elem)
 
 	// *last++ = elem;		// 见最上方对此 bug 的说明。
 	// 要改成 memcpy。
-	memcpy(last++, &elem, sizeof(elem));		// 成功。
+	memcpy(last, &elem, sizeof(elem));		// 成功。
+	if (++last >= buf + capacity) {
+		last -= capacity;
+	}
 	num += 1;
 }
 
@@ -47,7 +50,9 @@ void Queue<T>::pop_front ()
 		return;
 	}
 	
-	first ++;
+	if (++first >= buf + capacity) {
+		first -= capacity;
+	}
 	num -= 1;
 }
 
@@ -65,6 +70,9 @@ template <typename T>
 void Queue<T>::print ()
 {
 	for(T *temp = first; temp != last; temp ++) {
+		if (temp == buf + capacity) {
+			temp = buf;			// 如果 temp 越界的话， 那么把 temp 归零。
+		}
 		std::cout << *temp << " ";
 	}
 	std::cout << std::endl;
