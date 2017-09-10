@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
+// 详见 Vector.hh，关于传递内部含有 const & 成员的对象会编译错误的 bug！！！
 
 template <typename T>
 class Queue {
@@ -31,7 +33,9 @@ void Queue<T>::push_back (const T & elem)
 		return;
 	}
 
-	*last++ = elem;
+	// *last++ = elem;		// 见最上方对此 bug 的说明。
+	// 要改成 memcpy。
+	memcpy(last++, &elem, sizeof(elem));		// 成功。
 	num += 1;
 }
 

@@ -4,6 +4,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <functional>
+#include <cstring>		// 引用 memcpy，来解决 【Vector 无法接收内含 const & 成员变量的对象，因为原先的 push_back 使用了 = 进行 copy assignment。其实这样是有2个问题的。
+						//                    1. 其实原先 malloc 的 this->v 就是野内存，只不过我强行用 T * 来让 C++ 把它看成了 T 对象了。但是内部全是垃圾值。某种意义说，那根本就不能叫做对象。copy assignment 其实需要左右边都是对象才行。这是语义不符合。
+						//					  2. 由于对象内部含有 const &，常引用不可能更改对象的指向。所以，原先的垃圾值就不可能被 copy assignment 改变了。解决方法是，在 this->v 的地方直接就地 construct(STL的方案)，或者直接就地 memcpy(我的方案)】 的 bug。
+						// 由于我没有 allocator，即没有内存池，我只能选择第二个方案。
 
 template <typename T>		// 模板一定要声明 + 定义都在同一个文件中！！要不会链接错误......
 class Vector{
@@ -86,7 +90,8 @@ void Vector<T>::resize(int n)
 {
 	T * newbuf = (T*) malloc (sizeof(T) * n);
 	for(int i = 0; i < this->num; i ++){
-		newbuf[i] = this->v[i];
+		// newbuf[i] = this->v[i];		// 【【【这里的 = 赋值也有问题！！应该在容器的构造中，禁止使用 = 赋值构造！！！】】】
+		memcpy(&newbuf[i], &this->v[i], sizeof(T));		// 改成 memcpy 就对了！！
 	}
 	this->capacity = n;
 	free(this->v);
@@ -97,7 +102,9 @@ template <typename T>
 void Vector<T>::push_back(const T & x)
 {
 	if(num < capacity){		// 写错成了 <= 导致了 bug......
-		this->v[num++] = x;
+		// this->v[num++] = x;		// 这里的 copy assignment 是本次 Vector 的最大陷阱！！千万不能这么写！！见最上边的说明！要不没法传递 内含 const & 成员的对象！！
+		// 要改成 memcpy。
+		memcpy(&this->v[num++], &x, sizeof(x));		// 应该就没问题了。
 	} else {
 		resize(capacity * 2);
 		push_back(x);	// 递归重新进行 push
