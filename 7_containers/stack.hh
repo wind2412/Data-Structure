@@ -14,6 +14,7 @@ public:
 	bool empty();
 	int size();
 	void print();
+	void wprint();
 };
 
 template <typename T>
@@ -50,6 +51,12 @@ template <typename T>
 void Stack<T>::print ()
 {
 	v.rev_print();
+}
+
+template <typename T>
+void Stack<T>::wprint ()
+{
+	v.wrev_print();
 }
 
 #endif
