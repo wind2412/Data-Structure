@@ -10,7 +10,7 @@ public:
 	struct Node {
 		T elem;
 		struct Node *next;
-		Node (T elem, struct Node *next) : elem(elem), next(next) {}
+		Node (T elem, struct Node *next) : elem(elem), next(next) {}		// 对内部的 elem，这个初始化列表已经是在 copy construct 了 ！！！
 	};
 	class Iterator {
 	private:
@@ -64,6 +64,7 @@ private:
 	int num = 0;
 public:
 	List () = default;
+	List (const List<T> & list);
 	void push_front (const T & elem);
 	T pop_front ();
 	void print() const;
@@ -80,6 +81,25 @@ public:
 
 template <typename T>
 using Node = typename List<T>::Node;
+
+template <typename T>
+List<T>::List(const List<T> & list)		// 容器一定要实现 copy construct ！！！！！一·定·要 ！！比如 vector<list<>>，然后两个 vector 拷贝构造，vector 已经实现深拷贝，但是 内部的 list 是浅拷贝，那么终究就还是浅拷贝的，而且 vector 里边用的 destructor，会两个一起析构......QAQ......所以内部的元素，必须是递归的深拷贝的！！！
+{
+	Node *first = list.head;
+	Node *temp_head = nullptr, *temp_rear = nullptr;
+	while(first != nullptr) {
+		this->num ++;
+		temp_rear = new Node(first->elem, nullptr);		// 这个 first->elem 已经是被 copy construct 的了 ！！
+		if (temp_head == nullptr){
+			temp_head = temp_rear;
+			this->head = temp_head;
+		} else {
+			temp_head->next = temp_rear;
+		}
+		temp_head = temp_rear;
+		first = first->next;
+	}
+}
 
 template <typename T>
 void List<T>::push_front (const T & elem)

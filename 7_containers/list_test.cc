@@ -1,4 +1,4 @@
-#include "list.hh"
+#include "../list.hh"
 #include <cassert>
 
 int main()
@@ -26,5 +26,11 @@ int main()
 	// for(int i : l) {
 	// 	std::cout << i << " ";
 	// }
+
+	// List<int> ll(l);
+	// for(int i : ll) {
+	// 	std::cout << i <<" ";
+	// }
+
 	std::cout << "test list succeeded!" << std::endl;
 }
